@@ -84,13 +84,24 @@ struct TodayView: View {
 
                     Spacer()
 
-                    VStack(spacing: 2) {
-                        Text("Best")
-                            .font(.caption2)
-                            .foregroundStyle(.white.opacity(0.6))
-                        Text("\(userProfile.longestStreak)")
-                            .font(.system(size: 26, weight: .bold, design: .rounded))
-                            .foregroundStyle(.white)
+                    VStack(alignment: .trailing, spacing: 4) {
+                        if let label = userProfile.multiplierLabel {
+                            Text(label)
+                                .font(.system(size: 11, weight: .bold))
+                                .padding(.horizontal, 8).padding(.vertical, 3)
+                                .background(Color.yellow.opacity(0.25))
+                                .foregroundStyle(Color(red: 1.0, green: 0.95, blue: 0.4))
+                                .clipShape(Capsule())
+                                .overlay(Capsule().strokeBorder(Color.yellow.opacity(0.5), lineWidth: 1))
+                        }
+                        VStack(spacing: 2) {
+                            Text("Best")
+                                .font(.caption2)
+                                .foregroundStyle(.white.opacity(0.6))
+                            Text("\(userProfile.longestStreak)")
+                                .font(.system(size: 26, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                        }
                     }
                 }
 

@@ -108,8 +108,24 @@ final class UserProfileStore: ObservableObject {
         isPro = ud.bool(forKey: "isPro")
     }
 
-    func addXP(_ amount: Int) {
-        xp += amount
+    var xpMultiplier: Double {
+        switch currentStreak {
+        case 7...: return 2.0
+        case 3...6: return 1.5
+        default: return 1.0
+        }
+    }
+
+    var multiplierLabel: String? {
+        switch currentStreak {
+        case 7...: return "2× XP"
+        case 3...6: return "1.5× XP"
+        default: return nil
+        }
+    }
+
+    func addXP(_ base: Int) {
+        xp += max(1, Int(Double(base) * xpMultiplier))
     }
 
     func completeSession() {

@@ -5,6 +5,8 @@ struct ProgressTabView: View {
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @EnvironmentObject private var userProfile: UserProfileStore
     @StateObject private var achievementStore = AchievementStore()
+    @State private var shareImage: UIImage?
+    @State private var showShare = false
 
     private var accuracyByModule: [(TrainingModule, Double)] {
         TrainingModule.allCases.compactMap { module in
@@ -12,6 +14,17 @@ struct ProgressTabView: View {
             guard results.count >= 3 else { return nil }
             let accuracy = Double(results.filter(\.wasCorrect).count) / Double(results.count)
             return (module, accuracy)
+        }
+    }
+
+    private var last7DaysData: [(String, Double, Int)] {
+        let cal = Calendar.current
+        let fmt = DateFormatter(); fmt.dateFormat = "EEE"
+        return (0..<7).reversed().map { daysAgo in
+            let day = cal.date(byAdding: .day, value: -daysAgo, to: Date())!
+            let dayResults = allResults.filter { cal.isDate($0.timestamp, inSameDayAs: day) }
+            let acc = dayResults.isEmpty ? 0.0 : Double(dayResults.filter(\.wasCorrect).count) / Double(dayResults.count)
+            return (fmt.string(from: day), acc, dayResults.count)
         }
     }
 
@@ -39,6 +52,7 @@ struct ProgressTabView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     overallCard
+                    accuracyChartCard
                     if !accuracyByModule.isEmpty { moduleCard }
                     streakCalendarSection
                     achievementsSection
@@ -50,8 +64,94 @@ struct ProgressTabView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Progress")
             .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        renderShareImage()
+                        showShare = true
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
+            }
+            .sheet(isPresented: $showShare) {
+                if let img = shareImage {
+                    ShareSheet(image: img)
+                }
+            }
         }
     }
+
+    private func renderShareImage() {
+        let card = StatsShareCard(
+            accuracy: overallAccuracy,
+            totalDrills: allResults.count,
+            streak: userProfile.currentStreak,
+            level: userProfile.level + 1
+        )
+        let renderer = ImageRenderer(content: card.frame(width: 340))
+        renderer.scale = UIScreen.main.scale
+        shareImage = renderer.uiImage
+    }
+
+    // MARK: - 7-Day Chart Card
+
+    private var accuracyChartCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("Accuracy — Last 7 Days").font(.headline)
+            GeometryReader { geo in
+                HStack(alignment: .bottom, spacing: 6) {
+                    ForEach(last7DaysData, id: \.0) { label, acc, count in
+                        VStack(spacing: 4) {
+                            if count > 0 {
+                                Text("\(Int(acc * 100))%")
+                                    .font(.system(size: 8, weight: .semibold))
+                                    .foregroundStyle(.secondary)
+                            }
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(barColor(acc, count: count))
+                                .frame(
+                                    width: (geo.size.width - 36) / 7,
+                                    height: max(4, (geo.size.height - 40) * (count == 0 ? 0.04 : acc))
+                                )
+                                .animation(.spring(response: 0.6), value: acc)
+                            Text(label)
+                                .font(.system(size: 9))
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+            }
+            .frame(height: 120)
+
+            HStack(spacing: 14) {
+                legendDot(Color.purple, "≥ 80%")
+                legendDot(Color.orange, "60–79%")
+                legendDot(Color.red, "< 60%")
+                legendDot(Color(.systemFill), "No data")
+            }
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    private func barColor(_ acc: Double, count: Int) -> Color {
+        if count == 0 { return Color(.systemFill) }
+        if acc >= 0.8 { return Color.purple }
+        if acc >= 0.6 { return Color.orange }
+        return Color.red
+    }
+
+    private func legendDot(_ color: Color, _ label: String) -> some View {
+        HStack(spacing: 4) {
+            Circle().fill(color).frame(width: 7, height: 7)
+            Text(label).font(.system(size: 9)).foregroundStyle(.secondary)
+        }
+    }
+
+    // MARK: - Overall Card
 
     private var overallCard: some View {
         HStack(spacing: 24) {
@@ -172,6 +272,57 @@ struct AchievementBadge: View {
         .opacity(achievement.isUnlocked ? 1.0 : 0.5)
     }
 }
+
+// MARK: - Stats Share Card
+
+struct StatsShareCard: View {
+    let accuracy: Double
+    let totalDrills: Int
+    let streak: Int
+    let level: Int
+
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Image(systemName: "ear.fill").font(.title2).foregroundStyle(.purple)
+                Text("EarIQ").font(.title2).fontWeight(.black)
+                Spacer()
+            }
+            HStack(spacing: 20) {
+                statBlock("\(Int(accuracy * 100))%", "Accuracy")
+                statBlock("\(totalDrills)", "Drills")
+                statBlock("\(streak)🔥", "Streak")
+                statBlock("Lv \(level)", "Level")
+            }
+            Text("Training my ears with EarIQ")
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        .padding(20)
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(radius: 8)
+    }
+
+    private func statBlock(_ value: String, _ label: String) -> some View {
+        VStack(spacing: 3) {
+            Text(value).font(.system(size: 20, weight: .bold, design: .rounded)).foregroundStyle(.purple)
+            Text(label).font(.system(size: 9)).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let image: UIImage
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: [image], applicationActivities: nil)
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+// MARK: - Streak Calendar
 
 struct StreakCalendarView: View {
     let results: [DrillResult]

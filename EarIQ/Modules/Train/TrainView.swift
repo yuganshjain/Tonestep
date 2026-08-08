@@ -2,17 +2,21 @@ import SwiftUI
 
 struct TrainView: View {
     @EnvironmentObject private var storeManager: StoreManager
+    @State private var showSpeedRound = false
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 14) {
-                    ForEach(TrainingModule.allCases, id: \.self) { module in
-                        NavigationLink { moduleDestination(for: module) } label: {
-                            ModuleCard(module: module, isLocked: module.isProOnly && !storeManager.isPro)
+                VStack(spacing: 14) {
+                    speedRoundBanner
+                    LazyVGrid(columns: columns, spacing: 14) {
+                        ForEach(TrainingModule.allCases, id: \.self) { module in
+                            NavigationLink { moduleDestination(for: module) } label: {
+                                ModuleCard(module: module, isLocked: module.isProOnly && !storeManager.isPro)
+                            }
+                            .buttonStyle(PressableButtonStyle())
                         }
-                        .buttonStyle(PressableButtonStyle())
                     }
                 }
                 .padding()
@@ -20,7 +24,45 @@ struct TrainView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Train")
             .navigationBarTitleDisplayMode(.large)
+            .fullScreenCover(isPresented: $showSpeedRound) {
+                SpeedRoundView()
+            }
         }
+    }
+
+    private var speedRoundBanner: some View {
+        Button { showSpeedRound = true } label: {
+            HStack(spacing: 16) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(LinearGradient(colors: [.purple, Color(red:0.6,green:0.1,blue:0.9)],
+                                             startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: 48, height: 48)
+                    Image(systemName: "timer")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(spacing: 6) {
+                        Text("Speed Round")
+                            .font(.headline).foregroundStyle(.primary)
+                        Text("NEW")
+                            .font(.system(size: 9, weight: .bold))
+                            .padding(.horizontal, 5).padding(.vertical, 2)
+                            .background(Color.purple).foregroundStyle(.white)
+                            .clipShape(Capsule())
+                    }
+                    Text("60 seconds · Rapid-fire intervals · Earn bonus XP")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            .padding(14)
+            .background(.background, in: RoundedRectangle(cornerRadius: 18))
+        }
+        .buttonStyle(PressableButtonStyle())
     }
 
     @ViewBuilder
@@ -36,6 +78,8 @@ struct TrainView: View {
             case .melodicDictation:    MelodyDictationView()
             case .rhythmTrainer:       RhythmTrainerModuleView()
             case .chordProgressions:   ChordProgressionModuleView()
+            case .singingPractice:     SingingPracticeModuleView()
+            case .noteIdentification:  NoteIdentificationModuleView()
             default:                   ComingSoonView(module: module)
             }
         }
@@ -57,6 +101,8 @@ struct ModuleCard: View {
         case .melodicDictation:    return Color(red: 0.2, green: 0.6, blue: 0.8)
         case .relativePitch:       return Color(red: 0.5, green: 0.7, blue: 0.2)
         case .absolutePitch:       return Color(red: 0.7, green: 0.5, blue: 0.1)
+        case .singingPractice:     return Color(red: 0.9, green: 0.2, blue: 0.5)
+        case .noteIdentification:  return Color(red: 0.1, green: 0.5, blue: 0.8)
         }
     }
 

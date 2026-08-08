@@ -11,15 +11,15 @@ enum TrainingModule: String, CaseIterable, Codable {
     case melodicDictation = "Melodic Dictation"
     case relativePitch = "Relative Pitch"
     case absolutePitch = "Absolute Pitch"
+    case singingPractice = "Singing Practice"
+    case noteIdentification = "Note Identification"
 
     var isProOnly: Bool {
         switch self {
-        case .intervalRecognition: return false
-        case .chordRecognition: return false
-        case .scaleRecognition: return false
-        case .functionalEar: return false
+        case .intervalRecognition, .chordRecognition, .scaleRecognition,
+             .functionalEar, .noteIdentification: return false
         case .chordProgressions, .rhythmTrainer, .melodicDictation,
-             .relativePitch, .absolutePitch: return true
+             .relativePitch, .absolutePitch, .singingPractice: return true
         }
     }
 
@@ -34,6 +34,8 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .melodicDictation: return "pencil.and.outline"
         case .relativePitch: return "tuningfork"
         case .absolutePitch: return "star.fill"
+        case .singingPractice: return "mic.fill"
+        case .noteIdentification: return "pianokeys"
         }
     }
 
@@ -48,6 +50,8 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .melodicDictation: return "Reconstruct melodies you hear"
         case .relativePitch: return "Identify notes relative to a given root"
         case .absolutePitch: return "Identify notes without any reference"
+        case .singingPractice: return "Sing notes using your microphone"
+        case .noteIdentification: return "Name the note you hear by pitch"
         }
     }
 }
