@@ -1,11 +1,19 @@
 import SwiftUI
 import StoreKit
+import SwiftData
 
 struct SettingsView: View {
     @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
     @Environment(\.requestReview) private var requestReview
+    @Environment(\.modelContext) private var modelContext
+    @Query private var allResults: [DrillResult]
+    @Query private var allSessions: [DailySessionRecord]
     @State private var showPaywall = false
+    @State private var showResetConfirm = false
+    @State private var showResetDone = false
+    @State private var csvURL: URL?
+    @State private var showCSVShare = false
 
     var body: some View {
         NavigationStack {
@@ -18,6 +26,22 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
             .sheet(isPresented: $showPaywall) { PaywallView() }
+            .sheet(isPresented: $showCSVShare) {
+                if let url = csvURL {
+                    ShareSheet(url: url)
+                }
+            }
+            .alert("Reset All Data?", isPresented: $showResetConfirm) {
+                Button("Reset", role: .destructive) { performReset() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This permanently deletes all drill history, XP, streaks, and achievements. This cannot be undone.")
+            }
+            .alert("Data Reset", isPresented: $showResetDone) {
+                Button("OK") {}
+            } message: {
+                Text("All your data has been reset.")
+            }
         }
     }
 
@@ -65,11 +89,13 @@ struct SettingsView: View {
 
     private var dataSection: some View {
         Section("Data") {
-            Button("Export Session Data (CSV)") {
-                // TODO: generate CSV and share
+            Button("Export Practice History (CSV)") {
+                exportCSV()
             }
+            .disabled(allResults.isEmpty)
+
             Button("Reset All Data") {
-                // TODO: confirmation + reset
+                showResetConfirm = true
             }
             .foregroundStyle(.red)
         }
@@ -89,4 +115,51 @@ struct SettingsView: View {
             }
         }
     }
+
+    // MARK: - Actions
+
+    private func exportCSV() {
+        var lines = ["date,module,drill_type,correct,response_time_ms"]
+        let fmt = ISO8601DateFormatter()
+        for r in allResults.sorted(by: { $0.timestamp < $1.timestamp }) {
+            let row = [
+                fmt.string(from: r.timestamp),
+                r.moduleRaw,
+                r.drillType,
+                r.wasCorrect ? "1" : "0",
+                String(Int(r.responseTime * 1000))
+            ].joined(separator: ",")
+            lines.append(row)
+        }
+        let csv = lines.joined(separator: "\n")
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("eariq_history_\(Int(Date().timeIntervalSince1970)).csv")
+        try? csv.write(to: tmp, atomically: true, encoding: .utf8)
+        csvURL = tmp
+        showCSVShare = true
+    }
+
+    private func performReset() {
+        for r in allResults { modelContext.delete(r) }
+        for s in allSessions { modelContext.delete(s) }
+        try? modelContext.save()
+
+        // Reset user profile stored values
+        let keys = ["eariq_xp","eariq_currentStreak","eariq_longestStreak",
+                    "eariq_lastSessionDate","dailyChallengeDate","dailyChallengeScore",
+                    "dailyChallengeBest","eariq_achievements"]
+        for key in keys { UserDefaults.standard.removeObject(forKey: key) }
+
+        showResetDone = true
+    }
+}
+
+// MARK: - URL Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let url: URL
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }

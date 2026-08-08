@@ -9,10 +9,12 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
+    # Set DEVELOPMENT_TEAM to your 10-character Apple Developer team ID before archiving
     DEVELOPMENT_TEAM: ""
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
-    INFOPLIST_KEY_NSMicrophoneUsageDescription: "EarIQ uses the microphone for rhythm clap-back and pitch detection exercises."
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    INFOPLIST_KEY_NSMicrophoneUsageDescription: "EarIQ uses the microphone for pitch detection in Singing Practice exercises."
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
     INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
 
@@ -23,8 +25,8 @@ targets:
     sources:
       - path: EarIQ
     resources:
-      - path: EarIQ/Resources
-        optional: true
+      - path: EarIQ/Resources/Assets.xcassets
+      - path: EarIQ/PrivacyInfo.xcprivacy
     info:
       path: EarIQ/Info.plist
       properties:

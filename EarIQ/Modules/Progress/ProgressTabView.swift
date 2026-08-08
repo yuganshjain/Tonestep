@@ -76,7 +76,7 @@ struct ProgressTabView: View {
             }
             .sheet(isPresented: $showShare) {
                 if let img = shareImage {
-                    ShareSheet(image: img)
+                    ImageShareSheet(image: img)
                 }
             }
         }
@@ -312,9 +312,9 @@ struct StatsShareCard: View {
     }
 }
 
-// MARK: - Share Sheet
+// MARK: - Image Share Sheet
 
-struct ShareSheet: UIViewControllerRepresentable {
+struct ImageShareSheet: UIViewControllerRepresentable {
     let image: UIImage
     func makeUIViewController(context: Context) -> UIActivityViewController {
         UIActivityViewController(activityItems: [image], applicationActivities: nil)

@@ -12,10 +12,14 @@ struct TrainView: View {
                     speedRoundBanner
                     LazyVGrid(columns: columns, spacing: 14) {
                         ForEach(TrainingModule.allCases, id: \.self) { module in
-                            NavigationLink { moduleDestination(for: module) } label: {
-                                ModuleCard(module: module, isLocked: module.isProOnly && !storeManager.isPro)
+                            if module.isComingSoon {
+                                ModuleCard(module: module, isLocked: false, isComingSoon: true)
+                            } else {
+                                NavigationLink { moduleDestination(for: module) } label: {
+                                    ModuleCard(module: module, isLocked: module.isProOnly && !storeManager.isPro)
+                                }
+                                .buttonStyle(PressableButtonStyle())
                             }
-                            .buttonStyle(PressableButtonStyle())
                         }
                     }
                 }
@@ -89,6 +93,7 @@ struct TrainView: View {
 struct ModuleCard: View {
     let module: TrainingModule
     let isLocked: Bool
+    var isComingSoon: Bool = false
 
     private var accentColor: Color {
         switch module {
@@ -118,7 +123,14 @@ struct ModuleCard: View {
                         .foregroundStyle(isLocked ? .secondary : accentColor)
                 }
                 Spacer()
-                if isLocked {
+                if isComingSoon {
+                    Text("Soon")
+                        .font(.system(size: 9, weight: .semibold))
+                        .padding(.horizontal, 6).padding(.vertical, 3)
+                        .background(Color(.systemFill))
+                        .foregroundStyle(.secondary)
+                        .clipShape(Capsule())
+                } else if isLocked {
                     Image(systemName: "lock.fill")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
@@ -141,9 +153,10 @@ struct ModuleCard: View {
         }
         .padding(14)
         .background(
-            isLocked ? Color(.secondarySystemBackground) : Color(.systemBackground),
+            (isLocked || isComingSoon) ? Color(.secondarySystemBackground) : Color(.systemBackground),
             in: RoundedRectangle(cornerRadius: 18)
         )
+        .opacity(isComingSoon ? 0.6 : 1.0)
     }
 }
 

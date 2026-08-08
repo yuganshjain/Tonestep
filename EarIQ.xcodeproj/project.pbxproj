@@ -11,6 +11,7 @@
 		154EE73571AC8078710836F6 /* MusicTheory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91C027E788B521CB65BC8 /* MusicTheory.swift */; };
 		166601CAD2698FF6E3ACE2BB /* SREngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF32221A22D970960756F5 /* SREngineTests.swift */; };
 		18F086C6511346A3AFF2C68C /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842708A812D7F71CEC14E6C /* TrainView.swift */; };
+		1A9F5824642A5AA9AD11E5DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B46C00A1CA9B5986BF7B8A1A /* Assets.xcassets */; };
 		22C4E3612DBDE6DD8B80C82B /* SREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C614C1647F4A5EDE4F0108 /* SREngine.swift */; };
 		2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04984D76137530159A190FB5 /* SRItem.swift */; };
 		41DE1874DEA6DC8967871A9C /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A079A797EC20F5FD511462FD /* SpeedRoundView.swift */; };
@@ -34,6 +35,7 @@
 		BEEC5618CBA642D226A80F26 /* PitchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99188EEA4C53A0C68E5B1BAC /* PitchDetector.swift */; };
 		C325DD1AC664A8D316383A55 /* SingingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14239ECD9E5499A3A1D7B8CB /* SingingPracticeView.swift */; };
 		C5E46F3989CF7B1DF6F88618 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39318AA28521689FDD2C9D /* ChallengesView.swift */; };
+		C66DEC61BFF27361FCEB5CF3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */; };
 		D582B435149D763887B9F001 /* DailySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D634891A3202E39EF5F4C /* DailySessionView.swift */; };
 		D8C507112545D118C538DFB7 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C183AF5C6FA3FC7ACE74381D /* SwiftData.framework */; };
 		D9A1D6AD271BE7A020A29231 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C366F3C91A9E63DE939EB67 /* UserProfile.swift */; };
@@ -64,6 +66,7 @@
 		258E976FF42E8D3596C9549D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		2F2D634891A3202E39EF5F4C /* DailySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySessionView.swift; sourceTree = "<group>"; };
 		33891FB86694A133FE7B085A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3FE2AAA806D84302C67EC779 /* TheoryLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheoryLessonsView.swift; sourceTree = "<group>"; };
 		42C614C1647F4A5EDE4F0108 /* SREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SREngine.swift; sourceTree = "<group>"; };
 		43416B02BEF9DE97E72A150F /* EarIQTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = EarIQTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +91,7 @@
 		A413475D498C6A6C2BDB48B3 /* DrillResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillResult.swift; sourceTree = "<group>"; };
 		A721BDBAF498B31D77926A0C /* EarIQApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarIQApp.swift; sourceTree = "<group>"; };
 		A7DBA15BBD1873C7DD50DBD9 /* ChordDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDrillView.swift; sourceTree = "<group>"; };
+		B46C00A1CA9B5986BF7B8A1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF0CAC35F596AB4D9076C904 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF569B6E3DEA39FBEBE2FB34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C183AF5C6FA3FC7ACE74381D /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
@@ -211,10 +215,12 @@
 			isa = PBXGroup;
 			children = (
 				BF569B6E3DEA39FBEBE2FB34 /* Info.plist */,
+				33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */,
 				4AEF475BCB98018AA204495C /* App */,
 				0A411CD5E08C6C950EFA3413 /* Components */,
 				B00F22963221CD7A488A98F6 /* Core */,
 				FBED4F30182F20B2F9DEB748 /* Modules */,
+				C9FF98B82FCBD7F932050337 /* Resources */,
 			);
 			path = EarIQ;
 			sourceTree = "<group>";
@@ -300,6 +306,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C9FF98B82FCBD7F932050337 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B46C00A1CA9B5986BF7B8A1A /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FBED4F30182F20B2F9DEB748 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +354,7 @@
 			buildConfigurationList = 52AC708675414D69739C2566 /* Build configuration list for PBXNativeTarget "EarIQ" */;
 			buildPhases = (
 				898B83059EDDA10F24CD2C57 /* Sources */,
+				6B857ED9CD1D71211C1D60F4 /* Resources */,
 				1FF808D33C7E5841FFD3F034 /* Frameworks */,
 			);
 			buildRules = (
@@ -389,6 +404,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6B857ED9CD1D71211C1D60F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A9F5824642A5AA9AD11E5DD /* Assets.xcassets in Resources */,
+				C66DEC61BFF27361FCEB5CF3 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2ACDB4C986BB72CB5594FC98 /* Sources */ = {
@@ -467,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -516,7 +544,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "EarIQ uses the microphone for rhythm clap-back and pitch detection exercises.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "EarIQ uses the microphone for pitch detection in Singing Practice exercises.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -584,6 +612,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -627,7 +656,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "EarIQ uses the microphone for rhythm clap-back and pitch detection exercises.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "EarIQ uses the microphone for pitch detection in Singing Practice exercises.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

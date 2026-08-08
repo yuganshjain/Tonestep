@@ -39,6 +39,13 @@ enum TrainingModule: String, CaseIterable, Codable {
         }
     }
 
+    var isComingSoon: Bool {
+        switch self {
+        case .relativePitch, .absolutePitch: return true
+        default: return false
+        }
+    }
+
     var description: String {
         switch self {
         case .intervalRecognition: return "Recognize the distance between two notes"
