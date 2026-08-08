@@ -1,14 +1,14 @@
 import SwiftUI
 import SwiftData
 
-struct ProgressView: View {
+struct ProgressTabView: View {
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @EnvironmentObject private var userProfile: UserProfileStore
 
     private var accuracyByModule: [(TrainingModule, Double)] {
         TrainingModule.allCases.compactMap { module in
             let results = allResults.filter { $0.module == module }
-            guard !results.isEmpty else { return nil }
+            guard results.count >= 3 else { return nil }
             let accuracy = Double(results.filter(\.wasCorrect).count) / Double(results.count)
             return (module, accuracy)
         }
@@ -25,8 +25,7 @@ struct ProgressView: View {
             .filter { $0.value.1 >= 5 }
             .map { ($0.key, Double($0.value.0) / Double($0.value.1)) }
             .sorted { $0.1 < $1.1 }
-            .prefix(5)
-            .map { ($0.0, $0.1) }
+            .prefix(5).map { ($0.0, $0.1) }
     }
 
     private var overallAccuracy: Double {
@@ -40,7 +39,7 @@ struct ProgressView: View {
                 VStack(spacing: 20) {
                     overallCard
                     if !accuracyByModule.isEmpty { moduleCard }
-                    streakCalendar
+                    streakCalendarSection
                     if !weakSpots.isEmpty { weakSpotsCard }
                 }
                 .padding()
@@ -51,52 +50,42 @@ struct ProgressView: View {
         }
     }
 
-    // MARK: - Overall Card
-
     private var overallCard: some View {
         HStack(spacing: 24) {
             VStack(spacing: 4) {
                 Text("\(Int(overallAccuracy * 100))%")
                     .font(.system(size: 44, weight: .bold, design: .rounded))
-                    .foregroundStyle(.purple)
+                    .foregroundStyle(Color.purple)
                 Text("Overall accuracy")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Divider().frame(height: 60)
             VStack(spacing: 4) {
                 Text("\(allResults.count)")
                     .font(.system(size: 44, weight: .bold, design: .rounded))
                 Text("Total drills")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(.secondary)
             }
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
-    // MARK: - Module Accuracy
-
     private var moduleCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("Accuracy by Module")
-                .font(.headline)
+            Text("Accuracy by Module").font(.headline)
             ForEach(accuracyByModule, id: \.0) { module, accuracy in
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Image(systemName: module.systemImage)
-                            .foregroundStyle(.purple)
-                            .frame(width: 20)
-                        Text(module.rawValue)
-                            .font(.subheadline)
+                            .foregroundStyle(Color.purple).frame(width: 20)
+                        Text(module.rawValue).font(.subheadline)
                         Spacer()
                         Text("\(Int(accuracy * 100))%")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
+                            .font(.subheadline).fontWeight(.semibold)
                             .foregroundStyle(accuracy >= 0.8 ? .green : accuracy >= 0.6 ? .orange : .red)
                     }
-                    ProgressView(value: accuracy)
+                    SwiftUI.ProgressView(value: accuracy)
                         .tint(accuracy >= 0.8 ? .green : accuracy >= 0.6 ? .orange : .red)
                 }
             }
@@ -105,28 +94,21 @@ struct ProgressView: View {
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
-    // MARK: - Streak Calendar
-
-    private var streakCalendar: some View {
+    private var streakCalendarSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Activity — Last 12 Weeks")
-                .font(.headline)
+            Text("Activity — Last 12 Weeks").font(.headline)
             StreakCalendarView(results: allResults)
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
-    // MARK: - Weak Spots
-
     private var weakSpotsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Your 5 Weakest Areas")
-                .font(.headline)
+            Text("Your 5 Weakest Areas").font(.headline)
             ForEach(weakSpots, id: \.0) { drillType, accuracy in
                 HStack {
-                    Circle()
-                        .fill(accuracy < 0.5 ? Color.red : Color.orange)
+                    Circle().fill(accuracy < 0.5 ? Color.red : Color.orange)
                         .frame(width: 8, height: 8)
                     Text(drillType.replacingOccurrences(of: "_", with: " ").capitalized)
                         .font(.subheadline)
@@ -142,17 +124,13 @@ struct ProgressView: View {
     }
 }
 
-// MARK: - Streak Calendar
-
 struct StreakCalendarView: View {
     let results: [DrillResult]
-
     private let columns = Array(repeating: GridItem(.fixed(14), spacing: 4), count: 7)
     private let weeks = 12
 
     private var activeDays: Set<String> {
-        let fmt = DateFormatter()
-        fmt.dateFormat = "yyyy-MM-dd"
+        let fmt = DateFormatter(); fmt.dateFormat = "yyyy-MM-dd"
         return Set(results.map { fmt.string(from: $0.timestamp) })
     }
 
@@ -164,13 +142,12 @@ struct StreakCalendarView: View {
     }
 
     var body: some View {
+        let fmt = DateFormatter()
+        let _ = { fmt.dateFormat = "yyyy-MM-dd" }()
         LazyVGrid(columns: columns, spacing: 4) {
             ForEach(days(), id: \.self) { day in
-                let fmt = DateFormatter()
-                let _ = { fmt.dateFormat = "yyyy-MM-dd" }()
-                let key = fmt.string(from: day)
                 RoundedRectangle(cornerRadius: 3)
-                    .fill(activeDays.contains(key) ? Color.purple : Color(.systemFill))
+                    .fill(activeDays.contains(fmt.string(from: day)) ? Color.purple : Color(.systemFill))
                     .frame(width: 14, height: 14)
             }
         }

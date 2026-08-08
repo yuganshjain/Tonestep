@@ -88,9 +88,10 @@ final class StoreManager: ObservableObject {
     }
 
     private func listenForTransactions() -> Task<Void, Error> {
-        Task.detached {
+        Task.detached { [weak self] in
+            guard let self else { return }
             for await result in Transaction.updates {
-                if let transaction = try? self.checkVerified(result) {
+                if case .verified(let transaction) = result {
                     await transaction.finish()
                     await self.refreshPurchaseStatus()
                 }

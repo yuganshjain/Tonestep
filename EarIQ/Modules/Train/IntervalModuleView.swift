@@ -1,85 +1,83 @@
 import SwiftUI
 
 struct IntervalModuleView: View {
-    @State private var selectedInterval: Interval = .majorThird
     @State private var selectedDirection: IntervalDirection = .ascending
     @State private var showDrill = false
 
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
+                headerCard
                 directionPicker
-                intervalGrid
+                intervalList
                 startButton
             }
             .padding()
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Interval Recognition")
-        .sheet(isPresented: $showDrill) {
-            IntervalDrillView(
-                drillType: "interval_\(selectedInterval.name.lowercased().replacingOccurrences(of: " ", with: "_"))_\(selectedDirection.rawValue.lowercased())",
-                onComplete: { _, _ in }
-            )
+        .fullScreenCover(isPresented: $showDrill) {
+            NavigationStack {
+                IntervalDrillView(drillType: "interval_free_drill", onComplete: { _, _ in })
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Done") { showDrill = false }
+                        }
+                    }
+            }
         }
+    }
+
+    private var headerCard: some View {
+        HStack(spacing: 16) {
+            ZStack {
+                Circle().fill(Color.purple.opacity(0.15)).frame(width: 52, height: 52)
+                Image(systemName: "arrow.up.right").font(.title2).foregroundStyle(Color.purple)
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Hear the gap between two notes and name the interval.")
+                    .font(.subheadline)
+                Text("Tip: Each interval has a famous song mnemonic.")
+                    .font(.caption).foregroundStyle(Color.purple)
+            }
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var directionPicker: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Direction")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.secondary)
+            Text("Direction").font(.caption).foregroundStyle(.secondary).textCase(.uppercase)
             Picker("Direction", selection: $selectedDirection) {
-                ForEach(IntervalDirection.allCases, id: \.self) {
-                    Text($0.rawValue).tag($0)
-                }
+                ForEach(IntervalDirection.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.segmented)
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 12))
+        .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
-    private var intervalGrid: some View {
+    private var intervalList: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Interval")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.secondary)
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                ForEach(Interval.allCases.filter { $0 != .unison }, id: \.self) { interval in
-                    Button {
-                        selectedInterval = interval
-                    } label: {
-                        VStack(spacing: 4) {
-                            Text(interval.name)
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                            Text(interval.mnemonic)
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(selectedInterval == interval ? Color.purple : Color(.secondarySystemBackground),
-                                    in: RoundedRectangle(cornerRadius: 10))
-                        .foregroundStyle(selectedInterval == interval ? .white : .primary)
-                    }
-                    .buttonStyle(.plain)
+            Text("All 13 Intervals").font(.caption).foregroundStyle(.secondary).textCase(.uppercase)
+            ForEach(Interval.allCases.filter { $0 != .unison }, id: \.self) { interval in
+                HStack {
+                    Text(interval.name).font(.subheadline).fontWeight(.medium)
+                    Spacer()
+                    Text(interval.mnemonic).font(.caption).foregroundStyle(.secondary)
                 }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 4)
+                if interval != .octave { Divider() }
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 12))
+        .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var startButton: some View {
-        Button {
-            showDrill = true
-        } label: {
-            Label("Practice \(selectedInterval.name)", systemImage: "play.fill")
+        Button { showDrill = true } label: {
+            Label("Start Practice", systemImage: "play.fill")
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(Color.purple)
@@ -87,22 +85,25 @@ struct IntervalModuleView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .fontWeight(.semibold)
         }
+        .buttonStyle(PressableButtonStyle())
     }
 }
 
-// MARK: - Interval Drill View
+// MARK: - Interval Drill (premium UI)
 
 struct IntervalDrillView: View {
     let drillType: String
     let onComplete: (Bool, TimeInterval) -> Void
 
-    @StateObject private var audio = AudioEngine.shared
     @State private var rootMidi: UInt8 = 60
     @State private var targetInterval: Interval = .majorThird
     @State private var direction: IntervalDirection = .ascending
     @State private var choices: [Interval] = []
     @State private var answered: Interval? = nil
     @State private var startTime = Date()
+    @State private var isPlaying = false
+    @State private var pulseAmount: CGFloat = 1.0
+    @State private var shakeOffset: CGFloat = 0
     @State private var showMnemonic = false
 
     private var isCorrect: Bool? {
@@ -111,100 +112,129 @@ struct IntervalDrillView: View {
     }
 
     var body: some View {
-        VStack(spacing: 28) {
+        VStack(spacing: 0) {
             Spacer()
-
-            playButton
-            intervalLabel
-
-            if showMnemonic {
-                Text(targetInterval.mnemonic)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .italic()
-            }
-
+            speakerSection
             Spacer()
-
+            questionLabel
+            Spacer()
             answerGrid
-
-            if answered != nil {
-                nextButton
+            if let correct = isCorrect {
+                feedbackSection(correct: correct)
             }
         }
-        .padding()
+        .padding(.horizontal, 20)
+        .padding(.bottom, 20)
         .onAppear { newDrill() }
     }
 
-    private var playButton: some View {
-        Button {
-            playInterval()
-        } label: {
-            VStack(spacing: 8) {
-                Image(systemName: "speaker.wave.2.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(.purple)
-                Text("Tap to play")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+    private var speakerSection: some View {
+        Button { playInterval() } label: {
+            ZStack {
+                Circle()
+                    .fill(Color.purple.opacity(0.12))
+                    .frame(width: 120, height: 120)
+                    .scaleEffect(isPlaying ? 1.15 : 1.0)
+                    .animation(.easeOut(duration: 0.4), value: isPlaying)
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.purple, Color(red: 0.5, green: 0.1, blue: 0.9)],
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 88, height: 88)
+                Image(systemName: isPlaying ? "speaker.wave.3.fill" : "speaker.wave.2.fill")
+                    .font(.system(size: 36))
+                    .foregroundStyle(.white)
+                    .symbolEffect(.variableColor.iterative.dimInactiveLayers, isActive: isPlaying)
             }
         }
         .buttonStyle(.plain)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPlaying)
     }
 
-    private var intervalLabel: some View {
-        Text(direction.rawValue)
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 6)
-            .background(Color.purple.opacity(0.1), in: Capsule())
+    private var questionLabel: some View {
+        VStack(spacing: 8) {
+            Text("What interval is this?")
+                .font(.title3).fontWeight(.semibold)
+            HStack(spacing: 8) {
+                Label(direction.rawValue, systemImage: directionIcon)
+                    .font(.caption)
+                    .padding(.horizontal, 10).padding(.vertical, 4)
+                    .background(Color.purple.opacity(0.12), in: Capsule())
+                    .foregroundStyle(Color.purple)
+                if showMnemonic {
+                    Text(targetInterval.mnemonic)
+                        .font(.caption)
+                        .padding(.horizontal, 10).padding(.vertical, 4)
+                        .background(Color.orange.opacity(0.12), in: Capsule())
+                        .foregroundStyle(.orange)
+                        .transition(.scale.combined(with: .opacity))
+                }
+            }
+            .animation(.spring(response: 0.4, dampingFraction: 0.7), value: showMnemonic)
+        }
+    }
+
+    private var directionIcon: String {
+        switch direction {
+        case .ascending: return "arrow.up.right"
+        case .descending: return "arrow.down.right"
+        case .harmonic: return "arrow.up.and.down"
+        }
     }
 
     private var answerGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             ForEach(choices, id: \.self) { interval in
-                Button {
-                    guard answered == nil else { return }
-                    answered = interval
-                    let time = Date().timeIntervalSince(startTime)
-                    let correct = interval == targetInterval
-                    if !correct { showMnemonic = true }
-                    onComplete(correct, time)
-                } label: {
-                    Text(interval.name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(buttonColor(for: interval), in: RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(answered != nil ? .white : .primary)
-                }
-                .buttonStyle(.plain)
-                .disabled(answered != nil)
+                AnswerButton(
+                    label: interval.name,
+                    state: buttonState(for: interval),
+                    action: { select(interval) }
+                )
             }
         }
     }
 
-    private func buttonColor(for interval: Interval) -> Color {
-        guard let answered else { return Color(.secondarySystemBackground) }
-        if interval == targetInterval { return .green }
-        if interval == answered { return .red }
-        return Color(.secondarySystemBackground)
+    private func feedbackSection(correct: Bool) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
+                .foregroundStyle(correct ? .green : .red)
+            Text(correct ? "Correct!" : "That was \(targetInterval.name)")
+                .font(.subheadline).fontWeight(.medium)
+                .foregroundStyle(correct ? .green : .red)
+            Spacer()
+            Button {
+                withAnimation(.easeInOut(duration: 0.2)) { newDrill() }
+            } label: {
+                Text("Next →").fontWeight(.semibold).foregroundStyle(Color.purple)
+            }
+        }
+        .padding()
+        .background(
+            (correct ? Color.green : Color.red).opacity(0.08),
+            in: RoundedRectangle(cornerRadius: 14)
+        )
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: answered)
     }
 
-    private var nextButton: some View {
-        Button {
-            newDrill()
-        } label: {
-            Text(isCorrect == true ? "Next →" : "Try Again →")
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-                .background(Color.purple)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .fontWeight(.semibold)
-        }
+    private func buttonState(for interval: Interval) -> AnswerButtonState {
+        guard let answered else { return .idle }
+        if interval == targetInterval { return .correct }
+        if interval == answered { return .wrong }
+        return .dimmed
+    }
+
+    private func select(_ interval: Interval) {
+        guard answered == nil else { return }
+        HapticsManager.light()
+        answered = interval
+        let time = Date().timeIntervalSince(startTime)
+        let correct = interval == targetInterval
+        if !correct { showMnemonic = true }
+        onComplete(correct, time)
     }
 
     private func newDrill() {
@@ -219,17 +249,92 @@ struct IntervalDrillView: View {
     }
 
     private func playInterval() {
-        AudioEngine.shared.playInterval(
-            rootMidi: rootMidi,
-            interval: targetInterval,
-            direction: direction
-        )
+        isPlaying = true
+        AudioEngine.shared.playInterval(rootMidi: rootMidi, interval: targetInterval, direction: direction)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) { isPlaying = false }
     }
 
     private func buildChoices(correct: Interval) -> [Interval] {
         var pool = Interval.allCases.filter { $0 != .unison && $0 != correct }
         pool.shuffle()
-        let distractors = Array(pool.prefix(3))
-        return ([correct] + distractors).shuffled()
+        return ([correct] + pool.prefix(3)).shuffled()
+    }
+}
+
+// MARK: - Shared Answer Button
+
+enum AnswerButtonState { case idle, correct, wrong, dimmed }
+
+struct AnswerButton: View {
+    let label: String
+    let state: AnswerButtonState
+    let action: () -> Void
+    @State private var shakeOffset: CGFloat = 0
+    @State private var scaleEffect: CGFloat = 1.0
+
+    var body: some View {
+        Button {
+            if state == .idle { action() }
+        } label: {
+            Text(label)
+                .font(.subheadline).fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(backgroundColor, in: RoundedRectangle(cornerRadius: 14))
+                .foregroundStyle(foregroundColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(borderColor, lineWidth: state == .idle ? 0 : 2)
+                )
+        }
+        .buttonStyle(.plain)
+        .scaleEffect(scaleEffect)
+        .offset(x: shakeOffset)
+        .disabled(state != .idle)
+        .onChange(of: state) { _, newState in
+            if newState == .correct {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) { scaleEffect = 1.06 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    withAnimation { scaleEffect = 1.0 }
+                }
+            } else if newState == .wrong {
+                shake()
+            }
+        }
+    }
+
+    private var backgroundColor: Color {
+        switch state {
+        case .idle: return Color(.secondarySystemBackground)
+        case .correct: return Color.green.opacity(0.2)
+        case .wrong: return Color.red.opacity(0.2)
+        case .dimmed: return Color(.secondarySystemBackground).opacity(0.5)
+        }
+    }
+
+    private var foregroundColor: Color {
+        switch state {
+        case .idle: return .primary
+        case .correct: return .green
+        case .wrong: return .red
+        case .dimmed: return .secondary
+        }
+    }
+
+    private var borderColor: Color {
+        switch state {
+        case .correct: return .green
+        case .wrong: return .red
+        default: return .clear
+        }
+    }
+
+    private func shake() {
+        let offsets: [CGFloat] = [0, -8, 8, -6, 6, -4, 4, 0]
+        for (i, offset) in offsets.enumerated() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.04) {
+                withAnimation(.linear(duration: 0.04)) { shakeOffset = offset }
+            }
+        }
     }
 }

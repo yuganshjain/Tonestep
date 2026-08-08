@@ -24,7 +24,7 @@ struct ContentView: View {
                 .tabItem { Label("Train", systemImage: "music.note.list") }
                 .tag(Tab.train)
 
-            ProgressView()
+            ProgressTabView()
                 .tabItem { Label("Progress", systemImage: "chart.bar.fill") }
                 .tag(Tab.progress)
 
@@ -36,7 +36,7 @@ struct ContentView: View {
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
                 .tag(Tab.settings)
         }
-        .tint(.purple)
+        .tint(Color.purple)
     }
 }
 

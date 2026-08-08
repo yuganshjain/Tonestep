@@ -6,14 +6,16 @@ struct DailySessionView: View {
     @Environment(\.modelContext) private var context
     @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
-    @Query private var allResults: [DrillResult]
-    @Query private var srItems: [SRItem]
+    @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
+    @Query(sort: \SRItem.nextReviewDate) private var srItems: [SRItem]
 
     @State private var plans: [DrillPlan] = []
     @State private var currentIndex = 0
     @State private var sessionRecord: DailySessionRecord?
     @State private var isComplete = false
     @State private var sessionXP = 0
+    @State private var correctCount = 0
+    @State private var showExitAlert = false
 
     private var availableModules: [TrainingModule] {
         TrainingModule.allCases.filter { !$0.isProOnly || storeManager.isPro }
@@ -25,78 +27,160 @@ struct DailySessionView: View {
                 if isComplete {
                     sessionCompleteView
                 } else if plans.isEmpty {
-                    ProgressView("Building your session…")
-                        .onAppear { buildSession() }
+                    buildingView
                 } else {
                     drillView
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Exit") { dismiss() }
+                    Button {
+                        if plans.isEmpty || isComplete { dismiss() }
+                        else { showExitAlert = true }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        .alert("Exit Session?", isPresented: $showExitAlert) {
+            Button("Continue Training", role: .cancel) {}
+            Button("Exit", role: .destructive) { dismiss() }
+        } message: {
+            Text("Your progress so far will be saved.")
+        }
+        .interactiveDismissDisabled(!isComplete)
+    }
+
+    // MARK: - Building View
+
+    private var buildingView: some View {
+        VStack(spacing: 20) {
+            SwiftUI.ProgressView()
+                .scaleEffect(1.4)
+                .tint(Color.purple)
+            Text("Building your session…")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .onAppear { buildSession() }
     }
 
     // MARK: - Drill View
 
-    @ViewBuilder
     private var drillView: some View {
         VStack(spacing: 0) {
-            // Progress bar
-            ProgressView(value: Double(currentIndex), total: Double(plans.count))
-                .tint(.purple)
-                .padding()
-
-            Text("\(currentIndex + 1) of \(plans.count)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .padding(.bottom, 8)
-
+            sessionProgressBar
             DrillDispatchView(drillType: plans[currentIndex].drillType) { correct, responseTime in
                 recordResult(correct: correct, responseTime: responseTime)
             }
         }
     }
 
-    // MARK: - Session Complete View
+    private var sessionProgressBar: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Text("\(currentIndex + 1) of \(plans.count)")
+                    .font(.caption).foregroundStyle(.secondary)
+                Spacer()
+                Text("\(correctCount) correct")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            .padding(.horizontal)
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(Color(.systemFill))
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(Color.purple)
+                        .frame(width: geo.size.width * (Double(currentIndex) / Double(plans.count)))
+                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: currentIndex)
+                }
+            }
+            .frame(height: 6)
+            .padding(.horizontal)
+        }
+        .padding(.top, 8)
+        .padding(.bottom, 4)
+    }
+
+    // MARK: - Session Complete
 
     private var sessionCompleteView: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(.green)
+        VStack(spacing: 32) {
+            Spacer()
 
-            Text("Session Complete!")
-                .font(.title)
-                .fontWeight(.bold)
+            VStack(spacing: 16) {
+                ZStack {
+                    Circle()
+                        .fill(Color.green.opacity(0.15))
+                        .frame(width: 100, height: 100)
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.green)
+                }
+                .transition(.scale.combined(with: .opacity))
 
-            VStack(spacing: 8) {
-                Text("+\(sessionXP) XP")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.purple)
-                Text("Keep it up — come back tomorrow!")
-                    .foregroundStyle(.secondary)
+                Text("Session Complete!")
+                    .font(.largeTitle).fontWeight(.bold)
+
+                HStack(spacing: 32) {
+                    VStack(spacing: 4) {
+                        Text("\(plans.count)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                        Text("Drills")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    Rectangle().frame(width: 1, height: 40).foregroundStyle(.secondary.opacity(0.3))
+                    VStack(spacing: 4) {
+                        Text("\(correctCount)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundStyle(.green)
+                        Text("Correct")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    Rectangle().frame(width: 1, height: 40).foregroundStyle(.secondary.opacity(0.3))
+                    VStack(spacing: 4) {
+                        Text("+\(sessionXP)")
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundStyle(Color.purple)
+                        Text("XP")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                }
+                .padding()
+                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
             }
 
-            Button("Done") { dismiss() }
-                .buttonStyle(.borderedProminent)
-                .tint(.purple)
+            Spacer()
+
+            Button { dismiss() } label: {
+                Text("Done")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color.purple)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .fontWeight(.semibold)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 32)
         }
-        .padding()
+        .transition(.opacity)
     }
 
     // MARK: - Logic
 
     private func buildSession() {
-        let count = userProfile.sessionLength.rawValue / 1   // 1 drill ≈ 1 min approx
+        let count = max(6, min(userProfile.sessionLength.rawValue, 12))
         plans = DailySessionBuilder.buildSession(
             srItems: srItems,
             recentResults: allResults,
-            targetCount: min(max(count, 6), 12),
+            targetCount: count,
             isPro: storeManager.isPro,
             availableModules: availableModules
         )
@@ -116,7 +200,13 @@ struct DailySessionView: View {
         )
         context.insert(result)
         sessionRecord?.totalDrills += 1
-        if correct { sessionRecord?.correctDrills += 1 }
+        if correct {
+            sessionRecord?.correctDrills += 1
+            correctCount += 1
+            HapticsManager.success()
+        } else {
+            HapticsManager.error()
+        }
 
         let xp = correct ? 2 : 0
         sessionXP += xp
@@ -125,7 +215,7 @@ struct DailySessionView: View {
         if currentIndex + 1 >= plans.count {
             finishSession()
         } else {
-            withAnimation { currentIndex += 1 }
+            withAnimation(.easeInOut(duration: 0.2)) { currentIndex += 1 }
         }
     }
 
@@ -133,8 +223,9 @@ struct DailySessionView: View {
         sessionRecord?.completedAt = Date()
         sessionRecord?.xpEarned = sessionXP
         userProfile.completeSession()
-        sessionXP += 50  // session completion bonus
-        withAnimation { isComplete = true }
+        sessionXP += 50
+        HapticsManager.heavyImpact()
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) { isComplete = true }
     }
 
     private func moduleFor(drillType: String) -> TrainingModule {
@@ -148,7 +239,6 @@ struct DailySessionView: View {
 
 // MARK: - Drill Dispatcher
 
-/// Routes a drillType string to the correct exercise view.
 struct DrillDispatchView: View {
     let drillType: String
     let onComplete: (Bool, TimeInterval) -> Void
@@ -165,5 +255,25 @@ struct DrillDispatchView: View {
         } else {
             IntervalDrillView(drillType: drillType, onComplete: onComplete)
         }
+    }
+}
+
+// MARK: - Haptics
+
+enum HapticsManager {
+    static func success() {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    static func error() {
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
+    }
+    static func impact() {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    static func heavyImpact() {
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+    }
+    static func light() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 }

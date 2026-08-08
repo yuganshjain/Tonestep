@@ -2,20 +2,17 @@ import SwiftUI
 
 struct TrainView: View {
     @EnvironmentObject private var storeManager: StoreManager
-
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 14) {
                     ForEach(TrainingModule.allCases, id: \.self) { module in
-                        NavigationLink {
-                            moduleDestination(for: module)
-                        } label: {
+                        NavigationLink { moduleDestination(for: module) } label: {
                             ModuleCard(module: module, isLocked: module.isProOnly && !storeManager.isPro)
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(PressableButtonStyle())
                     }
                 }
                 .padding()
@@ -32,12 +29,11 @@ struct TrainView: View {
             PaywallView()
         } else {
             switch module {
-            case .intervalRecognition:  IntervalModuleView()
-            case .chordRecognition:     ChordModuleView()
-            case .scaleRecognition:     ScaleModuleView()
-            case .functionalEar:        FunctionalEarModuleView()
-            default:
-                ComingSoonView(module: module)
+            case .intervalRecognition: IntervalModuleView()
+            case .chordRecognition:    ChordModuleView()
+            case .scaleRecognition:    ScaleModuleView()
+            case .functionalEar:       FunctionalEarModuleView()
+            default:                   ComingSoonView(module: module)
             }
         }
     }
@@ -47,49 +43,77 @@ struct ModuleCard: View {
     let module: TrainingModule
     let isLocked: Bool
 
+    private var accentColor: Color {
+        switch module {
+        case .intervalRecognition: return Color(red: 0.4, green: 0.2, blue: 0.9)
+        case .chordRecognition:    return Color(red: 0.2, green: 0.5, blue: 0.9)
+        case .scaleRecognition:    return Color(red: 0.1, green: 0.7, blue: 0.5)
+        case .functionalEar:       return Color(red: 0.8, green: 0.3, blue: 0.2)
+        case .chordProgressions:   return Color(red: 0.6, green: 0.2, blue: 0.8)
+        case .rhythmTrainer:       return Color(red: 0.9, green: 0.5, blue: 0.1)
+        case .melodicDictation:    return Color(red: 0.2, green: 0.6, blue: 0.8)
+        case .relativePitch:       return Color(red: 0.5, green: 0.7, blue: 0.2)
+        case .absolutePitch:       return Color(red: 0.7, green: 0.5, blue: 0.1)
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: module.systemImage)
-                    .font(.title2)
-                    .foregroundStyle(isLocked ? .secondary : .purple)
+            HStack(alignment: .top) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(accentColor.opacity(isLocked ? 0.08 : 0.15))
+                        .frame(width: 42, height: 42)
+                    Image(systemName: module.systemImage)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(isLocked ? .secondary : accentColor)
+                }
                 Spacer()
                 if isLocked {
                     Image(systemName: "lock.fill")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
+                        .padding(6)
+                        .background(Color(.secondarySystemBackground), in: Circle())
                 }
             }
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(module.rawValue)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundStyle(isLocked ? .secondary : .primary)
+                    .lineLimit(2)
                 Text(module.description)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
             }
         }
-        .padding()
-        .background(isLocked ? Color(.secondarySystemBackground) : Color(.systemBackground),
-                    in: RoundedRectangle(cornerRadius: 16))
+        .padding(14)
+        .background(
+            isLocked ? Color(.secondarySystemBackground) : Color(.systemBackground),
+            in: RoundedRectangle(cornerRadius: 18)
+        )
     }
 }
 
 struct ComingSoonView: View {
     let module: TrainingModule
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: module.systemImage)
-                .font(.system(size: 60))
-                .foregroundStyle(.purple.opacity(0.5))
-            Text(module.rawValue)
-                .font(.title2)
-                .fontWeight(.bold)
+        VStack(spacing: 20) {
+            ZStack {
+                Circle().fill(Color.purple.opacity(0.1)).frame(width: 100, height: 100)
+                Image(systemName: module.systemImage)
+                    .font(.system(size: 44)).foregroundStyle(Color.purple.opacity(0.5))
+            }
+            Text(module.rawValue).font(.title2).fontWeight(.bold)
             Text("Coming in EarIQ 1.1")
                 .foregroundStyle(.secondary)
+            Text("Interval, Chord, Scale, and Functional Ear are available now.")
+                .font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }
+        .padding()
         .navigationTitle(module.rawValue)
     }
 }

@@ -4,6 +4,7 @@ import StoreKit
 struct SettingsView: View {
     @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
+    @Environment(\.requestReview) private var requestReview
     @State private var showPaywall = false
 
     var body: some View {
@@ -49,12 +50,12 @@ struct SettingsView: View {
         Section("EarIQ Pro") {
             if storeManager.isPro {
                 HStack {
-                    Image(systemName: "checkmark.seal.fill").foregroundStyle(.purple)
+                    Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.purple)
                     Text("You have EarIQ Pro")
                 }
             } else {
                 Button("Upgrade to Pro") { showPaywall = true }
-                    .foregroundStyle(.purple)
+                    .foregroundStyle(Color.purple)
             }
             Button("Restore Purchases") {
                 Task { await storeManager.restorePurchases() }
@@ -67,6 +68,10 @@ struct SettingsView: View {
             Button("Export Session Data (CSV)") {
                 // TODO: generate CSV and share
             }
+            Button("Reset All Data") {
+                // TODO: confirmation + reset
+            }
+            .foregroundStyle(.red)
         }
     }
 
@@ -80,7 +85,7 @@ struct SettingsView: View {
             }
             Link("Privacy Policy", destination: URL(string: "https://yugansh.com/eariq/privacy")!)
             Button("Rate EarIQ on the App Store") {
-                SKStoreReviewController.requestReviewInCurrentScene()
+                requestReview()
             }
         }
     }

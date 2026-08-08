@@ -37,10 +37,10 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQ
     dependencies:
-      - framework: AVFoundation.framework
-      - framework: StoreKit.framework
-      - framework: SwiftData.framework
-      - framework: AudioToolbox.framework
+      - sdk: AVFoundation.framework
+      - sdk: StoreKit.framework
+      - sdk: SwiftData.framework
+      - sdk: AudioToolbox.framework
 
   EarIQTests:
     type: bundle.unit-test
