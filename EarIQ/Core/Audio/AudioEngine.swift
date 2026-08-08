@@ -150,6 +150,38 @@ final class AudioEngine: ObservableObject {
         }
     }
 
+    /// Play a chord progression.
+    func playChordProgression(_ progression: ChordProgression, rootMidi: UInt8, tempo: TimeInterval = 0.9) {
+        for (i, (offset, quality)) in zip(progression.rootOffsets, progression.qualities).enumerated() {
+            let root = UInt8(clamping: Int(rootMidi) + offset)
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * tempo) {
+                self.playChord(rootMidi: root, quality: quality, duration: tempo * 1.8)
+            }
+        }
+    }
+
+    /// Play a rhythm pattern with a click sound (uses note 76 = Hi Wood Block).
+    func playRhythmPattern(_ pattern: RhythmPattern, completion: (() -> Void)? = nil) {
+        var offset: Double = 0
+        let baseTime = 60.0 / Double(pattern.bpm)
+        for beat in pattern.beats {
+            let duration = beat.duration * baseTime * 2
+            if !beat.isRest {
+                let t = offset
+                DispatchQueue.main.asyncAfter(deadline: .now() + t) {
+                    self.sampler.startNote(76, withVelocity: 100, onChannel: 0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) {
+                        self.sampler.stopNote(76, onChannel: 0)
+                    }
+                }
+            }
+            offset += duration
+        }
+        if let completion {
+            DispatchQueue.main.asyncAfter(deadline: .now() + offset + 0.2) { completion() }
+        }
+    }
+
     func stopAll() {
         for note: UInt8 in 0...127 {
             sampler.stopNote(note, onChannel: 0)

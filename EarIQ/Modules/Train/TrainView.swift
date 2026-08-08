@@ -33,6 +33,9 @@ struct TrainView: View {
             case .chordRecognition:    ChordModuleView()
             case .scaleRecognition:    ScaleModuleView()
             case .functionalEar:       FunctionalEarModuleView()
+            case .melodicDictation:    MelodyDictationView()
+            case .rhythmTrainer:       RhythmTrainerModuleView()
+            case .chordProgressions:   ChordProgressionModuleView()
             default:                   ComingSoonView(module: module)
             }
         }

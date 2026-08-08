@@ -188,6 +188,74 @@ enum ScaleDegree: Int, CaseIterable, Codable {
     }
 }
 
+// MARK: - Chord Progressions
+
+struct ChordProgression: Identifiable, Equatable {
+    let id: String
+    let name: String
+    let romanNumerals: [String]
+    let rootOffsets: [Int]
+    let qualities: [ChordQuality]
+    let description: String
+    let genre: String
+
+    static let all: [ChordProgression] = [
+        ChordProgression(id: "1451", name: "I–IV–V–I",       romanNumerals: ["I","IV","V","I"],
+                         rootOffsets: [0,5,7,0], qualities: [.major,.major,.major,.major],
+                         description: "The classic blues & rock foundation", genre: "Blues / Rock"),
+        ChordProgression(id: "1564", name: "I–V–vi–IV",      romanNumerals: ["I","V","vi","IV"],
+                         rootOffsets: [0,7,9,5], qualities: [.major,.major,.minor,.major],
+                         description: "The 'four chord song' — pop everywhere", genre: "Pop"),
+        ChordProgression(id: "2501", name: "ii–V–I",         romanNumerals: ["ii","V","I"],
+                         rootOffsets: [2,7,0], qualities: [.minor,.major,.major],
+                         description: "The jazz cornerstone", genre: "Jazz"),
+        ChordProgression(id: "1645", name: "I–vi–IV–V",      romanNumerals: ["I","vi","IV","V"],
+                         rootOffsets: [0,9,5,7], qualities: [.major,.minor,.major,.major],
+                         description: "'50s doo-wop progression", genre: "Classic / Pop"),
+        ChordProgression(id: "6415", name: "vi–IV–I–V",      romanNumerals: ["vi","IV","I","V"],
+                         rootOffsets: [9,5,0,7], qualities: [.minor,.major,.major,.major],
+                         description: "Modern pop minor feel", genre: "Pop / Indie"),
+        ChordProgression(id: "1415", name: "I–IV–I–V",       romanNumerals: ["I","IV","I","V"],
+                         rootOffsets: [0,5,0,7], qualities: [.major,.major,.major,.major],
+                         description: "12-bar blues variant", genre: "Blues"),
+        ChordProgression(id: "1b7b6", name: "i–VII–VI–VII",  romanNumerals: ["i","VII","VI","VII"],
+                         rootOffsets: [0,10,8,10], qualities: [.minor,.major,.major,.major],
+                         description: "Andalusian cadence — flamenco & rock", genre: "Flamenco / Rock"),
+    ]
+}
+
+// MARK: - Rhythm Patterns
+
+struct RhythmPattern: Identifiable, Equatable {
+    let id: String
+    let name: String
+    let beats: [RhythmBeat]
+    let bpm: Int
+
+    enum RhythmBeat: Equatable {
+        case quarter, eighth, sixteenth, half, rest
+        var duration: Double {
+            switch self { case .quarter: return 0.5; case .eighth: return 0.25; case .sixteenth: return 0.125; case .half: return 1.0; case .rest: return 0.5 }
+        }
+        var symbol: String {
+            switch self { case .quarter: return "♩"; case .eighth: return "♪"; case .sixteenth: return "𝅘𝅥𝅯"; case .half: return "𝅗𝅥"; case .rest: return "𝄽" }
+        }
+        var isRest: Bool { self == .rest }
+    }
+
+    static let beginner: [RhythmPattern] = [
+        RhythmPattern(id: "qqqq",  name: "Four Quarters",  beats: [.quarter,.quarter,.quarter,.quarter], bpm: 80),
+        RhythmPattern(id: "qqeq",  name: "Syncopated",     beats: [.quarter,.quarter,.eighth,.eighth,.quarter], bpm: 80),
+        RhythmPattern(id: "hqq",   name: "Half-Quarter",   beats: [.half,.quarter,.quarter], bpm: 80),
+        RhythmPattern(id: "eeeeqq",name: "Eighth Groove",  beats: [.eighth,.eighth,.eighth,.eighth,.quarter,.quarter], bpm: 80),
+    ]
+    static let intermediate: [RhythmPattern] = [
+        RhythmPattern(id: "qreq",  name: "Rest Pattern",   beats: [.quarter,.rest,.eighth,.eighth,.quarter], bpm: 90),
+        RhythmPattern(id: "eqeeq", name: "Upbeat Feel",    beats: [.eighth,.quarter,.eighth,.eighth,.quarter,.eighth], bpm: 90),
+        RhythmPattern(id: "qeehq", name: "Swing Feel",     beats: [.quarter,.eighth,.eighth,.half,.quarter], bpm: 90),
+    ]
+}
+
 // MARK: - Notes
 
 enum Note: Int, CaseIterable {

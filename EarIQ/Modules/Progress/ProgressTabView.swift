@@ -4,6 +4,7 @@ import SwiftData
 struct ProgressTabView: View {
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @EnvironmentObject private var userProfile: UserProfileStore
+    @StateObject private var achievementStore = AchievementStore()
 
     private var accuracyByModule: [(TrainingModule, Double)] {
         TrainingModule.allCases.compactMap { module in
@@ -40,9 +41,11 @@ struct ProgressTabView: View {
                     overallCard
                     if !accuracyByModule.isEmpty { moduleCard }
                     streakCalendarSection
+                    achievementsSection
                     if !weakSpots.isEmpty { weakSpotsCard }
                 }
                 .padding()
+                .padding(.bottom, 100)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Progress")
@@ -103,6 +106,27 @@ struct ProgressTabView: View {
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
     }
 
+    private var achievementsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Achievements")
+                    .font(.headline)
+                Spacer()
+                let unlocked = achievementStore.achievements.filter(\.isUnlocked).count
+                Text("\(unlocked)/\(achievementStore.achievements.count)")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                ForEach(achievementStore.achievements) { achievement in
+                    AchievementBadge(achievement: achievement)
+                }
+            }
+        }
+        .padding()
+        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+    }
+
     private var weakSpotsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Your 5 Weakest Areas").font(.headline)
@@ -121,6 +145,31 @@ struct ProgressTabView: View {
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+// MARK: - Achievement Badge
+
+struct AchievementBadge: View {
+    let achievement: Achievement
+
+    var body: some View {
+        VStack(spacing: 6) {
+            ZStack {
+                Circle()
+                    .fill(achievement.isUnlocked ? Color.purple.opacity(0.15) : Color(.systemFill))
+                    .frame(width: 52, height: 52)
+                Text(achievement.isUnlocked ? achievement.icon : "🔒")
+                    .font(.system(size: 26))
+                    .opacity(achievement.isUnlocked ? 1 : 0.4)
+            }
+            Text(achievement.title)
+                .font(.system(size: 9, weight: .medium))
+                .foregroundStyle(achievement.isUnlocked ? .primary : .secondary)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+        }
+        .opacity(achievement.isUnlocked ? 1.0 : 0.5)
     }
 }
 

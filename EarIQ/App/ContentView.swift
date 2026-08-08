@@ -24,13 +24,13 @@ struct ContentView: View {
                 .tabItem { Label("Train", systemImage: "music.note.list") }
                 .tag(Tab.train)
 
+            TheoryLessonsView()
+                .tabItem { Label("Learn", systemImage: "books.vertical.fill") }
+                .tag(Tab.learn)
+
             ProgressTabView()
                 .tabItem { Label("Progress", systemImage: "chart.bar.fill") }
                 .tag(Tab.progress)
-
-            ChallengesView()
-                .tabItem { Label("Challenges", systemImage: "trophy.fill") }
-                .tag(Tab.challenges)
 
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
@@ -41,5 +41,5 @@ struct ContentView: View {
 }
 
 enum Tab {
-    case today, train, progress, challenges, settings
+    case today, train, learn, progress, settings
 }
