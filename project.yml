@@ -9,8 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.9"
-    # Set DEVELOPMENT_TEAM to your 10-character Apple Developer team ID before archiving
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: "GD3K4V2Y8Q"
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
     ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -40,6 +39,11 @@ targets:
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UIRequiresFullScreen: true
+        # Without this key iOS runs the app letterboxed in a 320x480 canvas
+        # with black bars top and bottom. Presence of the key is what opts the
+        # app into the device's native full-screen size.
+        UILaunchScreen:
+          UIColorName: LaunchBackground
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQ
@@ -84,3 +88,6 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQTests
+        # Without this the test bundle has no Info.plist and code signing fails,
+        # so `xcodebuild test` never runs a single test.
+        GENERATE_INFOPLIST_FILE: YES
