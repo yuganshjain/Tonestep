@@ -87,7 +87,8 @@ struct TrainView: View {
             case .chordInversions:     ChordInversionsModuleView()
             case .intervalComparison:  IntervalComparisonModuleView()
             case .errorDetection:      ErrorDetectionModuleView()
-            default:                   ComingSoonView(module: module)
+            case .relativePitch:       RelativePitchModuleView()
+            case .absolutePitch:       AbsolutePitchModuleView()
             }
         }
     }

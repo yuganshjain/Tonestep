@@ -6,6 +6,7 @@ struct TodayView: View {
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @State private var showingDailySession = false
     @State private var showingWarmup = false
+    @State private var showingFocus = false
     @State private var flameScale: CGFloat = 1.0
 
     private var todayCompleted: Bool {
@@ -13,18 +14,24 @@ struct TodayView: View {
         return Calendar.current.isDateInToday(last)
     }
 
-    private var weakSpots: [(String, Double)] {
-        let cutoff = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+    private var weakModulesForToday: [(TrainingModule, Double)] {
+        let cutoff = Calendar.current.date(byAdding: .day, value: -14, to: Date()) ?? Date()
         let recent = allResults.filter { $0.timestamp > cutoff }
-        var stats: [String: (Int, Int)] = [:]
+        var stats: [TrainingModule: (Int, Int)] = [:]
         for r in recent {
-            var s = stats[r.drillType] ?? (0, 0)
+            var s = stats[r.module] ?? (0, 0)
             s.0 += r.wasCorrect ? 1 : 0; s.1 += 1
-            stats[r.drillType] = s
+            stats[r.module] = s
         }
         return stats.filter { $0.value.1 >= 3 }
             .map { ($0.key, Double($0.value.0) / Double($0.value.1)) }
             .sorted { $0.1 < $1.1 }.prefix(3).map { ($0.0, $0.1) }
+    }
+
+    private var todayFocusLabel: String {
+        let modules = weakModulesForToday.prefix(2).map { $0.0.rawValue }
+        if modules.isEmpty { return "Personalized for you" }
+        return "Focus: \(modules.joined(separator: " · "))"
     }
 
     var body: some View {
@@ -34,8 +41,9 @@ struct TodayView: View {
                     heroCard
                     xpCard
                     warmupCard
+                    focusCard
                     dailySessionCard
-                    if !weakSpots.isEmpty { weakSpotsCard }
+                    if !weakModulesForToday.isEmpty { weakSpotsCard }
                 }
                 .padding(.horizontal)
                 .padding(.top, 4)
@@ -46,6 +54,7 @@ struct TodayView: View {
             .navigationBarTitleDisplayMode(.large)
         }
         .fullScreenCover(isPresented: $showingDailySession) { DailySessionView() }
+        .fullScreenCover(isPresented: $showingFocus) { FocusSessionView() }
         .sheet(isPresented: $showingWarmup) { QuickWarmupView() }
         .onAppear { GameCenterManager.shared.authenticate() }
     }
@@ -131,6 +140,42 @@ struct TodayView: View {
         }
     }
 
+    // MARK: - Focus Mode Card
+
+    private var focusCard: some View {
+        Button { showingFocus = true } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(LinearGradient(colors: [Color.purple, Color(red: 0.5, green: 0.1, blue: 0.85)],
+                                             startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: "scope")
+                        .font(.system(size: 18, weight: .semibold)).foregroundStyle(.white)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text("Focus Mode").font(.subheadline).fontWeight(.semibold)
+                        Text("SMART")
+                            .font(.system(size: 8, weight: .bold))
+                            .padding(.horizontal, 5).padding(.vertical, 2)
+                            .background(Color.purple).foregroundStyle(.white)
+                            .clipShape(Capsule())
+                    }
+                    Text(weakModulesForToday.isEmpty
+                         ? "10 questions · 5 min · Targets your weak spots"
+                         : "Targeting: \(weakModulesForToday.prefix(2).map { $0.0.rawValue }.joined(separator: " & "))")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.secondary)
+            }
+            .padding(14)
+            .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        }
+        .buttonStyle(PressableButtonStyle())
+    }
+
     // MARK: - Warmup Card
 
     private var warmupCard: some View {
@@ -214,7 +259,7 @@ struct TodayView: View {
                         .foregroundStyle(.primary)
                     Text(todayCompleted
                          ? "Come back tomorrow to continue your streak"
-                         : "~\(userProfile.sessionLength.rawValue) min • Personalized for you")
+                         : "~\(userProfile.sessionLength.rawValue) min · \(todayFocusLabel)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -236,31 +281,60 @@ struct TodayView: View {
     private var weakSpotsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.orange)
-                Text("Practice These")
-                    .font(.headline)
+                Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
+                Text("Your Weak Spots").font(.headline)
+                Spacer()
+                Text("Tap to train").font(.caption2).foregroundStyle(.secondary)
             }
-            ForEach(weakSpots, id: \.0) { drillType, accuracy in
-                HStack {
-                    RoundedRectangle(cornerRadius: 3)
-                        .fill(accuracy < 0.5 ? Color.red.opacity(0.8) : Color.orange.opacity(0.8))
-                        .frame(width: 4, height: 32)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(drillType.replacingOccurrences(of: "_", with: " ").capitalized)
-                            .font(.subheadline)
-                        SwiftUI.ProgressView(value: accuracy)
-                            .tint(accuracy < 0.5 ? .red : .orange)
+            ForEach(weakModulesForToday, id: \.0) { module, accuracy in
+                NavigationLink(destination: todayModuleDestination(for: module)) {
+                    HStack(spacing: 10) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 7)
+                                .fill((accuracy < 0.5 ? Color.red : Color.orange).opacity(0.12))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: module.systemImage)
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                        }
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(module.rawValue).font(.subheadline).foregroundStyle(.primary)
+                            SwiftUI.ProgressView(value: accuracy)
+                                .tint(accuracy < 0.5 ? .red : .orange)
+                        }
+                        Spacer()
+                        Text("\(Int(accuracy * 100))%")
+                            .font(.subheadline).fontWeight(.bold)
+                            .foregroundStyle(accuracy < 0.5 ? .red : .orange)
                     }
-                    Spacer()
-                    Text("\(Int(accuracy * 100))%")
-                        .font(.subheadline).fontWeight(.bold)
-                        .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                    .padding(10)
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(16)
         .background(.background, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    @ViewBuilder
+    private func todayModuleDestination(for module: TrainingModule) -> some View {
+        switch module {
+        case .intervalRecognition: IntervalModuleView()
+        case .chordRecognition:    ChordModuleView()
+        case .scaleRecognition:    ScaleModuleView()
+        case .functionalEar:       FunctionalEarModuleView()
+        case .melodicDictation:    MelodyDictationView()
+        case .rhythmTrainer:       RhythmTrainerModuleView()
+        case .chordProgressions:   ChordProgressionModuleView()
+        case .singingPractice:     SingingPracticeModuleView()
+        case .noteIdentification:  NoteIdentificationModuleView()
+        case .chordInversions:     ChordInversionsModuleView()
+        case .intervalComparison:  IntervalComparisonModuleView()
+        case .errorDetection:      ErrorDetectionModuleView()
+        case .relativePitch:       RelativePitchModuleView()
+        case .absolutePitch:       AbsolutePitchModuleView()
+        }
     }
 }
 

@@ -30,19 +30,35 @@ struct ProgressTabView: View {
         }
     }
 
-    private var weakSpots: [(String, Double)] {
-        var stats: [String: (Int, Int)] = [:]
+    private var weakModules: [(TrainingModule, Double, Int)] {
+        var stats: [TrainingModule: (Int, Int)] = [:]
         for r in allResults {
-            var s = stats[r.drillType] ?? (0, 0)
+            var s = stats[r.module] ?? (0, 0)
             s.0 += r.wasCorrect ? 1 : 0; s.1 += 1
-            stats[r.drillType] = s
+            stats[r.module] = s
         }
         return stats
             .filter { $0.value.1 >= 5 }
-            .map { ($0.key, Double($0.value.0) / Double($0.value.1)) }
+            .map { ($0.key, Double($0.value.0) / Double($0.value.1), $0.value.1) }
             .sorted { $0.1 < $1.1 }
-            .prefix(5).map { ($0.0, $0.1) }
+            .prefix(5).map { ($0.0, $0.1, $0.2) }
     }
+
+    // Famous song references for interval types — contextual anchor to real music
+    private static let intervalSongHints: [String: String] = [
+        "minor_second": "Jaws Theme",
+        "major_second": "Happy Birthday (first two notes)",
+        "minor_third": "Smoke on the Water",
+        "major_third": "When the Saints Go Marching In",
+        "perfect_fourth": "Here Comes the Bride",
+        "tritone": "The Simpsons Theme",
+        "perfect_fifth": "Twinkle Twinkle (2nd note)",
+        "minor_sixth": "The Entertainer (bridge)",
+        "major_sixth": "My Bonnie Lies Over the Ocean",
+        "minor_seventh": "Somewhere (West Side Story)",
+        "major_seventh": "Take On Me (chorus)",
+        "octave": "Somewhere Over the Rainbow",
+    ]
 
     private var overallAccuracy: Double {
         guard !allResults.isEmpty else { return 0 }
@@ -58,7 +74,7 @@ struct ProgressTabView: View {
                     if !accuracyByModule.isEmpty { moduleCard }
                     streakCalendarSection
                     achievementsSection
-                    if !weakSpots.isEmpty { weakSpotsCard }
+                    if !weakModules.isEmpty { weakSpotsCard }
                 }
                 .padding()
                 .padding(.bottom, 100)
@@ -237,23 +253,102 @@ struct ProgressTabView: View {
     }
 
     private var weakSpotsCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Your 5 Weakest Areas").font(.headline)
-            ForEach(weakSpots, id: \.0) { drillType, accuracy in
-                HStack {
-                    Circle().fill(accuracy < 0.5 ? Color.red : Color.orange)
-                        .frame(width: 8, height: 8)
-                    Text(drillType.replacingOccurrences(of: "_", with: " ").capitalized)
-                        .font(.subheadline)
-                    Spacer()
-                    Text("\(Int(accuracy * 100))%")
-                        .fontWeight(.semibold)
-                        .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+        VStack(alignment: .leading, spacing: 14) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Blind Spots").font(.headline)
+                    Text("Modules to focus on next").font(.caption).foregroundStyle(.secondary)
                 }
+                Spacer()
+                Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
+            }
+
+            ForEach(weakModules, id: \.0) { module, accuracy, count in
+                NavigationLink(destination: moduleDestination(for: module)) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack(spacing: 10) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill((accuracy < 0.5 ? Color.red : Color.orange).opacity(0.12))
+                                    .frame(width: 34, height: 34)
+                                Image(systemName: module.systemImage)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                            }
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(module.rawValue).font(.subheadline).foregroundStyle(.primary)
+                                Text("\(count) drills · \(Int(accuracy * 100))% accuracy")
+                                    .font(.caption2).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing, spacing: 2) {
+                                Text("\(Int(accuracy * 100))%")
+                                    .font(.subheadline).fontWeight(.bold)
+                                    .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                                Text("Train →")
+                                    .font(.caption2).foregroundStyle(.purple)
+                            }
+                        }
+
+                        SwiftUI.ProgressView(value: accuracy)
+                            .tint(accuracy < 0.5 ? .red : .orange)
+
+                        if let hint = songHint(for: module) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "music.note").font(.system(size: 9))
+                                    .foregroundStyle(.purple)
+                                Text("Hear it in: \(hint)")
+                                    .font(.caption2).foregroundStyle(.purple)
+                            }
+                        }
+                    }
+                    .padding(12)
+                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding()
         .background(.background, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    private func songHint(for module: TrainingModule) -> String? {
+        guard module == .intervalRecognition else { return nil }
+        let weakIntervalTypes = allResults
+            .filter { $0.module == .intervalRecognition }
+            .reduce(into: [String: (Int, Int)]()) { acc, r in
+                var s = acc[r.drillType] ?? (0, 0)
+                s.0 += r.wasCorrect ? 1 : 0; s.1 += 1
+                acc[r.drillType] = s
+            }
+            .filter { $0.value.1 >= 3 }
+            .sorted { Double($0.value.0) / Double($0.value.1) < Double($1.value.0) / Double($1.value.1) }
+            .first?.key ?? ""
+
+        for (key, hint) in ProgressTabView.intervalSongHints {
+            if weakIntervalTypes.contains(key) { return hint }
+        }
+        return nil
+    }
+
+    @ViewBuilder
+    private func moduleDestination(for module: TrainingModule) -> some View {
+        switch module {
+        case .intervalRecognition: IntervalModuleView()
+        case .chordRecognition:    ChordModuleView()
+        case .scaleRecognition:    ScaleModuleView()
+        case .functionalEar:       FunctionalEarModuleView()
+        case .melodicDictation:    MelodyDictationView()
+        case .rhythmTrainer:       RhythmTrainerModuleView()
+        case .chordProgressions:   ChordProgressionModuleView()
+        case .singingPractice:     SingingPracticeModuleView()
+        case .noteIdentification:  NoteIdentificationModuleView()
+        case .chordInversions:     ChordInversionsModuleView()
+        case .intervalComparison:  IntervalComparisonModuleView()
+        case .errorDetection:      ErrorDetectionModuleView()
+        case .relativePitch:       RelativePitchModuleView()
+        case .absolutePitch:       AbsolutePitchModuleView()
+        }
     }
 }
 

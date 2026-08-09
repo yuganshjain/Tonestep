@@ -46,9 +46,7 @@ enum TrainingModule: String, CaseIterable, Codable {
         }
     }
 
-    var isComingSoon: Bool {
-        switch self { case .relativePitch, .absolutePitch: return true; default: return false }
-    }
+    var isComingSoon: Bool { false }
 
     var description: String {
         switch self {

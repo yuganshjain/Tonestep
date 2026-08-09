@@ -28,6 +28,16 @@ struct Achievement: Identifiable, Codable, Equatable {
         Achievement(id: "melody_master",  title: "Melody Master",    description: "Complete 10 melody dictation drills", icon: "🎹", xpReward: 200),
         Achievement(id: "rhythm_keeper",  title: "Rhythm Keeper",    description: "Complete 10 rhythm drills",          icon: "🥁", xpReward: 150),
         Achievement(id: "theory_learner", title: "Theory Learner",   description: "Complete 5 theory lessons",          icon: "📚", xpReward: 200),
+
+        // Real-world ability milestones — map to musical skill, not exercise counts
+        Achievement(id: "ms_interval_ear",    title: "Interval Ear",        description: "80%+ accuracy on 30+ interval drills — you hear intervals in real music",   icon: "🎯", xpReward: 350),
+        Achievement(id: "ms_chord_quality",   title: "Chord Quality",       description: "80%+ on 30+ chord drills — you can tell major from minor by ear",           icon: "🎸", xpReward: 350),
+        Achievement(id: "ms_transcriber",     title: "Transcriber",         description: "Complete 15 melodic dictation drills — you can notate what you hear",       icon: "✍️", xpReward: 450),
+        Achievement(id: "ms_error_hunter",    title: "Error Hunter",        description: "Catch 10 errors in Error Detection — your ear flags wrong notes",           icon: "🔍", xpReward: 400),
+        Achievement(id: "ms_functional",      title: "Functional Hearing",  description: "70%+ on 20+ functional ear drills — you hear scale degrees in context",     icon: "🎼", xpReward: 500),
+        Achievement(id: "ms_speed_demon",     title: "Speed Demon",         description: "Score 15+ in a single Speed Round",                                        icon: "⚡", xpReward: 400),
+        Achievement(id: "ms_all_modules",     title: "Complete Musician",   description: "Train in every available module",                                           icon: "🌟", xpReward: 750),
+        Achievement(id: "ms_daily_champion",  title: "Daily Champion",      description: "Score 10/10 on a Daily Challenge",                                          icon: "🏆", xpReward: 500),
     ]
 }
 
@@ -62,9 +72,15 @@ final class AchievementStore: ObservableObject {
         chordAccuracy: Double,
         melodyDrills: Int,
         rhythmDrills: Int,
-        lessonsCompleted: Int
+        lessonsCompleted: Int,
+        errorDetectionCorrect: Int = 0,
+        functionalAccuracy: Double = 0,
+        functionalDrills: Int = 0,
+        speedRoundBest: Int = 0,
+        dailyChallengeMax: Int = 0
     ) {
         consecutiveCorrect = wasCorrect ? consecutiveCorrect + 1 : 0
+        let allModules = Set(TrainingModule.allCases.filter { !$0.isComingSoon }.map(\.rawValue))
 
         let checks: [(String, Bool)] = [
             ("first_drill",    totalDrills >= 1),
@@ -85,6 +101,15 @@ final class AchievementStore: ObservableObject {
             ("melody_master",  melodyDrills >= 10),
             ("rhythm_keeper",  rhythmDrills >= 10),
             ("theory_learner", lessonsCompleted >= 5),
+            // Real-world milestones
+            ("ms_interval_ear",   intervalAccuracy >= 0.8 && totalDrills >= 30),
+            ("ms_chord_quality",  chordAccuracy >= 0.8 && totalDrills >= 30),
+            ("ms_transcriber",    melodyDrills >= 15),
+            ("ms_error_hunter",   errorDetectionCorrect >= 10),
+            ("ms_functional",     functionalAccuracy >= 0.7 && functionalDrills >= 20),
+            ("ms_speed_demon",    speedRoundBest >= 15),
+            ("ms_all_modules",    allModules.isSubset(of: modulesTried)),
+            ("ms_daily_champion", dailyChallengeMax >= 10),
         ]
 
         for (id, condition) in checks {
