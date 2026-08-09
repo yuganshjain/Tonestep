@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — EarIQ</title>
+  <style>
+    :root {
+      --purple: #6B1FE0;
+      --purple-dark: #3D0A9A;
+      --bg: #0a0a0f;
+      --card: #13131f;
+      --border: rgba(107,31,224,0.2);
+      --text: #e8e8f0;
+      --muted: #888;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 0 16px 60px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #3D0A9A 0%, #6B1FE0 60%, #8B3FFF 100%);
+      margin: 0 -16px;
+      padding: 56px 32px 48px;
+      text-align: center;
+    }
+    .hero .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+    }
+    .hero .logo span { font-size: 20px; }
+    .hero .logo strong { color: #fff; font-size: 18px; letter-spacing: 0.5px; }
+    .hero h1 { color: #fff; font-size: clamp(26px, 6vw, 40px); font-weight: 800; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,0.75); font-size: 15px; }
+
+    /* Layout */
+    .content { max-width: 680px; margin: 0 auto; padding-top: 40px; }
+
+    /* TL;DR card */
+    .tldr {
+      background: linear-gradient(135deg, rgba(107,31,224,0.18), rgba(107,31,224,0.06));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 36px;
+    }
+    .tldr h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--purple); margin-bottom: 14px; }
+    .tldr ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tldr li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; }
+    .tldr .pill {
+      background: rgba(107,31,224,0.25);
+      color: #b07fff;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    /* Sections */
+    section { margin-bottom: 36px; }
+    h2 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    p { color: var(--text); font-size: 15px; margin-bottom: 10px; }
+    ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    li { font-size: 15px; color: var(--text); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+    th { text-align: left; padding: 10px 12px; background: rgba(107,31,224,0.15); color: #b07fff; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .yes { color: #4CAF50; font-weight: 600; }
+    .no  { color: var(--muted); }
+
+    /* Contact */
+    .contact {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .contact a { color: #9B6DFF; text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 40px; }
+
+    @media (max-width: 480px) {
+      .hero { padding: 40px 20px 36px; }
+      th, td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo">
+    <span>👂</span>
+    <strong>EarIQ</strong>
+  </div>
+  <h1>Privacy Policy</h1>
+  <p>Simple, honest, no surprises.</p>
+</div>
+
+<div class="content">
+
+  <div class="tldr">
+    <h2>The short version</h2>
+    <ul>
+      <li><span class="pill">✓ Local only</span> All your practice data stays on your device — we never upload it.</li>
+      <li><span class="pill">✓ No tracking</span> We do not track you, profile you, or sell your data.</li>
+      <li><span class="pill">✓ Mic is private</span> Microphone audio is processed on-device and immediately discarded.</li>
+      <li><span class="pill">✓ No account</span> EarIQ works without creating an account or providing any personal information.</li>
+    </ul>
+  </div>
+
+  <section>
+    <h2>What data EarIQ collects</h2>
+    <table>
+      <thead>
+        <tr><th>Data</th><th>Purpose</th><th>Stored where</th><th>Shared</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Practice history<br><small>(drill results, accuracy, timestamps)</small></td>
+          <td>Show your progress, power the spaced repetition system</td>
+          <td>On your device (SwiftData)</td>
+          <td class="no">Never</td>
+        </tr>
+        <tr>
+          <td>XP, streaks, achievements</td>
+          <td>Gamification and motivation</td>
+          <td>On your device (UserDefaults)</td>
+          <td class="no">Never</td>
+        </tr>
+        <tr>
+          <td>Settings & preferences</td>
+          <td>Remember your instrument, session length, reminder time</td>
+          <td>On your device (UserDefaults)</td>
+          <td class="no">Never</td>
+        </tr>
+        <tr>
+          <td>Microphone audio</td>
+          <td>Pitch detection in Singing Practice (processed in real time, never recorded)</td>
+          <td>Not stored anywhere</td>
+          <td class="no">Never</td>
+        </tr>
+        <tr>
+          <td>Speed Round scores</td>
+          <td>Game Center leaderboard (only if you are signed in to Game Center)</td>
+          <td>Apple Game Center servers</td>
+          <td class="no">Apple only</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Microphone</h2>
+    <p>EarIQ requests microphone access only for the <strong>Singing Practice</strong> module. Audio from the microphone is processed entirely on your device using pitch detection algorithms. No audio is recorded, stored, or transmitted. If you deny microphone permission, all other modules continue to work normally.</p>
+  </section>
+
+  <section>
+    <h2>In-app purchases</h2>
+    <p>EarIQ Pro subscriptions and the Lifetime purchase are processed entirely by Apple through StoreKit. We never see your payment information. Apple's <a href="https://www.apple.com/legal/privacy/" style="color:#9B6DFF">Privacy Policy</a> governs all payment transactions.</p>
+  </section>
+
+  <section>
+    <h2>Game Center</h2>
+    <p>If you are signed in to Apple Game Center, EarIQ submits your Speed Round scores to Apple's Game Center servers so they can appear on leaderboards. This is governed by <a href="https://www.apple.com/legal/privacy/" style="color:#9B6DFF">Apple's Privacy Policy</a>. You can opt out by signing out of Game Center in iOS Settings.</p>
+  </section>
+
+  <section>
+    <h2>Notifications</h2>
+    <p>If you enable daily reminders, EarIQ schedules local notifications on your device. These are not sent through any external server — they are generated entirely on-device by iOS at the time you specify. No personal data leaves your device to deliver them.</p>
+  </section>
+
+  <section>
+    <h2>Third-party services</h2>
+    <p>EarIQ does not use analytics SDKs, advertising networks, crash reporting services, or any other third-party services that collect data. The only external integrations are:</p>
+    <ul>
+      <li><strong>Apple StoreKit</strong> — for in-app purchases</li>
+      <li><strong>Apple Game Center</strong> — for leaderboards (optional, requires Game Center sign-in)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Children</h2>
+    <p>EarIQ does not knowingly collect any personal information from anyone, including children under 13. Because no personal data is collected or transmitted, EarIQ is safe for all ages.</p>
+  </section>
+
+  <section>
+    <h2>Your rights</h2>
+    <p>Because we don't collect your data, there's nothing to request, export, or delete from our servers. To delete all your local practice data, use <strong>Settings → Reset All Data</strong> inside the app. To export your history as a CSV, use <strong>Settings → Export Practice History</strong>.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>If we make material changes, we will update the "Last updated" date below. Continued use of the app after changes constitutes acceptance. We will never introduce data collection without a clear update to this page.</p>
+  </section>
+
+  <div class="contact">
+    <p style="font-weight:600; color:#fff; margin-bottom:8px;">Questions or concerns?</p>
+    <p>Email us at <a href="mailto:yuganshjain11@gmail.com">yuganshjain11@gmail.com</a></p>
+  </div>
+
+</div>
+
+<footer>
+  <p>EarIQ &nbsp;·&nbsp; Last updated August 2026 &nbsp;·&nbsp; <a href="index.html" style="color:#9B6DFF">Home</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EarIQ — Train Your Ears</title>
+  <style>
+    :root {
+      --purple: #6B1FE0;
+      --purple-light: #9B6DFF;
+      --bg: #0a0a0f;
+      --card: #13131f;
+      --text: #e8e8f0;
+      --muted: #888;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1a0540 0%, #3D0A9A 40%, #6B1FE0 80%, #8B3FFF 100%);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(139,63,255,0.3), transparent);
+    }
+    .app-icon {
+      width: 100px; height: 100px;
+      background: linear-gradient(135deg, #5a18cc, #8B3FFF);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+      margin: 0 auto 24px;
+      box-shadow: 0 20px 60px rgba(107,31,224,0.6);
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(44px, 10vw, 72px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero .tagline {
+      font-size: clamp(17px, 3vw, 22px);
+      color: rgba(255,255,255,0.75);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: #3D0A9A;
+      font-weight: 700;
+      font-size: 17px;
+      padding: 16px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+    /* Features */
+    .section { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+    .section h2 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; color: #fff; text-align: center; margin-bottom: 48px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(107,31,224,0.2);
+      border-radius: 20px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(107,31,224,0.5); transform: translateY(-3px); }
+    .card .icon { font-size: 32px; margin-bottom: 12px; }
+    .card h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .card p { font-size: 14px; color: var(--muted); }
+
+    /* Modules */
+    .modules { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 0 24px 80px; }
+    .module-pill {
+      background: rgba(107,31,224,0.15);
+      border: 1px solid rgba(107,31,224,0.3);
+      color: var(--purple-light);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Pricing */
+    .pricing { background: var(--card); padding: 80px 24px; }
+    .pricing-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .pricing h2 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .pricing .sub { color: var(--muted); margin-bottom: 40px; }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .plan {
+      background: var(--bg);
+      border: 1px solid rgba(107,31,224,0.2);
+      border-radius: 20px;
+      padding: 24px 16px;
+    }
+    .plan.featured { border-color: var(--purple); background: rgba(107,31,224,0.12); }
+    .plan .badge { background: var(--purple); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; display: inline-block; }
+    .plan .price { font-size: 32px; font-weight: 900; color: #fff; }
+    .plan .price span { font-size: 14px; font-weight: 400; color: var(--muted); }
+    .plan .label { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+    /* Footer */
+    footer {
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: var(--purple-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="app-icon">👂</div>
+  <h1>EarIQ</h1>
+  <p class="tagline">The most complete ear training app for iOS. 12 modules, spaced repetition, and real iOS Game Center leaderboards.</p>
+  <a href="#" class="cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on App Store
+  </a>
+</div>
+
+<!-- Features -->
+<div class="section">
+  <h2>Everything your ears need</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">🎵</div>
+      <h3>12 Training Modules</h3>
+      <p>Intervals, chords, scales, inversions, rhythm, melodic dictation, singing practice, and more.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🧠</div>
+      <h3>Spaced Repetition</h3>
+      <p>SM-2 algorithm surfaces your weak spots at the right time. No competitor does this.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔥</div>
+      <h3>Streaks & XP</h3>
+      <p>20 levels, 18 achievements, XP multipliers up to 2× for long streaks.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🏆</div>
+      <h3>Game Center Leaderboards</h3>
+      <p>Native iOS leaderboards for Speed Round. Compete globally — no sign-up required.</p>
+    </div>
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3>Speed Round</h3>
+      <p>60-second rapid-fire intervals. Combo streaks, bonus XP, weekly global ranking.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📅</div>
+      <h3>Daily Challenge</h3>
+      <p>Same 10 questions for every EarIQ user each day. Resets at midnight.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📱</div>
+      <h3>Home Screen Widget</h3>
+      <p>Streak and level visible on your home screen. Never miss a practice day.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📚</div>
+      <h3>Theory Lessons</h3>
+      <p>6 interactive lessons with quizzes covering intervals, chords, modes, and harmony.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Module pills -->
+<div style="text-align:center; padding: 0 24px 16px;">
+  <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">All training modules</p>
+</div>
+<div class="modules">
+  <span class="module-pill">Interval Recognition</span>
+  <span class="module-pill">Chord Recognition</span>
+  <span class="module-pill">Scale Recognition</span>
+  <span class="module-pill">Functional Ear</span>
+  <span class="module-pill">Chord Progressions</span>
+  <span class="module-pill">Rhythm Trainer</span>
+  <span class="module-pill">Melodic Dictation</span>
+  <span class="module-pill">Chord Inversions</span>
+  <span class="module-pill">Interval Comparison</span>
+  <span class="module-pill">Error Detection</span>
+  <span class="module-pill">Singing Practice</span>
+  <span class="module-pill">Note Identification</span>
+</div>
+
+<!-- Pricing -->
+<div class="pricing">
+  <div class="pricing-inner">
+    <h2>Simple pricing</h2>
+    <p class="sub">Core modules free forever. Pro unlocks everything.</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="price">Free</div>
+        <div class="label">Core modules</div>
+      </div>
+      <div class="plan featured">
+        <div class="badge">Most Popular</div>
+        <div class="price">$24.99<span>/yr</span></div>
+        <div class="label">Annual Pro</div>
+      </div>
+      <div class="plan">
+        <div class="price">$3.99<span>/mo</span></div>
+        <div class="label">Monthly Pro</div>
+      </div>
+      <div class="plan">
+        <div class="price">$39.99</div>
+        <div class="label">Lifetime Pro</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 EarIQ &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:yuganshjain11@gmail.com">Contact</a></p>
+</footer>
+
+</body>
+</html>
