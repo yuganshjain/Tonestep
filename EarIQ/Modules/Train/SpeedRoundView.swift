@@ -265,6 +265,7 @@ struct SpeedRoundView: View {
         let xp = score * 5 + (bestStreak >= 5 ? 25 : 0)
         userProfile.addXP(xp)
         HapticsManager.heavyImpact()
+        GameCenterManager.shared.submitScore(score, leaderboardID: GameCenterManager.speedRoundLeaderboard)
         withAnimation { phase = .finished }
     }
 

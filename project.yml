@@ -43,6 +43,7 @@ targets:
       - sdk: StoreKit.framework
       - sdk: SwiftData.framework
       - sdk: AudioToolbox.framework
+      - sdk: GameKit.framework
 
   EarIQTests:
     type: bundle.unit-test

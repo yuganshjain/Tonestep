@@ -13,13 +13,16 @@ enum TrainingModule: String, CaseIterable, Codable {
     case absolutePitch = "Absolute Pitch"
     case singingPractice = "Singing Practice"
     case noteIdentification = "Note Identification"
+    case chordInversions = "Chord Inversions"
+    case intervalComparison = "Interval Comparison"
 
     var isProOnly: Bool {
         switch self {
         case .intervalRecognition, .chordRecognition, .scaleRecognition,
              .functionalEar, .noteIdentification: return false
         case .chordProgressions, .rhythmTrainer, .melodicDictation,
-             .relativePitch, .absolutePitch, .singingPractice: return true
+             .relativePitch, .absolutePitch, .singingPractice,
+             .chordInversions, .intervalComparison: return true
         }
     }
 
@@ -36,14 +39,13 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .absolutePitch: return "star.fill"
         case .singingPractice: return "mic.fill"
         case .noteIdentification: return "pianokeys"
+        case .chordInversions: return "arrow.up.and.down.and.arrow.left.and.right"
+        case .intervalComparison: return "arrow.left.arrow.right"
         }
     }
 
     var isComingSoon: Bool {
-        switch self {
-        case .relativePitch, .absolutePitch: return true
-        default: return false
-        }
+        switch self { case .relativePitch, .absolutePitch: return true; default: return false }
     }
 
     var description: String {
@@ -59,6 +61,8 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .absolutePitch: return "Identify notes without any reference"
         case .singingPractice: return "Sing notes using your microphone"
         case .noteIdentification: return "Name the note you hear by pitch"
+        case .chordInversions: return "Identify root, 1st, and 2nd inversions"
+        case .intervalComparison: return "Decide which of two intervals is wider"
         }
     }
 }

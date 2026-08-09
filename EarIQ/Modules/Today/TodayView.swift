@@ -5,6 +5,7 @@ struct TodayView: View {
     @EnvironmentObject private var userProfile: UserProfileStore
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @State private var showingDailySession = false
+    @State private var showingWarmup = false
     @State private var flameScale: CGFloat = 1.0
 
     private var todayCompleted: Bool {
@@ -32,6 +33,7 @@ struct TodayView: View {
                 VStack(spacing: 16) {
                     heroCard
                     xpCard
+                    warmupCard
                     dailySessionCard
                     if !weakSpots.isEmpty { weakSpotsCard }
                 }
@@ -43,9 +45,9 @@ struct TodayView: View {
             .navigationTitle("Today")
             .navigationBarTitleDisplayMode(.large)
         }
-        .fullScreenCover(isPresented: $showingDailySession) {
-            DailySessionView()
-        }
+        .fullScreenCover(isPresented: $showingDailySession) { DailySessionView() }
+        .sheet(isPresented: $showingWarmup) { QuickWarmupView() }
+        .onAppear { GameCenterManager.shared.authenticate() }
     }
 
     // MARK: - Hero Streak Card
@@ -127,6 +129,32 @@ struct TodayView: View {
         case 30...: return "A month of dedicated training! 🎵"
         default: return "Keep going!"
         }
+    }
+
+    // MARK: - Warmup Card
+
+    private var warmupCard: some View {
+        Button { showingWarmup = true } label: {
+            HStack(spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(LinearGradient(colors: [.orange, Color(red:0.9,green:0.4,blue:0.0)],
+                                             startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: "flame.fill")
+                        .font(.system(size: 18, weight: .semibold)).foregroundStyle(.white)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Quick Warmup").font(.subheadline).fontWeight(.semibold)
+                    Text("5 questions · 2 min · Wake up your ears").font(.caption).foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.secondary)
+            }
+            .padding(14)
+            .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        }
+        .buttonStyle(PressableButtonStyle())
     }
 
     // MARK: - XP Card

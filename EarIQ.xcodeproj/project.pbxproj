@@ -8,18 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		08FDC40F86529946958E2635 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48885880DDCA5B9EBF6D454C /* TodayView.swift */; };
+		1002977ADAA23B9C65B75706 /* ChordInversionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F667C63D7320EBE982D6F5F6 /* ChordInversionsView.swift */; };
 		154EE73571AC8078710836F6 /* MusicTheory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D91C027E788B521CB65BC8 /* MusicTheory.swift */; };
 		166601CAD2698FF6E3ACE2BB /* SREngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF32221A22D970960756F5 /* SREngineTests.swift */; };
 		18F086C6511346A3AFF2C68C /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1842708A812D7F71CEC14E6C /* TrainView.swift */; };
 		1A9F5824642A5AA9AD11E5DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B46C00A1CA9B5986BF7B8A1A /* Assets.xcassets */; };
+		1DF13F1CC7AFAF7679AB4571 /* IntervalComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D74E8ABDE9EF68FCD16C319 /* IntervalComparisonView.swift */; };
 		22C4E3612DBDE6DD8B80C82B /* SREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C614C1647F4A5EDE4F0108 /* SREngine.swift */; };
 		2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04984D76137530159A190FB5 /* SRItem.swift */; };
 		41DE1874DEA6DC8967871A9C /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A079A797EC20F5FD511462FD /* SpeedRoundView.swift */; };
 		4638E87AA2E7112F32C4E115 /* FunctionalEarDrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A78B9267D2C55960FE2A7 /* FunctionalEarDrillView.swift */; };
+		46B954904963D8593136D784 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */; };
 		49CE545174ABE4D2C047E278 /* IntervalModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C67ED560478131C6FE13646 /* IntervalModuleView.swift */; };
 		4C0843E02D9C715EF7468D35 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A14409C7893F1405B8BA3CEF /* AudioToolbox.framework */; };
 		568328E1A5946AB84BDE6CB6 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698EE4C6842F15B3F221AC1E /* StoreManager.swift */; };
 		6B5E7DC772C6D92FC4CCB195 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F1ED88429F650C66BA52C2 /* AudioEngine.swift */; };
+		6DC72F0F865EB2D3645D0F37 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAA42FA8AFDA181DF2D4E8 /* GameCenterManager.swift */; };
 		85664A0F87826CBBEFCE5046 /* DrillResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413475D498C6A6C2BDB48B3 /* DrillResult.swift */; };
 		8A482E6C6044F82A6A1C2BB7 /* ProgressTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BC2FB25DAFB52360F7273 /* ProgressTabView.swift */; };
 		8F0FB685D5FAA597050E2F2C /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541ABBCDC31BFA1B4F4521F /* PaywallView.swift */; };
@@ -34,6 +38,7 @@
 		BADDDC96530A8F2C1FAC4439 /* ChordProgressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1365C9E04DF07998E02EFD5 /* ChordProgressionView.swift */; };
 		BEEC5618CBA642D226A80F26 /* PitchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99188EEA4C53A0C68E5B1BAC /* PitchDetector.swift */; };
 		C325DD1AC664A8D316383A55 /* SingingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14239ECD9E5499A3A1D7B8CB /* SingingPracticeView.swift */; };
+		C550B49A2FB9CB3036F05EA7 /* QuickWarmupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6317481F50A88E020AC6D /* QuickWarmupView.swift */; };
 		C5E46F3989CF7B1DF6F88618 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39318AA28521689FDD2C9D /* ChallengesView.swift */; };
 		C66DEC61BFF27361FCEB5CF3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */; };
 		D582B435149D763887B9F001 /* DailySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D634891A3202E39EF5F4C /* DailySessionView.swift */; };
@@ -60,10 +65,13 @@
 		04984D76137530159A190FB5 /* SRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRItem.swift; sourceTree = "<group>"; };
 		0541ABBCDC31BFA1B4F4521F /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		06F1ED88429F650C66BA52C2 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		14239ECD9E5499A3A1D7B8CB /* SingingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingingPracticeView.swift; sourceTree = "<group>"; };
 		1842708A812D7F71CEC14E6C /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		226EDCB72329FDE3CEED3662 /* RhythmTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmTrainerView.swift; sourceTree = "<group>"; };
+		22AAA42FA8AFDA181DF2D4E8 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
 		258E976FF42E8D3596C9549D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2CE6317481F50A88E020AC6D /* QuickWarmupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWarmupView.swift; sourceTree = "<group>"; };
 		2F2D634891A3202E39EF5F4C /* DailySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySessionView.swift; sourceTree = "<group>"; };
 		33891FB86694A133FE7B085A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -74,6 +82,7 @@
 		48885880DDCA5B9EBF6D454C /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		4C366F3C91A9E63DE939EB67 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		4C67ED560478131C6FE13646 /* IntervalModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalModuleView.swift; sourceTree = "<group>"; };
+		4D74E8ABDE9EF68FCD16C319 /* IntervalComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalComparisonView.swift; sourceTree = "<group>"; };
 		5396DC28BFCEED54C8C75898 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		552BC2FB25DAFB52360F7273 /* ProgressTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTabView.swift; sourceTree = "<group>"; };
 		557AACC30350616B730AB974 /* MelodyDictationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelodyDictationView.swift; sourceTree = "<group>"; };
@@ -96,6 +105,7 @@
 		BF569B6E3DEA39FBEBE2FB34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C183AF5C6FA3FC7ACE74381D /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		DEBFB737BF423CE8138FC142 /* EarIQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EarIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F667C63D7320EBE982D6F5F6 /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
 		F851F1FD6DDAD4FBDDC300B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -108,6 +118,7 @@
 				E423E31C5F9F8635498F014B /* StoreKit.framework in Frameworks */,
 				D8C507112545D118C538DFB7 /* SwiftData.framework in Frameworks */,
 				4C0843E02D9C715EF7468D35 /* AudioToolbox.framework in Frameworks */,
+				46B954904963D8593136D784 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,8 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				A7DBA15BBD1873C7DD50DBD9 /* ChordDrillView.swift */,
+				F667C63D7320EBE982D6F5F6 /* ChordInversionsView.swift */,
 				A1365C9E04DF07998E02EFD5 /* ChordProgressionView.swift */,
 				5F3A78B9267D2C55960FE2A7 /* FunctionalEarDrillView.swift */,
+				4D74E8ABDE9EF68FCD16C319 /* IntervalComparisonView.swift */,
 				4C67ED560478131C6FE13646 /* IntervalModuleView.swift */,
 				557AACC30350616B730AB974 /* MelodyDictationView.swift */,
 				915596D33218C3F224F0D40F /* NoteIdentificationView.swift */,
@@ -205,6 +218,7 @@
 			children = (
 				A14409C7893F1405B8BA3CEF /* AudioToolbox.framework */,
 				F851F1FD6DDAD4FBDDC300B9 /* AVFoundation.framework */,
+				0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */,
 				33891FB86694A133FE7B085A /* StoreKit.framework */,
 				C183AF5C6FA3FC7ACE74381D /* SwiftData.framework */,
 			);
@@ -272,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				1A3EFE10FD4C805BE0678107 /* Audio */,
+				F43F3AA3CC2122A64098FB32 /* GameCenter */,
 				09238F4B828335073EE53F77 /* Models */,
 				4CF0113EA265A100E6D63457 /* Persistence */,
 				7C2A74D76A96B59A460E3940 /* SpacedRepetition */,
@@ -284,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				2F2D634891A3202E39EF5F4C /* DailySessionView.swift */,
+				2CE6317481F50A88E020AC6D /* QuickWarmupView.swift */,
 				48885880DDCA5B9EBF6D454C /* TodayView.swift */,
 			);
 			path = Today;
@@ -312,6 +328,14 @@
 				B46C00A1CA9B5986BF7B8A1A /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F43F3AA3CC2122A64098FB32 /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				22AAA42FA8AFDA181DF2D4E8 /* GameCenterManager.swift */,
+			);
+			path = GameCenter;
 			sourceTree = "<group>";
 		};
 		FBED4F30182F20B2F9DEB748 /* Modules */ = {
@@ -434,12 +458,15 @@
 				6B5E7DC772C6D92FC4CCB195 /* AudioEngine.swift in Sources */,
 				C5E46F3989CF7B1DF6F88618 /* ChallengesView.swift in Sources */,
 				EC45D1836FA45E520E2D47B3 /* ChordDrillView.swift in Sources */,
+				1002977ADAA23B9C65B75706 /* ChordInversionsView.swift in Sources */,
 				BADDDC96530A8F2C1FAC4439 /* ChordProgressionView.swift in Sources */,
 				9FE99A9ECD408D4B609DEC23 /* ContentView.swift in Sources */,
 				D582B435149D763887B9F001 /* DailySessionView.swift in Sources */,
 				85664A0F87826CBBEFCE5046 /* DrillResult.swift in Sources */,
 				F514E223234AAC84E9E37003 /* EarIQApp.swift in Sources */,
 				4638E87AA2E7112F32C4E115 /* FunctionalEarDrillView.swift in Sources */,
+				6DC72F0F865EB2D3645D0F37 /* GameCenterManager.swift in Sources */,
+				1DF13F1CC7AFAF7679AB4571 /* IntervalComparisonView.swift in Sources */,
 				49CE545174ABE4D2C047E278 /* IntervalModuleView.swift in Sources */,
 				F1049FD9A55F453963DE9BF7 /* MelodyDictationView.swift in Sources */,
 				154EE73571AC8078710836F6 /* MusicTheory.swift in Sources */,
@@ -448,6 +475,7 @@
 				8F0FB685D5FAA597050E2F2C /* PaywallView.swift in Sources */,
 				BEEC5618CBA642D226A80F26 /* PitchDetector.swift in Sources */,
 				8A482E6C6044F82A6A1C2BB7 /* ProgressTabView.swift in Sources */,
+				C550B49A2FB9CB3036F05EA7 /* QuickWarmupView.swift in Sources */,
 				A5BC9AAF06853D1DBF44ACF6 /* RhythmTrainerView.swift in Sources */,
 				22C4E3612DBDE6DD8B80C82B /* SREngine.swift in Sources */,
 				2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */,

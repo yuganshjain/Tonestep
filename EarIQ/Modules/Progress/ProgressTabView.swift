@@ -5,8 +5,10 @@ struct ProgressTabView: View {
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
     @EnvironmentObject private var userProfile: UserProfileStore
     @StateObject private var achievementStore = AchievementStore()
+    @StateObject private var gcManager = GameCenterManager.shared
     @State private var shareImage: UIImage?
     @State private var showShare = false
+    @State private var showLeaderboard = false
 
     private var accuracyByModule: [(TrainingModule, Double)] {
         TrainingModule.allCases.compactMap { module in
@@ -66,13 +68,20 @@ struct ProgressTabView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        renderShareImage()
-                        showShare = true
-                    } label: {
-                        Image(systemName: "square.and.arrow.up")
+                    HStack(spacing: 14) {
+                        if GameCenterManager.shared.isAuthenticated {
+                            Button { showLeaderboard = true } label: {
+                                Image(systemName: "trophy.fill").foregroundStyle(.yellow)
+                            }
+                        }
+                        Button { renderShareImage(); showShare = true } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
                     }
                 }
+            }
+            .sheet(isPresented: $showLeaderboard) {
+                GameCenterLeaderboardView(leaderboardID: GameCenterManager.speedRoundLeaderboard)
             }
             .sheet(isPresented: $showShare) {
                 if let img = shareImage {

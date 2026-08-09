@@ -84,6 +84,8 @@ struct TrainView: View {
             case .chordProgressions:   ChordProgressionModuleView()
             case .singingPractice:     SingingPracticeModuleView()
             case .noteIdentification:  NoteIdentificationModuleView()
+            case .chordInversions:     ChordInversionsModuleView()
+            case .intervalComparison:  IntervalComparisonModuleView()
             default:                   ComingSoonView(module: module)
             }
         }
@@ -108,6 +110,8 @@ struct ModuleCard: View {
         case .absolutePitch:       return Color(red: 0.7, green: 0.5, blue: 0.1)
         case .singingPractice:     return Color(red: 0.9, green: 0.2, blue: 0.5)
         case .noteIdentification:  return Color(red: 0.1, green: 0.5, blue: 0.8)
+        case .chordInversions:     return Color(red: 0.5, green: 0.1, blue: 0.85)
+        case .intervalComparison:  return Color(red: 0.2, green: 0.5, blue: 0.9)
         }
     }
 
