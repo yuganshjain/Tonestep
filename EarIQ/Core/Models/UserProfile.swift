@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import WidgetKit
 
 enum Instrument: String, CaseIterable, Codable {
     case piano = "Piano"
@@ -72,10 +73,10 @@ final class UserProfileStore: ObservableObject {
         didSet { save(\UserProfileStore.sessionLength, key: "sessionLength") }
     }
     @Published var xp: Int {
-        didSet { UserDefaults.standard.set(xp, forKey: "xp") }
+        didSet { UserDefaults.standard.set(xp, forKey: "xp"); syncWidget() }
     }
     @Published var currentStreak: Int {
-        didSet { UserDefaults.standard.set(currentStreak, forKey: "currentStreak") }
+        didSet { UserDefaults.standard.set(currentStreak, forKey: "currentStreak"); syncWidget() }
     }
     @Published var longestStreak: Int {
         didSet { UserDefaults.standard.set(longestStreak, forKey: "longestStreak") }
@@ -148,6 +149,25 @@ final class UserProfileStore: ObservableObject {
         longestStreak = max(longestStreak, currentStreak)
         lastSessionDate = Date()
         addXP(50)
+    }
+
+    func syncWidget() {
+        let suiteName = "group.com.yugansh.EarIQ"
+        guard let ud = UserDefaults(suiteName: suiteName) else { return }
+        let current = EarIQLevel.level(for: xp)
+        let lo = EarIQLevel.thresholds[current].0
+        let hi = EarIQLevel.nextThreshold(for: xp)
+        let progress = hi > lo ? Double(xp - lo) / Double(hi - lo) : 1.0
+        let todayDone: Bool = {
+            guard let last = lastSessionDate else { return false }
+            return Calendar.current.isDateInToday(last)
+        }()
+        ud.set(currentStreak, forKey: "widget_streak")
+        ud.set(xp, forKey: "widget_xp")
+        ud.set(EarIQLevel.title(for: xp), forKey: "widget_levelName")
+        ud.set(progress, forKey: "widget_levelProgress")
+        ud.set(todayDone, forKey: "widget_todayDone")
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func save<T: Codable>(_ keyPath: KeyPath<UserProfileStore, T>, key: String) {

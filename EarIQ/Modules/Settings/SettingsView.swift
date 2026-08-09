@@ -14,11 +14,14 @@ struct SettingsView: View {
     @State private var showResetDone = false
     @State private var csvURL: URL?
     @State private var showCSVShare = false
+    @State private var notificationsEnabled = false
+    @State private var reminderTime = Calendar.current.date(from: DateComponents(hour: 20, minute: 0)) ?? Date()
 
     var body: some View {
         NavigationStack {
             Form {
                 practiceSection
+                notificationSection
                 audioSection
                 subscriptionSection
                 dataSection
@@ -60,6 +63,43 @@ struct SettingsView: View {
                 ForEach(SessionLength.allCases, id: \.self) { Text($0.label).tag($0) }
             }
         }
+    }
+
+    private var notificationSection: some View {
+        Section("Daily Reminder") {
+            Toggle("Practice Reminder", isOn: $notificationsEnabled)
+                .onChange(of: notificationsEnabled) { _, enabled in
+                    if enabled {
+                        NotificationManager.shared.requestPermission { granted in
+                            if granted {
+                                scheduleNotification()
+                            } else {
+                                notificationsEnabled = false
+                            }
+                        }
+                    } else {
+                        NotificationManager.shared.cancel()
+                    }
+                }
+            if notificationsEnabled {
+                DatePicker("Remind me at", selection: $reminderTime, displayedComponents: .hourAndMinute)
+                    .onChange(of: reminderTime) { _, _ in scheduleNotification() }
+            }
+        }
+        .onAppear {
+            notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+            if let saved = UserDefaults.standard.object(forKey: "reminderTime") as? Date {
+                reminderTime = saved
+            }
+        }
+    }
+
+    private func scheduleNotification() {
+        let cal = Calendar.current
+        let comps = cal.dateComponents([.hour, .minute], from: reminderTime)
+        NotificationManager.shared.schedule(at: comps)
+        UserDefaults.standard.set(notificationsEnabled, forKey: "notificationsEnabled")
+        UserDefaults.standard.set(reminderTime, forKey: "reminderTime")
     }
 
     private var audioSection: some View {

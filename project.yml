@@ -27,11 +27,16 @@ targets:
     resources:
       - path: EarIQ/Resources/Assets.xcassets
       - path: EarIQ/PrivacyInfo.xcprivacy
+    entitlements:
+      path: EarIQ/EarIQ.entitlements
     info:
       path: EarIQ/Info.plist
       properties:
         CFBundleDisplayName: EarIQ
         CFBundleName: EarIQ
+        CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - eariq
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UIRequiresFullScreen: true
@@ -44,6 +49,30 @@ targets:
       - sdk: SwiftData.framework
       - sdk: AudioToolbox.framework
       - sdk: GameKit.framework
+      - sdk: WidgetKit.framework
+      - target: EarIQWidget
+
+  EarIQWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: EarIQWidget
+    entitlements:
+      path: EarIQWidget/EarIQWidget.entitlements
+    info:
+      path: EarIQWidget/Info.plist
+      properties:
+        CFBundleDisplayName: EarIQ Widget
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQ.widget
+        SWIFT_VERSION: "5.9"
+        DEPLOYMENT_TARGET: "17.0"
+    dependencies:
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework
 
   EarIQTests:
     type: bundle.unit-test

@@ -86,6 +86,7 @@ struct TrainView: View {
             case .noteIdentification:  NoteIdentificationModuleView()
             case .chordInversions:     ChordInversionsModuleView()
             case .intervalComparison:  IntervalComparisonModuleView()
+            case .errorDetection:      ErrorDetectionModuleView()
             default:                   ComingSoonView(module: module)
             }
         }
@@ -112,6 +113,7 @@ struct ModuleCard: View {
         case .noteIdentification:  return Color(red: 0.1, green: 0.5, blue: 0.8)
         case .chordInversions:     return Color(red: 0.5, green: 0.1, blue: 0.85)
         case .intervalComparison:  return Color(red: 0.2, green: 0.5, blue: 0.9)
+        case .errorDetection:      return Color(red: 0.8, green: 0.2, blue: 0.2)
         }
     }
 
