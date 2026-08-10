@@ -148,8 +148,13 @@ struct TheoryLessonsView: View {
                 .padding(.vertical)
                 .padding(.bottom, 100)
             }
-            .background(Color(.systemGroupedBackground))
+            .scrollContentBackground(.hidden)
+            .background(Color.appPurple)
             .navigationTitle("Learn")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.appPurple, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .navigationBarTitleDisplayMode(.large)
             .sheet(item: $selectedLesson) { lesson in
                 LessonDetailView(lesson: lesson) {

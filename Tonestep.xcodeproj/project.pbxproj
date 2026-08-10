@@ -49,6 +49,7 @@
 		686C6D76702D3063E1DEC87A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C78F04A4B9188E1505693B3 /* WidgetKit.framework */; };
 		6D0266B4BDF74063731103F3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA2816341B18BA0A521416 /* NotificationManager.swift */; };
 		731B808B5CA45F8F1DE275DD /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DF71350A84E8F5E00C5EA8 /* CoreMIDI.framework */; };
+		768EBCA2508DD02008AD629C /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3088F3F981A850EC3C8A55A /* AppLinks.swift */; };
 		78F7091A907EE88A9A04034F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648DEC55169AF03286E8A749 /* GameKit.framework */; };
 		7D2A53952CE2108FB6C483ED /* DrillSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB29F50A81B46A0551F033 /* DrillSpec.swift */; };
 		82ED93BF5190A48A2B6646E3 /* ChordInversionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */; };
@@ -195,6 +196,7 @@
 		A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
 		AA9508C648F23EBEA1C3B29E /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		AECB29F50A81B46A0551F033 /* DrillSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSpec.swift; sourceTree = "<group>"; };
+		B3088F3F981A850EC3C8A55A /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		B5917C0DD5B03D4744EB3B18 /* JourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyView.swift; sourceTree = "<group>"; };
 		B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSamplingTests.swift; sourceTree = "<group>"; };
 		B8DAEE53AD8A3AD49889F890 /* QuickWarmupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWarmupView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				D7AC0C906B4655EEBCE43943 /* Achievement.swift */,
+				B3088F3F981A850EC3C8A55A /* AppLinks.swift */,
 				D06F5B8702E26158E0B6F8BD /* DrillResult.swift */,
 				2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */,
 				8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */,
@@ -747,6 +750,7 @@
 			files = (
 				0F792DF3C94595F2AF671585 /* AbsolutePitchView.swift in Sources */,
 				AA43E5BB4C2AD0CD50E69BB5 /* Achievement.swift in Sources */,
+				768EBCA2508DD02008AD629C /* AppLinks.swift in Sources */,
 				4863DEBC03CE40D7069B7927 /* AppTheme.swift in Sources */,
 				18848CE0400A75BF77F06634 /* AudioEngine.swift in Sources */,
 				E7642407AF66E48A166E19D8 /* ChallengesView.swift in Sources */,

@@ -27,7 +27,13 @@ struct SettingsView: View {
                 dataSection
                 aboutSection
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.appPurple)
             .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.appPurple, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
             .sheet(isPresented: $showPaywall) { PaywallView() }
             .sheet(isPresented: $showCSVShare) {
                 if let url = csvURL {
@@ -49,7 +55,7 @@ struct SettingsView: View {
     }
 
     private var practiceSection: some View {
-        Section("Practice") {
+        Section(header: Text("Practice").foregroundStyle(.white.opacity(0.85))) {
             Picker("Instrument", selection: $userProfile.instrument) {
                 ForEach(Instrument.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
@@ -66,7 +72,7 @@ struct SettingsView: View {
     }
 
     private var notificationSection: some View {
-        Section("Daily Reminder") {
+        Section(header: Text("Daily Reminder").foregroundStyle(.white.opacity(0.85))) {
             Toggle("Practice Reminder", isOn: $notificationsEnabled)
                 .onChange(of: notificationsEnabled) { _, enabled in
                     if enabled {
@@ -103,15 +109,15 @@ struct SettingsView: View {
     }
 
     private var audioSection: some View {
-        Section("Audio") {
-            Button("Test Piano Sound") {
+        Section(header: Text("Audio").foregroundStyle(.white.opacity(0.85))) {
+            Button("Test \(userProfile.instrument.rawValue) Sound") {
                 AudioEngine.shared.playNote(midiNote: 60, duration: 1.5)
             }
         }
     }
 
     private var subscriptionSection: some View {
-        Section("Tonestep Pro") {
+        Section(header: Text("Tonestep Pro").foregroundStyle(.white.opacity(0.85))) {
             if storeManager.isPro {
                 HStack {
                     Image(systemName: "checkmark.seal.fill").foregroundStyle(Color.purple)
@@ -128,7 +134,7 @@ struct SettingsView: View {
     }
 
     private var dataSection: some View {
-        Section("Data") {
+        Section(header: Text("Data").foregroundStyle(.white.opacity(0.85))) {
             Button("Export Practice History (CSV)") {
                 exportCSV()
             }
@@ -142,14 +148,18 @@ struct SettingsView: View {
     }
 
     private var aboutSection: some View {
-        Section("About") {
+        Section(header: Text("About").foregroundStyle(.white.opacity(0.85))) {
             HStack {
                 Text("Version")
                 Spacer()
                 Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                     .foregroundStyle(.secondary)
             }
-            Link("Privacy Policy", destination: URL(string: "https://yugansh.com/eariq/privacy")!)
+            // Served by GitHub Pages from docs/. Verified live.
+            // NOTE: the path carries the old repo name. Renaming the GitHub repo
+            // to match the app would break this link and fail App Store review,
+            // which requires the privacy URL to load.
+            Link("Privacy Policy", destination: AppLinks.privacyPolicy)
             Button("Rate Tonestep on the App Store") {
                 requestReview()
             }
