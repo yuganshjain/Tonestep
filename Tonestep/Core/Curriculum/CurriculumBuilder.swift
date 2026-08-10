@@ -51,6 +51,21 @@ enum CurriculumBuilder {
     private static let freeFieldSmall: [ContentItem] = midIntervals + triads4 + degrees7
     private static let freeFieldFull: [ContentItem] = allIntervals + triads4 + sevenths3 + degrees7 + scales4
 
+
+    private static let cadences3: [ContentItem] = [
+        .progression(ChordProgression.all[0]),   // I-IV-V-I
+        .progression(ChordProgression.all[1]),   // I-V-vi-IV
+        .progression(ChordProgression.all[2])    // ii-V-I
+    ]
+    private static let cadences5: [ContentItem] = cadences3 + [
+        .progression(ChordProgression.all[3]),   // I-vi-IV-V
+        .progression(ChordProgression.all[4])    // vi-IV-I-V
+    ]
+    private static let cadences7: [ContentItem] = cadences5 + [
+        .progression(ChordProgression.all[5]),   // I-IV-I-V
+        .progression(ChordProgression.all[6])    // Andalusian
+    ]
+
     // MARK: - Chapters
 
     static let allChapters: [Chapter] = [
@@ -170,6 +185,21 @@ enum CurriculumBuilder {
                 contextStart: .droneRoot, contextEnd: .isolated,
                 voicingStart: [.harmonic], voicingEnd: [.harmonic, .ascending],
                 registerStart: .twoOctaves, registerEnd: .threeOctaves,
+                rootStart: .fixedC, rootEnd: .randomRoot,
+                replaysAtEnd: 2, deadlineAtEnd: nil
+            ),
+            isProOnly: true
+        ),
+        Chapter(
+            id: "cadences_and_motion", title: "Cadences and Motion",
+            subtitle: "How progressions create tension and release",
+            modules: [.chordProgressions], stageCount: 10,
+            envelope: DifficultyEnvelope(
+                poolSteps: [cadences3, cadences5, cadences7],
+                answerSetStart: 3, answerSetEnd: 6,
+                contextStart: .cadencePrimer, contextEnd: .isolated,
+                voicingStart: [.harmonic], voicingEnd: [.harmonic],
+                registerStart: .fixedMiddle, registerEnd: .twoOctaves,
                 rootStart: .fixedC, rootEnd: .randomRoot,
                 replaysAtEnd: 2, deadlineAtEnd: nil
             ),

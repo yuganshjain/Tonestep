@@ -7,16 +7,16 @@ final class CurriculumBuilderTests: XCTestCase {
         XCTAssertEqual(CurriculumBuilder.chapters(for: .free).count, 7)
     }
 
-    func test_pro_curriculum_has_ten_chapters() {
-        XCTAssertEqual(CurriculumBuilder.chapters(for: .pro).count, 10)
+    func test_pro_curriculum_has_eleven_chapters() {
+        XCTAssertEqual(CurriculumBuilder.chapters(for: .pro).count, 11)
     }
 
     func test_free_curriculum_has_seventy_stages() {
         XCTAssertEqual(CurriculumBuilder.stages(for: .free).count, 70)
     }
 
-    func test_pro_curriculum_has_one_hundred_two_stages() {
-        XCTAssertEqual(CurriculumBuilder.stages(for: .pro).count, 102)
+    func test_pro_curriculum_has_one_hundred_twelve_stages() {
+        XCTAssertEqual(CurriculumBuilder.stages(for: .pro).count, 112)
     }
 
     func test_no_free_chapter_is_pro_only() {
@@ -60,8 +60,10 @@ final class CurriculumBuilderTests: XCTestCase {
     }
 
     func test_all_pools_use_only_anchor_modules() {
+        // Anchor modules plus any module converted to a spec-driven renderer.
         let anchors: Set<TrainingModule> = [.intervalRecognition, .chordRecognition,
-                                            .scaleRecognition, .functionalEar]
+                                            .scaleRecognition, .functionalEar,
+                                            .chordProgressions]
         for stage in CurriculumBuilder.stages(for: .pro) {
             for item in stage.params.contentPool {
                 XCTAssertTrue(anchors.contains(item.module), "non-anchor module at \(stage.id)")

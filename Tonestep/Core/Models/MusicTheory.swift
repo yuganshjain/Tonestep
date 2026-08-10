@@ -190,7 +190,12 @@ enum ScaleDegree: Int, CaseIterable, Codable {
 
 // MARK: - Chord Progressions
 
-struct ChordProgression: Identifiable, Equatable {
+struct ChordProgression: Identifiable, Equatable, Hashable, Codable {
+    /// Identity is the id alone — the other fields are fixed lookup data, and
+    /// hashing them all would make ContentItem needlessly expensive.
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
+    static func == (lhs: ChordProgression, rhs: ChordProgression) -> Bool { lhs.id == rhs.id }
+
     let id: String
     let name: String
     let romanNumerals: [String]

@@ -12,6 +12,11 @@ struct ChordProgressionModuleView: View {
 }
 
 struct ChordProgressionDrillView: View {
+    /// When supplied, this exact progression is asked instead of a random one.
+    var spec: DrillSpec? = nil
+    /// When supplied, the caller owns recording; the view records nothing itself.
+    var onComplete: ((Bool, TimeInterval) -> Void)? = nil
+
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var userProfile: UserProfileStore
 
@@ -173,19 +178,32 @@ struct ChordProgressionDrillView: View {
         score.total += 1
         if correct { score.correct += 1 }
 
-        let result = DrillResult(module: .chordProgressions,
-                                 drillType: "progression_\(current.id)",
-                                 wasCorrect: correct,
-                                 responseTime: Date().timeIntervalSince(drillStart))
-        modelContext.insert(result)
-        DrillRecorder.grade(result, context: modelContext)
-        if correct { userProfile.addXP(15) }
+        let elapsed = Date().timeIntervalSince(drillStart)
+        if let onComplete {
+            onComplete(correct, elapsed)
+        } else {
+            let result = DrillResult(module: .chordProgressions,
+                                     drillType: "progression_\(current.id)",
+                                     wasCorrect: correct,
+                                     responseTime: elapsed)
+            modelContext.insert(result)
+            DrillRecorder.grade(result, context: modelContext)
+            if correct { userProfile.addXP(15) }
+        }
     }
 
     private func nextDrill() {
-        current = ChordProgression.all.randomElement()!
-        var pool = ChordProgression.all.filter { $0.id != current.id }.shuffled()
-        options = ([current] + Array(pool.prefix(3))).shuffled()
+        if let spec, case .progression(let p) = spec.item {
+            current = p
+            rootMidi = spec.rootMidi
+            options = spec.choices.compactMap {
+                if case .progression(let c) = $0 { return c } else { return nil }
+            }
+        } else {
+            current = ChordProgression.all.randomElement()!
+            let pool = ChordProgression.all.filter { $0.id != current.id }.shuffled()
+            options = ([current] + Array(pool.prefix(3))).shuffled()
+        }
         selected = nil
         isPlaying = false
         drillStart = Date()

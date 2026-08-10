@@ -18,7 +18,7 @@ struct DrillSpec: Equatable {
         switch item {
         case .interval:
             return "\(item.drillType)_\(voicing.legacySuffix)"
-        case .chord, .scale, .degree:
+        case .chord, .scale, .degree, .progression:
             return item.drillType
         }
     }

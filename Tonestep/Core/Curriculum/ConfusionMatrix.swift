@@ -51,7 +51,8 @@ enum ConfusionMatrix {
     private static func sameKind(_ a: ContentItem, _ b: ContentItem) -> Bool {
         switch (a, b) {
         case (.interval, .interval), (.chord, .chord),
-             (.scale, .scale), (.degree, .degree):
+             (.scale, .scale), (.degree, .degree),
+             (.progression, .progression):
             return true
         default:
             return false

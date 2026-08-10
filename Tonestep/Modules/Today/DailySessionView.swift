@@ -255,6 +255,8 @@ struct DrillDispatchView: View {
                 ScaleDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
             case .functionalEar:
                 FunctionalEarDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
+            case .chordProgressions:
+                ChordProgressionDrillView(spec: spec, onComplete: onComplete)
             default:
                 IntervalDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
             }
