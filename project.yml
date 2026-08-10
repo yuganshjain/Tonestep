@@ -23,6 +23,13 @@ targets:
     platform: iOS
     sources:
       - path: EarIQ
+        excludes:
+          - "Resources/Lessons"
+      # Folder reference, not a group: LessonLibrary looks the pieces up with
+      # Bundle.urls(forResourcesWithExtension:subdirectory:"Lessons"), which
+      # only resolves if the directory survives into the bundle.
+      - path: EarIQ/Resources/Lessons
+        type: folder
     resources:
       - path: EarIQ/Resources/Assets.xcassets
       - path: EarIQ/PrivacyInfo.xcprivacy
