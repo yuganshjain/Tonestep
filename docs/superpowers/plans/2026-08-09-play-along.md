@@ -26,20 +26,20 @@
 ### Task 1: NoteEvent, NoteInputSource, FakeInputSource
 
 **Files:**
-- Create: `EarIQ/Core/PlayAlong/NoteEvent.swift`
-- Create: `EarIQ/Core/PlayAlong/NoteInputSource.swift`
-- Test: `EarIQTests/NoteInputSourceTests.swift`
+- Create: `Tonestep/Core/PlayAlong/NoteEvent.swift`
+- Create: `Tonestep/Core/PlayAlong/NoteInputSource.swift`
+- Test: `TonestepTests/NoteInputSourceTests.swift`
 
 **Interfaces:**
 - Produces: `NoteEvent(midiNote:velocity:isOn:timestamp:)`; `NoteInputSource` protocol with `onEvent`, `start()`, `stop()`; `FakeInputSource` with `emit(_:)`.
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/NoteInputSourceTests.swift`:
+Create `TonestepTests/NoteInputSourceTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class NoteInputSourceTests: XCTestCase {
     func test_fake_source_forwards_events() {
@@ -77,13 +77,13 @@ final class NoteInputSourceTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/NoteInputSourceTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/NoteInputSourceTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'FakeInputSource' in scope`
 
 - [ ] **Step 3a: Create NoteEvent**
 
-Create `EarIQ/Core/PlayAlong/NoteEvent.swift`:
+Create `Tonestep/Core/PlayAlong/NoteEvent.swift`:
 
 ```swift
 import Foundation
@@ -101,7 +101,7 @@ struct NoteEvent: Equatable {
 
 - [ ] **Step 3b: Create the protocol and fake**
 
-Create `EarIQ/Core/PlayAlong/NoteInputSource.swift`:
+Create `Tonestep/Core/PlayAlong/NoteInputSource.swift`:
 
 ```swift
 import Foundation
@@ -131,14 +131,14 @@ final class FakeInputSource: NoteInputSource {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/NoteInputSourceTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/NoteInputSourceTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 3 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/ EarIQTests/NoteInputSourceTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/ TonestepTests/NoteInputSourceTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add NoteEvent and NoteInputSource abstraction"
 ```
 
@@ -147,19 +147,19 @@ git commit -m "feat: add NoteEvent and NoteInputSource abstraction"
 ### Task 2: PlaybackClock
 
 **Files:**
-- Create: `EarIQ/Core/PlayAlong/PlaybackClock.swift`
-- Test: `EarIQTests/PlaybackClockTests.swift`
+- Create: `Tonestep/Core/PlayAlong/PlaybackClock.swift`
+- Test: `TonestepTests/PlaybackClockTests.swift`
 
 **Interfaces:**
 - Produces: `PlaybackClock` protocol with `now: TimeInterval`; `SystemClock`; `FakeClock` with `advance(by:)` and settable `now`.
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/PlaybackClockTests.swift`:
+Create `TonestepTests/PlaybackClockTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class PlaybackClockTests: XCTestCase {
     func test_fake_clock_starts_at_zero() {
@@ -184,13 +184,13 @@ final class PlaybackClockTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlaybackClockTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlaybackClockTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'FakeClock' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/PlayAlong/PlaybackClock.swift`:
+Create `Tonestep/Core/PlayAlong/PlaybackClock.swift`:
 
 ```swift
 import Foundation
@@ -216,14 +216,14 @@ final class FakeClock: PlaybackClock {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlaybackClockTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlaybackClockTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 3 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/PlaybackClock.swift EarIQTests/PlaybackClockTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/PlaybackClock.swift TonestepTests/PlaybackClockTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add PlaybackClock abstraction with deterministic fake"
 ```
 
@@ -232,12 +232,12 @@ git commit -m "feat: add PlaybackClock abstraction with deterministic fake"
 ### Task 3: LessonPiece and bundled content
 
 **Files:**
-- Create: `EarIQ/Core/PlayAlong/LessonPiece.swift`
-- Create: `EarIQ/Resources/Lessons/ode_to_joy.json`
-- Create: `EarIQ/Resources/Lessons/twinkle.json`
-- Create: `EarIQ/Resources/Lessons/mary_had_a_little_lamb.json`
+- Create: `Tonestep/Core/PlayAlong/LessonPiece.swift`
+- Create: `Tonestep/Resources/Lessons/ode_to_joy.json`
+- Create: `Tonestep/Resources/Lessons/twinkle.json`
+- Create: `Tonestep/Resources/Lessons/mary_had_a_little_lamb.json`
 - Modify: `project.yml` (bundle the Lessons folder as a resource)
-- Test: `EarIQTests/LessonPieceTests.swift`
+- Test: `TonestepTests/LessonPieceTests.swift`
 
 **Interfaces:**
 - Consumes: nothing.
@@ -247,11 +247,11 @@ All three pieces are traditional or Beethoven — public domain, no licensing ex
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/LessonPieceTests.swift`:
+Create `TonestepTests/LessonPieceTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class LessonPieceTests: XCTestCase {
 
@@ -313,13 +313,13 @@ final class LessonPieceTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/LessonPieceTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/LessonPieceTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'LessonPiece' in scope`
 
 - [ ] **Step 3a: Create the model and library**
 
-Create `EarIQ/Core/PlayAlong/LessonPiece.swift`:
+Create `Tonestep/Core/PlayAlong/LessonPiece.swift`:
 
 ```swift
 import Foundation
@@ -371,7 +371,7 @@ enum LessonLibrary {
 
 - [ ] **Step 3b: Create the three pieces**
 
-Create `EarIQ/Resources/Lessons/ode_to_joy.json` (Beethoven, public domain):
+Create `Tonestep/Resources/Lessons/ode_to_joy.json` (Beethoven, public domain):
 
 ```json
 {
@@ -399,7 +399,7 @@ Create `EarIQ/Resources/Lessons/ode_to_joy.json` (Beethoven, public domain):
 }
 ```
 
-Create `EarIQ/Resources/Lessons/twinkle.json` (traditional):
+Create `Tonestep/Resources/Lessons/twinkle.json` (traditional):
 
 ```json
 {
@@ -426,7 +426,7 @@ Create `EarIQ/Resources/Lessons/twinkle.json` (traditional):
 }
 ```
 
-Create `EarIQ/Resources/Lessons/mary_had_a_little_lamb.json` (traditional):
+Create `Tonestep/Resources/Lessons/mary_had_a_little_lamb.json` (traditional):
 
 ```json
 {
@@ -454,17 +454,17 @@ Create `EarIQ/Resources/Lessons/mary_had_a_little_lamb.json` (traditional):
 
 - [ ] **Step 3c: Bundle the folder preserving its directory**
 
-`Bundle.urls(forResourcesWithExtension:subdirectory:)` only finds files if the folder is bundled as a **folder reference**, not a group. In `project.yml`, inside the `EarIQ` target's `sources:` list, add:
+`Bundle.urls(forResourcesWithExtension:subdirectory:)` only finds files if the folder is bundled as a **folder reference**, not a group. In `project.yml`, inside the `Tonestep` target's `sources:` list, add:
 
 ```yaml
-      - path: EarIQ/Resources/Lessons
+      - path: Tonestep/Resources/Lessons
         type: folder
 ```
 
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/LessonPieceTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/LessonPieceTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 9 tests, with 0 failures`
 
@@ -473,7 +473,7 @@ If `test_library_loads_every_bundled_piece` fails with 0 pieces, the folder was 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/LessonPiece.swift EarIQ/Resources/Lessons/ EarIQTests/LessonPieceTests.swift project.yml EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/LessonPiece.swift Tonestep/Resources/Lessons/ TonestepTests/LessonPieceTests.swift project.yml Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add LessonPiece model and three public-domain pieces"
 ```
 
@@ -482,8 +482,8 @@ git commit -m "feat: add LessonPiece model and three public-domain pieces"
 ### Task 4: PlayAlongEngine judging
 
 **Files:**
-- Create: `EarIQ/Core/PlayAlong/PlayAlongEngine.swift`
-- Test: `EarIQTests/PlayAlongJudgingTests.swift`
+- Create: `Tonestep/Core/PlayAlong/PlayAlongEngine.swift`
+- Test: `TonestepTests/PlayAlongJudgingTests.swift`
 
 **Interfaces:**
 - Consumes: `LessonPiece`, `NoteEvent`.
@@ -493,11 +493,11 @@ This is the heart of the product. Every timing boundary is tested on both sides.
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/PlayAlongJudgingTests.swift`:
+Create `TonestepTests/PlayAlongJudgingTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class PlayAlongJudgingTests: XCTestCase {
 
@@ -656,13 +656,13 @@ final class PlayAlongJudgingTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlayAlongJudgingTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlayAlongJudgingTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'PlayAlongEngine' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/PlayAlong/PlayAlongEngine.swift`:
+Create `Tonestep/Core/PlayAlong/PlayAlongEngine.swift`:
 
 ```swift
 import Foundation
@@ -756,14 +756,14 @@ final class PlayAlongEngine {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlayAlongJudgingTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlayAlongJudgingTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 19 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/PlayAlongEngine.swift EarIQTests/PlayAlongJudgingTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/PlayAlongEngine.swift TonestepTests/PlayAlongJudgingTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add PlayAlongEngine note judging"
 ```
 
@@ -772,19 +772,19 @@ git commit -m "feat: add PlayAlongEngine note judging"
 ### Task 5: Scoring and result
 
 **Files:**
-- Modify: `EarIQ/Core/PlayAlong/PlayAlongEngine.swift`
-- Test: `EarIQTests/PlayAlongScoringTests.swift`
+- Modify: `Tonestep/Core/PlayAlong/PlayAlongEngine.swift`
+- Test: `TonestepTests/PlayAlongScoringTests.swift`
 
 **Interfaces:**
 - Produces: `PlayAlongResult(accuracy:stars:perfect:good:late:missed:wrongNotes:)`; `PlayAlongEngine.result() -> PlayAlongResult`.
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/PlayAlongScoringTests.swift`:
+Create `TonestepTests/PlayAlongScoringTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class PlayAlongScoringTests: XCTestCase {
 
@@ -881,7 +881,7 @@ final class PlayAlongScoringTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlayAlongScoringTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlayAlongScoringTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `value of type 'PlayAlongEngine' has no member 'result'`
 
@@ -945,14 +945,14 @@ struct PlayAlongResult: Equatable {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/PlayAlongScoringTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/PlayAlongScoringTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 8 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/PlayAlongEngine.swift EarIQTests/PlayAlongScoringTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/PlayAlongEngine.swift TonestepTests/PlayAlongScoringTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add Play-Along scoring and result"
 ```
 
@@ -961,7 +961,7 @@ git commit -m "feat: add Play-Along scoring and result"
 ### Task 6: MIDIInputSource
 
 **Files:**
-- Create: `EarIQ/Core/PlayAlong/MIDIInputSource.swift`
+- Create: `Tonestep/Core/PlayAlong/MIDIInputSource.swift`
 - Modify: `project.yml` (add CoreMIDI framework)
 
 **Interfaces:**
@@ -974,7 +974,7 @@ acceptable.
 
 - [ ] **Step 1: Add the framework**
 
-In `project.yml`, under the `EarIQ` target's `dependencies:`, add:
+In `project.yml`, under the `Tonestep` target's `dependencies:`, add:
 
 ```yaml
       - sdk: CoreMIDI.framework
@@ -982,7 +982,7 @@ In `project.yml`, under the `EarIQ` target's `dependencies:`, add:
 
 - [ ] **Step 2: Write the adapter**
 
-Create `EarIQ/Core/PlayAlong/MIDIInputSource.swift`:
+Create `Tonestep/Core/PlayAlong/MIDIInputSource.swift`:
 
 ```swift
 import Foundation
@@ -1004,13 +1004,13 @@ final class MIDIInputSource: NSObject, NoteInputSource, ObservableObject {
         guard !isRunning else { return }
         isRunning = true
 
-        MIDIClientCreateWithBlock("EarIQ" as CFString, &client) { [weak self] _ in
+        MIDIClientCreateWithBlock("Tonestep" as CFString, &client) { [weak self] _ in
             // Devices come and go; re-scan so a mid-lesson reconnect keeps working.
             self?.connectAllSources()
         }
 
         MIDIInputPortCreateWithProtocol(
-            client, "EarIQ Input" as CFString, ._1_0, &inputPort
+            client, "Tonestep Input" as CFString, ._1_0, &inputPort
         ) { [weak self] eventList, _ in
             self?.handle(eventList: eventList)
         }
@@ -1080,21 +1080,21 @@ final class MIDIInputSource: NSObject, NoteInputSource, ObservableObject {
 - [ ] **Step 3: Verify it compiles**
 
 ```bash
-xcodegen generate && xcodebuild -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
+xcodegen generate && xcodebuild -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
 ```
 Expected: `** BUILD SUCCEEDED **`
 
 - [ ] **Step 4: Confirm the suite still passes**
 
 ```bash
-xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
+xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
 ```
 Expected: `** TEST SUCCEEDED **`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/PlayAlong/MIDIInputSource.swift project.yml EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/PlayAlong/MIDIInputSource.swift project.yml Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add CoreMIDI input source"
 ```
 
@@ -1103,7 +1103,7 @@ git commit -m "feat: add CoreMIDI input source"
 ### Task 7: PianoKeyboardView and OnScreenInputSource
 
 **Files:**
-- Create: `EarIQ/Modules/PlayAlong/PianoKeyboardView.swift`
+- Create: `Tonestep/Modules/PlayAlong/PianoKeyboardView.swift`
 
 **Interfaces:**
 - Consumes: `NoteInputSource`, `NoteEvent`, `Color.appPurple`.
@@ -1113,7 +1113,7 @@ This is what makes the whole feature developable in the Simulator, where no MIDI
 
 - [ ] **Step 1: Write the view and source**
 
-Create `EarIQ/Modules/PlayAlong/PianoKeyboardView.swift`:
+Create `Tonestep/Modules/PlayAlong/PianoKeyboardView.swift`:
 
 ```swift
 import SwiftUI
@@ -1199,14 +1199,14 @@ struct PianoKeyboardView: View {
 - [ ] **Step 2: Verify it compiles**
 
 ```bash
-xcodegen generate && xcodebuild -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
+xcodegen generate && xcodebuild -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
 ```
 Expected: `** BUILD SUCCEEDED **`
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add EarIQ/Modules/PlayAlong/PianoKeyboardView.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Modules/PlayAlong/PianoKeyboardView.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add on-screen piano keyboard input"
 ```
 
@@ -1215,7 +1215,7 @@ git commit -m "feat: add on-screen piano keyboard input"
 ### Task 8: PlayAlongView
 
 **Files:**
-- Create: `EarIQ/Modules/PlayAlong/PlayAlongView.swift`
+- Create: `Tonestep/Modules/PlayAlong/PlayAlongView.swift`
 
 **Interfaces:**
 - Consumes: `LessonPiece`, `PlayAlongEngine`, `MIDIInputSource`, `OnScreenInputSource`, `PianoKeyboardView`, `SystemClock`.
@@ -1223,7 +1223,7 @@ git commit -m "feat: add on-screen piano keyboard input"
 
 - [ ] **Step 1: Write the view**
 
-Create `EarIQ/Modules/PlayAlong/PlayAlongView.swift`:
+Create `Tonestep/Modules/PlayAlong/PlayAlongView.swift`:
 
 ```swift
 import SwiftUI
@@ -1362,7 +1362,7 @@ struct PlayAlongView: View {
 - [ ] **Step 2: Verify it compiles**
 
 ```bash
-xcodegen generate && xcodebuild -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
+xcodegen generate && xcodebuild -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' build 2>&1 | grep -E "BUILD (SUCCEEDED|FAILED)|error:"
 ```
 Expected: `** BUILD SUCCEEDED **` (fails until Task 9 adds `PlayAlongResultView`; do Task 9 then rebuild)
 
@@ -1373,7 +1373,7 @@ Expected: `** BUILD SUCCEEDED **` (fails until Task 9 adds `PlayAlongResultView`
 ### Task 9: Result screen and progress integration
 
 **Files:**
-- Create: `EarIQ/Modules/PlayAlong/PlayAlongResultView.swift`
+- Create: `Tonestep/Modules/PlayAlong/PlayAlongResultView.swift`
 
 **Interfaces:**
 - Consumes: `LessonPiece`, `PlayAlongResult`, `DrillResult`, `TrainingModule`.
@@ -1384,7 +1384,7 @@ changes to those systems.
 
 - [ ] **Step 1: Write the view**
 
-Create `EarIQ/Modules/PlayAlong/PlayAlongResultView.swift`:
+Create `Tonestep/Modules/PlayAlong/PlayAlongResultView.swift`:
 
 ```swift
 import SwiftUI
@@ -1472,7 +1472,7 @@ struct PlayAlongResultView: View {
 - [ ] **Step 2: Build and run the whole suite**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)|error:"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)|error:"
 ```
 Expected: `** TEST SUCCEEDED **`
 
@@ -1483,13 +1483,13 @@ notes scroll and reach the judgement line in time with the count-in; tapping a h
 turns the note green; ignoring notes turns them red; the result screen shows a plausible score.
 
 ```bash
-xcrun simctl launch 907A43A4-894B-4875-A20B-660CFCB02AD0 com.yugansh.EarIQ
+xcrun simctl launch 907A43A4-894B-4875-A20B-660CFCB02AD0 com.yugansh.Tonestep
 ```
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add EarIQ/Modules/PlayAlong/ EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Modules/PlayAlong/ Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add Play-Along lesson view and result screen"
 ```
 
@@ -1497,7 +1497,7 @@ git commit -m "feat: add Play-Along lesson view and result screen"
 
 ## Definition of done
 
-- `xcodebuild test -scheme EarIQ` passes.
+- `xcodebuild test -scheme Tonestep` passes.
 - A lesson is playable end to end in the Simulator using the on-screen keyboard.
 - Every judging window is covered by a test on both sides of its boundary.
 - `MIDIInputSource` contains no judging logic.

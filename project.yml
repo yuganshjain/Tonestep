@@ -1,4 +1,4 @@
-name: EarIQ
+name: Tonestep
 options:
   bundleIdPrefix: com.yugansh
   deploymentTarget:
@@ -13,36 +13,36 @@ settings:
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
     ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-    INFOPLIST_KEY_NSMicrophoneUsageDescription: "EarIQ uses the microphone for pitch detection in Singing Practice exercises."
+    INFOPLIST_KEY_NSMicrophoneUsageDescription: "Tonestep uses the microphone for pitch detection in Singing Practice exercises."
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
     INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
 
 targets:
-  EarIQ:
+  Tonestep:
     type: application
     platform: iOS
     sources:
-      - path: EarIQ
+      - path: Tonestep
         excludes:
           - "Resources/Lessons"
       # Folder reference, not a group: LessonLibrary looks the pieces up with
       # Bundle.urls(forResourcesWithExtension:subdirectory:"Lessons"), which
       # only resolves if the directory survives into the bundle.
-      - path: EarIQ/Resources/Lessons
+      - path: Tonestep/Resources/Lessons
         type: folder
     resources:
-      - path: EarIQ/Resources/Assets.xcassets
-      - path: EarIQ/PrivacyInfo.xcprivacy
+      - path: Tonestep/Resources/Assets.xcassets
+      - path: Tonestep/PrivacyInfo.xcprivacy
     entitlements:
-      path: EarIQ/EarIQ.entitlements
+      path: Tonestep/Tonestep.entitlements
     info:
-      path: EarIQ/Info.plist
+      path: Tonestep/Info.plist
       properties:
-        CFBundleDisplayName: EarIQ
-        CFBundleName: EarIQ
+        CFBundleDisplayName: Tonestep
+        CFBundleName: Tonestep
         CFBundleURLTypes:
           - CFBundleURLSchemes:
-              - eariq
+              - tonestep
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UIRequiresFullScreen: true
@@ -53,7 +53,7 @@ targets:
           UIColorName: LaunchBackground
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQ
+        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.Tonestep
     dependencies:
       - sdk: AVFoundation.framework
       - sdk: StoreKit.framework
@@ -62,40 +62,40 @@ targets:
       - sdk: GameKit.framework
       - sdk: CoreMIDI.framework
       - sdk: WidgetKit.framework
-      - target: EarIQWidget
+      - target: TonestepWidget
 
-  EarIQWidget:
+  TonestepWidget:
     type: app-extension
     platform: iOS
     sources:
-      - path: EarIQWidget
+      - path: TonestepWidget
     entitlements:
-      path: EarIQWidget/EarIQWidget.entitlements
+      path: TonestepWidget/TonestepWidget.entitlements
     info:
-      path: EarIQWidget/Info.plist
+      path: TonestepWidget/Info.plist
       properties:
-        CFBundleDisplayName: EarIQ Widget
+        CFBundleDisplayName: Tonestep Widget
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQ.widget
+        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.Tonestep.widget
         SWIFT_VERSION: "5.9"
         DEPLOYMENT_TARGET: "17.0"
     dependencies:
       - sdk: WidgetKit.framework
       - sdk: SwiftUI.framework
 
-  EarIQTests:
+  TonestepTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: EarIQTests
+      - path: TonestepTests
     dependencies:
-      - target: EarIQ
+      - target: Tonestep
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.EarIQTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.TonestepTests
         # Without this the test bundle has no Info.plist and code signing fails,
         # so `xcodebuild test` never runs a single test.
         GENERATE_INFOPLIST_FILE: YES

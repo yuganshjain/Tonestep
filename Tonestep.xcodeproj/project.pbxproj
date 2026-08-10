@@ -1,0 +1,1087 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0190ECEA3E4A74978945E50E /* StageEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7522B3C6FB8AE221C829CC75 /* StageEvaluatorTests.swift */; };
+		0BCB425AFED85AACB774B6DA /* TheoryLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B04DC516CADF0D54E52D3D /* TheoryLessonsView.swift */; };
+		0EF8F43B7E2BC1735B5BE071 /* MusicTheory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */; };
+		0F792DF3C94595F2AF671585 /* AbsolutePitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8E50D53A42A615FE4F9EE7 /* AbsolutePitchView.swift */; };
+		10D3F5D7C97CB4C25884DE5D /* ErrorDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFBE5ACA8DB799A5F7A24AA /* ErrorDetectionView.swift */; };
+		128A2129E6673D0D976EB574 /* DrillResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06F5B8702E26158E0B6F8BD /* DrillResult.swift */; };
+		14C565C160E1DE872B7F8363 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53FDC30C8F8BE6FC43E8945 /* ContentView.swift */; };
+		160CD1AC9DA3F060B706FA1E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD0F97BEA2E5D1E02852141 /* SwiftUI.framework */; };
+		16E942A05992D6CDE64142DB /* ScaleDrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC101757213264AFEA40FA /* ScaleDrillView.swift */; };
+		17193F1F75AE249334D4C6F1 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06DFE6B910A46A8E9FEF6B5 /* GameCenterManager.swift */; };
+		173650BD9006732852DD399D /* StageEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2A331C048C7AAE13C23B0C /* StageEvaluator.swift */; };
+		18848CE0400A75BF77F06634 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4262F964791E8391C9DA1D37 /* AudioEngine.swift */; };
+		1B86297AB2430047A2EB9080 /* PlayAlongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052862F293C06223522324B /* PlayAlongTests.swift */; };
+		1C455E73D0FE0D99C695B365 /* JourneySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6C07F36A1B6C0B5A4F05CB /* JourneySeeder.swift */; };
+		1F127C6F09959D623FA05216 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72D14C99A4F6AA660E6C9B4 /* SettingsView.swift */; };
+		20418A402261F587A4F3B070 /* Lessons in Resources */ = {isa = PBXBuildFile; fileRef = 005B7FDA81079996C8DB6C8C /* Lessons */; };
+		21DE66351B6AB0602AA27BF2 /* IntervalComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908E74A47F4C0CE7925ADA72 /* IntervalComparisonView.swift */; };
+		23284F16A79BB2CE8BBCA4FC /* ProgressTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDDDC1BB45EB07F85B7C2C /* ProgressTabView.swift */; };
+		253FE459CDA0FDD8F1F51A45 /* RelativePitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA03550D6883EB3345446D3 /* RelativePitchView.swift */; };
+		270D3BBD773B6C1E2D48BBB6 /* FunctionalEarDrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5E48CDD6092F1DDE7FF3E /* FunctionalEarDrillView.swift */; };
+		27FB5D6CA46FB89841FBA215 /* DailySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315DC03308F366C9D5C7606 /* DailySessionView.swift */; };
+		2B0E495595495EE996C4FD05 /* DifficultyParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3847BFA6D776762D5661A2 /* DifficultyParams.swift */; };
+		317268ED4EC00B0FBEC7F16E /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0405E4E94A90296422562 /* ContentItem.swift */; };
+		375E55F01D07EA494A16FBC5 /* MascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA323AFB88052A64C5E28E9 /* MascotView.swift */; };
+		3C1C2F9CAD7E8CAAEF485B5D /* NoteIdentificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66523DCD9B9B74E8B51B34AD /* NoteIdentificationView.swift */; };
+		40262D0C5F222A73AC366580 /* ConfusionMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481A6EDB66C2B1B72F99B665 /* ConfusionMatrix.swift */; };
+		40F01093372137BCD2376160 /* LessonPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35470339298BAAD1D6410A99 /* LessonPieceTests.swift */; };
+		45416410296C4CD0280F05D0 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */; };
+		46D79D3B9E8F296455340F87 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D505A00154295E78899EAF /* StoreManager.swift */; };
+		4863DEBC03CE40D7069B7927 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD4644A343BF8DB80D58598 /* AppTheme.swift */; };
+		5244FBA11A942428C90DA11C /* DrillSpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */; };
+		53E0316CE14F3963C67D90E8 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB213F5E2EE723AEE70CC672 /* PaywallView.swift */; };
+		5AFC5A905A1334B02401716A /* CurriculumBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B388A190CF7798F3A6546 /* CurriculumBuilder.swift */; };
+		5DEE999C41AD66AF32ED479E /* SingingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D882E4FD798755FF536E3 /* SingingPracticeView.swift */; };
+		6095131FB5B55FF2E5AD90A8 /* PlaybackClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ADA0111D30DB94A012ACC5 /* PlaybackClock.swift */; };
+		64483A90DA0CC7B7504E8C61 /* PlayAlongSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87143AE04FB13A08589AAE72 /* PlayAlongSession.swift */; };
+		662DF7070345441B41A80301 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C78F04A4B9188E1505693B3 /* WidgetKit.framework */; };
+		66C92C4AC5EE6C688A5E4D0B /* QuickWarmupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DAEE53AD8A3AD49889F890 /* QuickWarmupView.swift */; };
+		686C6D76702D3063E1DEC87A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C78F04A4B9188E1505693B3 /* WidgetKit.framework */; };
+		6D0266B4BDF74063731103F3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA2816341B18BA0A521416 /* NotificationManager.swift */; };
+		731B808B5CA45F8F1DE275DD /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DF71350A84E8F5E00C5EA8 /* CoreMIDI.framework */; };
+		78F7091A907EE88A9A04034F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648DEC55169AF03286E8A749 /* GameKit.framework */; };
+		7D2A53952CE2108FB6C483ED /* DrillSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB29F50A81B46A0551F033 /* DrillSpec.swift */; };
+		82ED93BF5190A48A2B6646E3 /* ChordInversionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */; };
+		844AF18F5F352527267B7842 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0232D9335662433A436033 /* Chapter.swift */; };
+		861DEEDA2DF8CE91C187EB9C /* IntervalModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F588C169883816F73E783D /* IntervalModuleView.swift */; };
+		89B49DF300FB131AE9ADE9A3 /* PianoKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE921F3BE9D42FD5C66BED2 /* PianoKeyboardView.swift */; };
+		8A241B053CC08A7AFE2ADE6F /* JourneyProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AA39FADE569B6036F4D138 /* JourneyProgress.swift */; };
+		8BBB8F0DFD78C5B040901251 /* ChordProgressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1FCF7DDD766F00A2A726A /* ChordProgressionView.swift */; };
+		8BBBBC0F2BA524B52F5C7B60 /* JazzChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */; };
+		90B509974E46FC601361C1FA /* TonestepWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4EF95B59A99B16D93523D868 /* TonestepWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		941178EF9DB95E661C852391 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 28432132FF5852152BC66E77 /* PrivacyInfo.xcprivacy */; };
+		9584B9414E77E98B10874D0D /* NoteInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4037C51DE5BA63E68AAB77D /* NoteInputSource.swift */; };
+		95865EDED799D3C850BDC660 /* PlayAlongEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B9BC9CA1857FFD688E381B /* PlayAlongEngine.swift */; };
+		9E4C2CED8C8113075899B85C /* MIDIInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60B16734B8ADC0060063611 /* MIDIInputSource.swift */; };
+		9E7D511B49311E5FC5D42F44 /* MelodyDictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C165AEC6BAF536EB7AF9900F /* MelodyDictationView.swift */; };
+		A2E6A271C5BB7CD21688DF91 /* DrillSamplingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */; };
+		A97BE7223F157224359C312C /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1041CBB74D7D900B9F29CC4A /* SpeedRoundView.swift */; };
+		A9D7E7E052ADDB8D1C23CF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B49253D9958E58E5F8224CB /* Assets.xcassets */; };
+		AA43E5BB4C2AD0CD50E69BB5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC0C906B4655EEBCE43943 /* Achievement.swift */; };
+		AE412662771E4B2A88F09451 /* SREngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */; };
+		B1CCF96F39CBB73747448076 /* LessonPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC92D1E7945A507B78907CD /* LessonPiece.swift */; };
+		B92CE4F8A254930C2410A9DC /* ContentItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2508C18EBA5FEB22D6E05F7 /* ContentItemTests.swift */; };
+		B9C7FA83FB8A939436E8E701 /* SRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA833E1D18FB0895F960F3 /* SRItem.swift */; };
+		BB2A6DB4EDB40B1BCCF99EB6 /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770C7EA1B33C6242014423D0 /* TrainView.swift */; };
+		BBC85B8E945F5AF03C4CED3C /* ChordDrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE8C299F3DCFB925945444B /* ChordDrillView.swift */; };
+		BCDA2427F51B21BFCEF06F0D /* TonestepWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23443723630D5E69382C744D /* TonestepWidget.swift */; };
+		BF43728FD57E9AB0708F189F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707DEFF799EB31DE74890E85 /* AudioToolbox.framework */; };
+		C5307593E6C70AC750285244 /* ConfusionMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0B9CC2B257BFFEBC72BB38 /* ConfusionMatrixTests.swift */; };
+		C59021591F8812FAE4A51F73 /* RhythmTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C9B7511A346C851A8DC6DF /* RhythmTrainerView.swift */; };
+		CBC7A7D396246C236F59D905 /* NoteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A4D4B312384DFC1CA6FD81 /* NoteEvent.swift */; };
+		CD18938DBC4F343BAA458CDC /* TonestepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBD32D2A6BAF6DF9AABD15B /* TonestepApp.swift */; };
+		CED9B0BC89F4744912D7930C /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */; };
+		D15FB38E973FC8A774707080 /* CurriculumBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942DA4DD947C6616F387CAB3 /* CurriculumBuilderTests.swift */; };
+		D1B71E053239722533CB74C6 /* DifficultyParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0C80A99ADFEA6212AAB5 /* DifficultyParamsTests.swift */; };
+		DB79F0602C59F959F4911BA3 /* PitchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */; };
+		DD8300B4F3CD34C6D4E7769A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE26AA4C86F5526D6A873201 /* StoreKit.framework */; };
+		E7642407AF66E48A166E19D8 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D770FFEBBD784D377EE8214 /* ChallengesView.swift */; };
+		E7AB2DACFCC39A056C61B29F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */; };
+		E927CAFDD687D9DF0960CDC3 /* FocusSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA663F53CCE426AD2D627688 /* FocusSessionView.swift */; };
+		E9FD4BFED6EE05E459F1B61E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A3F2CE2FAF10D4488E21980 /* AVFoundation.framework */; };
+		EC05D46EE684DA6F775CD42F /* ChapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638ABB456AF1FD40E149E11B /* ChapterTests.swift */; };
+		F03ED93E640E3B5F9B7F3976 /* PlayAlongResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F5982E78507C061661707C /* PlayAlongResultView.swift */; };
+		F17F7C6F1B34116E0F0A00A0 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9508C648F23EBEA1C3B29E /* TodayView.swift */; };
+		F54E4C62B757B93CF8E826D5 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F73070C335D17AEEF24D32 /* SwiftData.framework */; };
+		F561CDBBD34C3FA1F2F35F97 /* PlayAlongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD4811D26E1F28295B22CCB /* PlayAlongView.swift */; };
+		F68160BD67973704899EB498 /* SREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0E9E5BB04BB6DCE0D347EF /* SREngine.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CAB834882EB20EB62480FB44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60E49458F48478B374885167 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EABE36C28836D2B7CE39B66B;
+			remoteInfo = TonestepWidget;
+		};
+		E2192608594FE354465B5F6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60E49458F48478B374885167 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5B789465BF175EF45B94291;
+			remoteInfo = Tonestep;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		409942C7A56C534E073EE1C6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				90B509974E46FC601361C1FA /* TonestepWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		005B7FDA81079996C8DB6C8C /* Lessons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lessons; path = Tonestep/Resources/Lessons; sourceTree = SOURCE_ROOT; };
+		09F588C169883816F73E783D /* IntervalModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalModuleView.swift; sourceTree = "<group>"; };
+		0DA03550D6883EB3345446D3 /* RelativePitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePitchView.swift; sourceTree = "<group>"; };
+		0F2A331C048C7AAE13C23B0C /* StageEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageEvaluator.swift; sourceTree = "<group>"; };
+		1041CBB74D7D900B9F29CC4A /* SpeedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundView.swift; sourceTree = "<group>"; };
+		16D0698A3AF47DF83FEA1390 /* Tonestep.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Tonestep.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE921F3BE9D42FD5C66BED2 /* PianoKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoKeyboardView.swift; sourceTree = "<group>"; };
+		1FE5E48CDD6092F1DDE7FF3E /* FunctionalEarDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalEarDrillView.swift; sourceTree = "<group>"; };
+		1FFBE5ACA8DB799A5F7A24AA /* ErrorDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetectionView.swift; sourceTree = "<group>"; };
+		23443723630D5E69382C744D /* TonestepWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonestepWidget.swift; sourceTree = "<group>"; };
+		23EDDDC1BB45EB07F85B7C2C /* ProgressTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTabView.swift; sourceTree = "<group>"; };
+		25F5982E78507C061661707C /* PlayAlongResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongResultView.swift; sourceTree = "<group>"; };
+		28432132FF5852152BC66E77 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTheory.swift; sourceTree = "<group>"; };
+		2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
+		2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JazzChordsView.swift; sourceTree = "<group>"; };
+		32B183A3CA3DD1820DCBC135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		35470339298BAAD1D6410A99 /* LessonPieceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPieceTests.swift; sourceTree = "<group>"; };
+		36EDF43804FAA4FC54D56E3E /* Tonestep.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tonestep.entitlements; sourceTree = "<group>"; };
+		3BBD32D2A6BAF6DF9AABD15B /* TonestepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonestepApp.swift; sourceTree = "<group>"; };
+		3BD0F97BEA2E5D1E02852141 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3DD4811D26E1F28295B22CCB /* PlayAlongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongView.swift; sourceTree = "<group>"; };
+		4262F964791E8391C9DA1D37 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		469B0C80A99ADFEA6212AAB5 /* DifficultyParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyParamsTests.swift; sourceTree = "<group>"; };
+		481A6EDB66C2B1B72F99B665 /* ConfusionMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfusionMatrix.swift; sourceTree = "<group>"; };
+		4B49253D9958E58E5F8224CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SREngineTests.swift; sourceTree = "<group>"; };
+		4EF95B59A99B16D93523D868 /* TonestepWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TonestepWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		638ABB456AF1FD40E149E11B /* ChapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterTests.swift; sourceTree = "<group>"; };
+		648DEC55169AF03286E8A749 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		66523DCD9B9B74E8B51B34AD /* NoteIdentificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteIdentificationView.swift; sourceTree = "<group>"; };
+		6A3F2CE2FAF10D4488E21980 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6C78F04A4B9188E1505693B3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		6D770FFEBBD784D377EE8214 /* ChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesView.swift; sourceTree = "<group>"; };
+		6E8E50D53A42A615FE4F9EE7 /* AbsolutePitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsolutePitchView.swift; sourceTree = "<group>"; };
+		707DEFF799EB31DE74890E85 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		7522B3C6FB8AE221C829CC75 /* StageEvaluatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageEvaluatorTests.swift; sourceTree = "<group>"; };
+		770C7EA1B33C6242014423D0 /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
+		7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchDetector.swift; sourceTree = "<group>"; };
+		82EC101757213264AFEA40FA /* ScaleDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleDrillView.swift; sourceTree = "<group>"; };
+		840D882E4FD798755FF536E3 /* SingingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingingPracticeView.swift; sourceTree = "<group>"; };
+		86C9B7511A346C851A8DC6DF /* RhythmTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmTrainerView.swift; sourceTree = "<group>"; };
+		87143AE04FB13A08589AAE72 /* PlayAlongSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongSession.swift; sourceTree = "<group>"; };
+		87E144AE9BBA7960FB02B9D8 /* TonestepTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TonestepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A6C07F36A1B6C0B5A4F05CB /* JourneySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneySeeder.swift; sourceTree = "<group>"; };
+		8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		8DC92D1E7945A507B78907CD /* LessonPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPiece.swift; sourceTree = "<group>"; };
+		908E74A47F4C0CE7925ADA72 /* IntervalComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalComparisonView.swift; sourceTree = "<group>"; };
+		90AA39FADE569B6036F4D138 /* JourneyProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyProgress.swift; sourceTree = "<group>"; };
+		937B388A190CF7798F3A6546 /* CurriculumBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumBuilder.swift; sourceTree = "<group>"; };
+		942DA4DD947C6616F387CAB3 /* CurriculumBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumBuilderTests.swift; sourceTree = "<group>"; };
+		9BE8C299F3DCFB925945444B /* ChordDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDrillView.swift; sourceTree = "<group>"; };
+		9DAA833E1D18FB0895F960F3 /* SRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRItem.swift; sourceTree = "<group>"; };
+		A0178BAE60A7DED55E673048 /* TonestepWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TonestepWidget.entitlements; sourceTree = "<group>"; };
+		A0F73070C335D17AEEF24D32 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
+		A1B04DC516CADF0D54E52D3D /* TheoryLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheoryLessonsView.swift; sourceTree = "<group>"; };
+		A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
+		AA9508C648F23EBEA1C3B29E /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		AECB29F50A81B46A0551F033 /* DrillSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSpec.swift; sourceTree = "<group>"; };
+		B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSamplingTests.swift; sourceTree = "<group>"; };
+		B8DAEE53AD8A3AD49889F890 /* QuickWarmupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWarmupView.swift; sourceTree = "<group>"; };
+		BE26AA4C86F5526D6A873201 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C165AEC6BAF536EB7AF9900F /* MelodyDictationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelodyDictationView.swift; sourceTree = "<group>"; };
+		C4DF71350A84E8F5E00C5EA8 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		C60B16734B8ADC0060063611 /* MIDIInputSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIInputSource.swift; sourceTree = "<group>"; };
+		C72D14C99A4F6AA660E6C9B4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CA0E9E5BB04BB6DCE0D347EF /* SREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SREngine.swift; sourceTree = "<group>"; };
+		CC0232D9335662433A436033 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		D06F5B8702E26158E0B6F8BD /* DrillResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillResult.swift; sourceTree = "<group>"; };
+		D2ADA0111D30DB94A012ACC5 /* PlaybackClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackClock.swift; sourceTree = "<group>"; };
+		D315DC03308F366C9D5C7606 /* DailySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySessionView.swift; sourceTree = "<group>"; };
+		D7AC0C906B4655EEBCE43943 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		D7D505A00154295E78899EAF /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		E052862F293C06223522324B /* PlayAlongTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongTests.swift; sourceTree = "<group>"; };
+		E0920B2A795D489FB57B2D31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E0B9BC9CA1857FFD688E381B /* PlayAlongEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongEngine.swift; sourceTree = "<group>"; };
+		E1D0405E4E94A90296422562 /* ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
+		E4037C51DE5BA63E68AAB77D /* NoteInputSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInputSource.swift; sourceTree = "<group>"; };
+		E7A4D4B312384DFC1CA6FD81 /* NoteEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEvent.swift; sourceTree = "<group>"; };
+		EDCA2816341B18BA0A521416 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		EE3847BFA6D776762D5661A2 /* DifficultyParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyParams.swift; sourceTree = "<group>"; };
+		F06DFE6B910A46A8E9FEF6B5 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
+		F2508C18EBA5FEB22D6E05F7 /* ContentItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItemTests.swift; sourceTree = "<group>"; };
+		F53FDC30C8F8BE6FC43E8945 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSpecTests.swift; sourceTree = "<group>"; };
+		F8A1FCF7DDD766F00A2A726A /* ChordProgressionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProgressionView.swift; sourceTree = "<group>"; };
+		FA663F53CCE426AD2D627688 /* FocusSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSessionView.swift; sourceTree = "<group>"; };
+		FB0B9CC2B257BFFEBC72BB38 /* ConfusionMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfusionMatrixTests.swift; sourceTree = "<group>"; };
+		FB213F5E2EE723AEE70CC672 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		FDA323AFB88052A64C5E28E9 /* MascotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotView.swift; sourceTree = "<group>"; };
+		FDD4644A343BF8DB80D58598 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AEF113037CDFCC19785AC5BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				662DF7070345441B41A80301 /* WidgetKit.framework in Frameworks */,
+				160CD1AC9DA3F060B706FA1E /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDC52FCF63D1D6F2A69AA58A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9FD4BFED6EE05E459F1B61E /* AVFoundation.framework in Frameworks */,
+				DD8300B4F3CD34C6D4E7769A /* StoreKit.framework in Frameworks */,
+				F54E4C62B757B93CF8E826D5 /* SwiftData.framework in Frameworks */,
+				BF43728FD57E9AB0708F189F /* AudioToolbox.framework in Frameworks */,
+				78F7091A907EE88A9A04034F /* GameKit.framework in Frameworks */,
+				731B808B5CA45F8F1DE275DD /* CoreMIDI.framework in Frameworks */,
+				686C6D76702D3063E1DEC87A /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		108AD697216EC549F3EFB2CB /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				F06DFE6B910A46A8E9FEF6B5 /* GameCenterManager.swift */,
+			);
+			path = GameCenter;
+			sourceTree = "<group>";
+		};
+		121B501F7BEE7FA0C5E8BC47 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C72D14C99A4F6AA660E6C9B4 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		15CE4235A9A4F82377EAEC93 /* Learn */ = {
+			isa = PBXGroup;
+			children = (
+				A1B04DC516CADF0D54E52D3D /* TheoryLessonsView.swift */,
+			);
+			path = Learn;
+			sourceTree = "<group>";
+		};
+		1601B7D748D05F6A1E03237A /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				6D770FFEBBD784D377EE8214 /* ChallengesView.swift */,
+			);
+			path = Challenges;
+			sourceTree = "<group>";
+		};
+		1FB84F0BBB570A05B4CD4067 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				16D0698A3AF47DF83FEA1390 /* Tonestep.app */,
+				87E144AE9BBA7960FB02B9D8 /* TonestepTests.xctest */,
+				4EF95B59A99B16D93523D868 /* TonestepWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E66F06E538EC35ADDCBBA99 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				23EDDDC1BB45EB07F85B7C2C /* ProgressTabView.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		4709E3D6B2ECD10307636193 = {
+			isa = PBXGroup;
+			children = (
+				005B7FDA81079996C8DB6C8C /* Lessons */,
+				7C1BB2D76EC1C76D883913F9 /* Tonestep */,
+				D0AFD9ABB0018C3E594BFC1C /* TonestepTests */,
+				63E8ECF757C7A780EE3E2C33 /* TonestepWidget */,
+				8E9A1B39D0E8016F588756C7 /* Frameworks */,
+				1FB84F0BBB570A05B4CD4067 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5080DF939659328CC1A167A8 /* PlayAlong */ = {
+			isa = PBXGroup;
+			children = (
+				8DC92D1E7945A507B78907CD /* LessonPiece.swift */,
+				C60B16734B8ADC0060063611 /* MIDIInputSource.swift */,
+				E7A4D4B312384DFC1CA6FD81 /* NoteEvent.swift */,
+				E4037C51DE5BA63E68AAB77D /* NoteInputSource.swift */,
+				E0B9BC9CA1857FFD688E381B /* PlayAlongEngine.swift */,
+				87143AE04FB13A08589AAE72 /* PlayAlongSession.swift */,
+				D2ADA0111D30DB94A012ACC5 /* PlaybackClock.swift */,
+			);
+			path = PlayAlong;
+			sourceTree = "<group>";
+		};
+		5921C5F8FBC384CC3406AEB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D7AC0C906B4655EEBCE43943 /* Achievement.swift */,
+				D06F5B8702E26158E0B6F8BD /* DrillResult.swift */,
+				2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */,
+				8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		61E66F39E59A463E6D18E0A4 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				D315DC03308F366C9D5C7606 /* DailySessionView.swift */,
+				FA663F53CCE426AD2D627688 /* FocusSessionView.swift */,
+				B8DAEE53AD8A3AD49889F890 /* QuickWarmupView.swift */,
+				AA9508C648F23EBEA1C3B29E /* TodayView.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		63E8ECF757C7A780EE3E2C33 /* TonestepWidget */ = {
+			isa = PBXGroup;
+			children = (
+				E0920B2A795D489FB57B2D31 /* Info.plist */,
+				A0178BAE60A7DED55E673048 /* TonestepWidget.entitlements */,
+				23443723630D5E69382C744D /* TonestepWidget.swift */,
+			);
+			path = TonestepWidget;
+			sourceTree = "<group>";
+		};
+		7AA738E49D247011BC572CB1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FB213F5E2EE723AEE70CC672 /* PaywallView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7C1BB2D76EC1C76D883913F9 /* Tonestep */ = {
+			isa = PBXGroup;
+			children = (
+				32B183A3CA3DD1820DCBC135 /* Info.plist */,
+				28432132FF5852152BC66E77 /* PrivacyInfo.xcprivacy */,
+				36EDF43804FAA4FC54D56E3E /* Tonestep.entitlements */,
+				82136E4166B7D43284ADC02F /* App */,
+				7AA738E49D247011BC572CB1 /* Components */,
+				F109999A345E9A42D26A9C89 /* Core */,
+				ADAD01ACE8651769B5FBC57B /* Modules */,
+				9E61EA663A0E265E4A34E880 /* Resources */,
+			);
+			path = Tonestep;
+			sourceTree = "<group>";
+		};
+		7C7BDE29C7ED0FDAE937FB9C /* Train */ = {
+			isa = PBXGroup;
+			children = (
+				6E8E50D53A42A615FE4F9EE7 /* AbsolutePitchView.swift */,
+				9BE8C299F3DCFB925945444B /* ChordDrillView.swift */,
+				2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */,
+				F8A1FCF7DDD766F00A2A726A /* ChordProgressionView.swift */,
+				1FFBE5ACA8DB799A5F7A24AA /* ErrorDetectionView.swift */,
+				1FE5E48CDD6092F1DDE7FF3E /* FunctionalEarDrillView.swift */,
+				908E74A47F4C0CE7925ADA72 /* IntervalComparisonView.swift */,
+				09F588C169883816F73E783D /* IntervalModuleView.swift */,
+				323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */,
+				C165AEC6BAF536EB7AF9900F /* MelodyDictationView.swift */,
+				66523DCD9B9B74E8B51B34AD /* NoteIdentificationView.swift */,
+				0DA03550D6883EB3345446D3 /* RelativePitchView.swift */,
+				86C9B7511A346C851A8DC6DF /* RhythmTrainerView.swift */,
+				82EC101757213264AFEA40FA /* ScaleDrillView.swift */,
+				840D882E4FD798755FF536E3 /* SingingPracticeView.swift */,
+				1041CBB74D7D900B9F29CC4A /* SpeedRoundView.swift */,
+				770C7EA1B33C6242014423D0 /* TrainView.swift */,
+			);
+			path = Train;
+			sourceTree = "<group>";
+		};
+		7F7487382354C4E643D32F7C /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4262F964791E8391C9DA1D37 /* AudioEngine.swift */,
+				7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		82136E4166B7D43284ADC02F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F53FDC30C8F8BE6FC43E8945 /* ContentView.swift */,
+				3BBD32D2A6BAF6DF9AABD15B /* TonestepApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8C8B2DB1F11820402825ACE0 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				EDCA2816341B18BA0A521416 /* NotificationManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		8E9A1B39D0E8016F588756C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				707DEFF799EB31DE74890E85 /* AudioToolbox.framework */,
+				6A3F2CE2FAF10D4488E21980 /* AVFoundation.framework */,
+				C4DF71350A84E8F5E00C5EA8 /* CoreMIDI.framework */,
+				648DEC55169AF03286E8A749 /* GameKit.framework */,
+				BE26AA4C86F5526D6A873201 /* StoreKit.framework */,
+				A0F73070C335D17AEEF24D32 /* SwiftData.framework */,
+				3BD0F97BEA2E5D1E02852141 /* SwiftUI.framework */,
+				6C78F04A4B9188E1505693B3 /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E61EA663A0E265E4A34E880 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B49253D9958E58E5F8224CB /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A8DA2EEBCB6245F5F60E7AB9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				D7D505A00154295E78899EAF /* StoreManager.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		ADAD01ACE8651769B5FBC57B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				1601B7D748D05F6A1E03237A /* Challenges */,
+				15CE4235A9A4F82377EAEC93 /* Learn */,
+				EA63B34B2D00FD73AF2BF699 /* Onboarding */,
+				E96A417A47DB86B6112CD25E /* PlayAlong */,
+				2E66F06E538EC35ADDCBBA99 /* Progress */,
+				121B501F7BEE7FA0C5E8BC47 /* Settings */,
+				61E66F39E59A463E6D18E0A4 /* Today */,
+				7C7BDE29C7ED0FDAE937FB9C /* Train */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		B579BC033AF0E9F16E7FAEBA /* SpacedRepetition */ = {
+			isa = PBXGroup;
+			children = (
+				CA0E9E5BB04BB6DCE0D347EF /* SREngine.swift */,
+				9DAA833E1D18FB0895F960F3 /* SRItem.swift */,
+			);
+			path = SpacedRepetition;
+			sourceTree = "<group>";
+		};
+		B7BD4194B9BA686E90B3E07C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FDA323AFB88052A64C5E28E9 /* MascotView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D0AFD9ABB0018C3E594BFC1C /* TonestepTests */ = {
+			isa = PBXGroup;
+			children = (
+				638ABB456AF1FD40E149E11B /* ChapterTests.swift */,
+				FB0B9CC2B257BFFEBC72BB38 /* ConfusionMatrixTests.swift */,
+				F2508C18EBA5FEB22D6E05F7 /* ContentItemTests.swift */,
+				942DA4DD947C6616F387CAB3 /* CurriculumBuilderTests.swift */,
+				469B0C80A99ADFEA6212AAB5 /* DifficultyParamsTests.swift */,
+				B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */,
+				F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */,
+				35470339298BAAD1D6410A99 /* LessonPieceTests.swift */,
+				E052862F293C06223522324B /* PlayAlongTests.swift */,
+				4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */,
+				7522B3C6FB8AE221C829CC75 /* StageEvaluatorTests.swift */,
+			);
+			path = TonestepTests;
+			sourceTree = "<group>";
+		};
+		D445FE6905765E8F2BB62B98 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		E96A417A47DB86B6112CD25E /* PlayAlong */ = {
+			isa = PBXGroup;
+			children = (
+				1AE921F3BE9D42FD5C66BED2 /* PianoKeyboardView.swift */,
+				25F5982E78507C061661707C /* PlayAlongResultView.swift */,
+				3DD4811D26E1F28295B22CCB /* PlayAlongView.swift */,
+			);
+			path = PlayAlong;
+			sourceTree = "<group>";
+		};
+		EA63B34B2D00FD73AF2BF699 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F109999A345E9A42D26A9C89 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7F7487382354C4E643D32F7C /* Audio */,
+				F6CC807A4D07ACCAB9734179 /* Curriculum */,
+				108AD697216EC549F3EFB2CB /* GameCenter */,
+				5921C5F8FBC384CC3406AEB7 /* Models */,
+				8C8B2DB1F11820402825ACE0 /* Notifications */,
+				D445FE6905765E8F2BB62B98 /* Persistence */,
+				5080DF939659328CC1A167A8 /* PlayAlong */,
+				B579BC033AF0E9F16E7FAEBA /* SpacedRepetition */,
+				A8DA2EEBCB6245F5F60E7AB9 /* Store */,
+				F348D0D57430359A6E6C6495 /* Theme */,
+				B7BD4194B9BA686E90B3E07C /* Views */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F348D0D57430359A6E6C6495 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				FDD4644A343BF8DB80D58598 /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		F6CC807A4D07ACCAB9734179 /* Curriculum */ = {
+			isa = PBXGroup;
+			children = (
+				CC0232D9335662433A436033 /* Chapter.swift */,
+				481A6EDB66C2B1B72F99B665 /* ConfusionMatrix.swift */,
+				E1D0405E4E94A90296422562 /* ContentItem.swift */,
+				937B388A190CF7798F3A6546 /* CurriculumBuilder.swift */,
+				EE3847BFA6D776762D5661A2 /* DifficultyParams.swift */,
+				AECB29F50A81B46A0551F033 /* DrillSpec.swift */,
+				90AA39FADE569B6036F4D138 /* JourneyProgress.swift */,
+				8A6C07F36A1B6C0B5A4F05CB /* JourneySeeder.swift */,
+				A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */,
+				0F2A331C048C7AAE13C23B0C /* StageEvaluator.swift */,
+			);
+			path = Curriculum;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18AA645DA1B93AC657300CAD /* TonestepTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD40DC9F314F678961797701 /* Build configuration list for PBXNativeTarget "TonestepTests" */;
+			buildPhases = (
+				9DF878BDA8952C54B2D18075 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FEB4A5EC5E2DC4274717BB83 /* PBXTargetDependency */,
+			);
+			name = TonestepTests;
+			packageProductDependencies = (
+			);
+			productName = TonestepTests;
+			productReference = 87E144AE9BBA7960FB02B9D8 /* TonestepTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A5B789465BF175EF45B94291 /* Tonestep */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF060328D7E7843DE06CC90B /* Build configuration list for PBXNativeTarget "Tonestep" */;
+			buildPhases = (
+				ACA2EB35BDDED3451BE80E8A /* Sources */,
+				434EDA3405761B11883C722A /* Resources */,
+				FDC52FCF63D1D6F2A69AA58A /* Frameworks */,
+				409942C7A56C534E073EE1C6 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF7FBFEC339F476EE89A540C /* PBXTargetDependency */,
+			);
+			name = Tonestep;
+			packageProductDependencies = (
+			);
+			productName = Tonestep;
+			productReference = 16D0698A3AF47DF83FEA1390 /* Tonestep.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EABE36C28836D2B7CE39B66B /* TonestepWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AC25E19EDD7A854E86DCE14 /* Build configuration list for PBXNativeTarget "TonestepWidget" */;
+			buildPhases = (
+				A07424DCF2F4BE730D25FA2E /* Sources */,
+				AEF113037CDFCC19785AC5BC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TonestepWidget;
+			packageProductDependencies = (
+			);
+			productName = TonestepWidget;
+			productReference = 4EF95B59A99B16D93523D868 /* TonestepWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		60E49458F48478B374885167 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					18AA645DA1B93AC657300CAD = {
+						DevelopmentTeam = GD3K4V2Y8Q;
+					};
+					A5B789465BF175EF45B94291 = {
+						DevelopmentTeam = GD3K4V2Y8Q;
+					};
+					EABE36C28836D2B7CE39B66B = {
+						DevelopmentTeam = GD3K4V2Y8Q;
+					};
+				};
+			};
+			buildConfigurationList = 9E1F0443729D772BED170BDC /* Build configuration list for PBXProject "Tonestep" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4709E3D6B2ECD10307636193;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1FB84F0BBB570A05B4CD4067 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A5B789465BF175EF45B94291 /* Tonestep */,
+				18AA645DA1B93AC657300CAD /* TonestepTests */,
+				EABE36C28836D2B7CE39B66B /* TonestepWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		434EDA3405761B11883C722A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9D7E7E052ADDB8D1C23CF06 /* Assets.xcassets in Resources */,
+				20418A402261F587A4F3B070 /* Lessons in Resources */,
+				941178EF9DB95E661C852391 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9DF878BDA8952C54B2D18075 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC05D46EE684DA6F775CD42F /* ChapterTests.swift in Sources */,
+				C5307593E6C70AC750285244 /* ConfusionMatrixTests.swift in Sources */,
+				B92CE4F8A254930C2410A9DC /* ContentItemTests.swift in Sources */,
+				D15FB38E973FC8A774707080 /* CurriculumBuilderTests.swift in Sources */,
+				D1B71E053239722533CB74C6 /* DifficultyParamsTests.swift in Sources */,
+				A2E6A271C5BB7CD21688DF91 /* DrillSamplingTests.swift in Sources */,
+				5244FBA11A942428C90DA11C /* DrillSpecTests.swift in Sources */,
+				40F01093372137BCD2376160 /* LessonPieceTests.swift in Sources */,
+				1B86297AB2430047A2EB9080 /* PlayAlongTests.swift in Sources */,
+				AE412662771E4B2A88F09451 /* SREngineTests.swift in Sources */,
+				0190ECEA3E4A74978945E50E /* StageEvaluatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A07424DCF2F4BE730D25FA2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCDA2427F51B21BFCEF06F0D /* TonestepWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACA2EB35BDDED3451BE80E8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F792DF3C94595F2AF671585 /* AbsolutePitchView.swift in Sources */,
+				AA43E5BB4C2AD0CD50E69BB5 /* Achievement.swift in Sources */,
+				4863DEBC03CE40D7069B7927 /* AppTheme.swift in Sources */,
+				18848CE0400A75BF77F06634 /* AudioEngine.swift in Sources */,
+				E7642407AF66E48A166E19D8 /* ChallengesView.swift in Sources */,
+				844AF18F5F352527267B7842 /* Chapter.swift in Sources */,
+				BBC85B8E945F5AF03C4CED3C /* ChordDrillView.swift in Sources */,
+				82ED93BF5190A48A2B6646E3 /* ChordInversionsView.swift in Sources */,
+				8BBB8F0DFD78C5B040901251 /* ChordProgressionView.swift in Sources */,
+				40262D0C5F222A73AC366580 /* ConfusionMatrix.swift in Sources */,
+				317268ED4EC00B0FBEC7F16E /* ContentItem.swift in Sources */,
+				14C565C160E1DE872B7F8363 /* ContentView.swift in Sources */,
+				5AFC5A905A1334B02401716A /* CurriculumBuilder.swift in Sources */,
+				27FB5D6CA46FB89841FBA215 /* DailySessionView.swift in Sources */,
+				2B0E495595495EE996C4FD05 /* DifficultyParams.swift in Sources */,
+				128A2129E6673D0D976EB574 /* DrillResult.swift in Sources */,
+				7D2A53952CE2108FB6C483ED /* DrillSpec.swift in Sources */,
+				10D3F5D7C97CB4C25884DE5D /* ErrorDetectionView.swift in Sources */,
+				E927CAFDD687D9DF0960CDC3 /* FocusSessionView.swift in Sources */,
+				270D3BBD773B6C1E2D48BBB6 /* FunctionalEarDrillView.swift in Sources */,
+				17193F1F75AE249334D4C6F1 /* GameCenterManager.swift in Sources */,
+				21DE66351B6AB0602AA27BF2 /* IntervalComparisonView.swift in Sources */,
+				861DEEDA2DF8CE91C187EB9C /* IntervalModuleView.swift in Sources */,
+				8BBBBC0F2BA524B52F5C7B60 /* JazzChordsView.swift in Sources */,
+				8A241B053CC08A7AFE2ADE6F /* JourneyProgress.swift in Sources */,
+				1C455E73D0FE0D99C695B365 /* JourneySeeder.swift in Sources */,
+				B1CCF96F39CBB73747448076 /* LessonPiece.swift in Sources */,
+				9E4C2CED8C8113075899B85C /* MIDIInputSource.swift in Sources */,
+				375E55F01D07EA494A16FBC5 /* MascotView.swift in Sources */,
+				9E7D511B49311E5FC5D42F44 /* MelodyDictationView.swift in Sources */,
+				0EF8F43B7E2BC1735B5BE071 /* MusicTheory.swift in Sources */,
+				CBC7A7D396246C236F59D905 /* NoteEvent.swift in Sources */,
+				3C1C2F9CAD7E8CAAEF485B5D /* NoteIdentificationView.swift in Sources */,
+				9584B9414E77E98B10874D0D /* NoteInputSource.swift in Sources */,
+				6D0266B4BDF74063731103F3 /* NotificationManager.swift in Sources */,
+				E7AB2DACFCC39A056C61B29F /* OnboardingView.swift in Sources */,
+				53E0316CE14F3963C67D90E8 /* PaywallView.swift in Sources */,
+				89B49DF300FB131AE9ADE9A3 /* PianoKeyboardView.swift in Sources */,
+				DB79F0602C59F959F4911BA3 /* PitchDetector.swift in Sources */,
+				95865EDED799D3C850BDC660 /* PlayAlongEngine.swift in Sources */,
+				F03ED93E640E3B5F9B7F3976 /* PlayAlongResultView.swift in Sources */,
+				64483A90DA0CC7B7504E8C61 /* PlayAlongSession.swift in Sources */,
+				F561CDBBD34C3FA1F2F35F97 /* PlayAlongView.swift in Sources */,
+				6095131FB5B55FF2E5AD90A8 /* PlaybackClock.swift in Sources */,
+				23284F16A79BB2CE8BBCA4FC /* ProgressTabView.swift in Sources */,
+				66C92C4AC5EE6C688A5E4D0B /* QuickWarmupView.swift in Sources */,
+				253FE459CDA0FDD8F1F51A45 /* RelativePitchView.swift in Sources */,
+				C59021591F8812FAE4A51F73 /* RhythmTrainerView.swift in Sources */,
+				F68160BD67973704899EB498 /* SREngine.swift in Sources */,
+				B9C7FA83FB8A939436E8E701 /* SRItem.swift in Sources */,
+				16E942A05992D6CDE64142DB /* ScaleDrillView.swift in Sources */,
+				45416410296C4CD0280F05D0 /* SeededGenerator.swift in Sources */,
+				1F127C6F09959D623FA05216 /* SettingsView.swift in Sources */,
+				5DEE999C41AD66AF32ED479E /* SingingPracticeView.swift in Sources */,
+				A97BE7223F157224359C312C /* SpeedRoundView.swift in Sources */,
+				173650BD9006732852DD399D /* StageEvaluator.swift in Sources */,
+				46D79D3B9E8F296455340F87 /* StoreManager.swift in Sources */,
+				0BCB425AFED85AACB774B6DA /* TheoryLessonsView.swift in Sources */,
+				F17F7C6F1B34116E0F0A00A0 /* TodayView.swift in Sources */,
+				CD18938DBC4F343BAA458CDC /* TonestepApp.swift in Sources */,
+				BB2A6DB4EDB40B1BCCF99EB6 /* TrainView.swift in Sources */,
+				CED9B0BC89F4744912D7930C /* UserProfile.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FEB4A5EC5E2DC4274717BB83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5B789465BF175EF45B94291 /* Tonestep */;
+			targetProxy = E2192608594FE354465B5F6B /* PBXContainerItemProxy */;
+		};
+		FF7FBFEC339F476EE89A540C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EABE36C28836D2B7CE39B66B /* TonestepWidget */;
+			targetProxy = CAB834882EB20EB62480FB44 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		267E730B8EFC37B602276356 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = GD3K4V2Y8Q;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tonestep uses the microphone for pitch detection in Singing Practice exercises.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		819191F42A5995B6F68DA436 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tonestep/Tonestep.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Tonestep/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.Tonestep;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		833EB5E9042BF95C07AD5119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.TonestepTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tonestep.app/Tonestep";
+			};
+			name = Release;
+		};
+		8A00F139E05BBDAB1A29D0CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tonestep/Tonestep.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Tonestep/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.Tonestep;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		99E5BF3218A9B278073F666C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.TonestepTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tonestep.app/Tonestep";
+			};
+			name = Debug;
+		};
+		B011F80EA497A4E1BA1AD4BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GD3K4V2Y8Q;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tonestep uses the microphone for pitch detection in Singing Practice exercises.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		CAE8615DDBFD7CEA3B39BAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TonestepWidget/TonestepWidget.entitlements;
+				DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_FILE = TonestepWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.Tonestep.widget;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F36851A43B8F0E169F8B4E23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TonestepWidget/TonestepWidget.entitlements;
+				DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_FILE = TonestepWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yugansh.Tonestep.widget;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1AC25E19EDD7A854E86DCE14 /* Build configuration list for PBXNativeTarget "TonestepWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36851A43B8F0E169F8B4E23 /* Debug */,
+				CAE8615DDBFD7CEA3B39BAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9E1F0443729D772BED170BDC /* Build configuration list for PBXProject "Tonestep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B011F80EA497A4E1BA1AD4BB /* Debug */,
+				267E730B8EFC37B602276356 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AF060328D7E7843DE06CC90B /* Build configuration list for PBXNativeTarget "Tonestep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A00F139E05BBDAB1A29D0CC /* Debug */,
+				819191F42A5995B6F68DA436 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CD40DC9F314F678961797701 /* Build configuration list for PBXNativeTarget "TonestepTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99E5BF3218A9B278073F666C /* Debug */,
+				833EB5E9042BF95C07AD5119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 60E49458F48478B374885167 /* Project object */;
+}

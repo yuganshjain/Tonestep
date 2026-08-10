@@ -206,15 +206,15 @@ Every bundled `LessonPiece` JSON is asserted to parse and to contain at least on
 
 ## Files
 
-New, `EarIQ/Core/PlayAlong/`: `NoteEvent.swift`, `NoteInputSource.swift`, `PlaybackClock.swift`,
+New, `Tonestep/Core/PlayAlong/`: `NoteEvent.swift`, `NoteInputSource.swift`, `PlaybackClock.swift`,
 `LessonPiece.swift`, `PlayAlongEngine.swift`, `MIDIInputSource.swift`
 
-New, `EarIQ/Modules/PlayAlong/`: `PlayAlongView.swift`, `PianoKeyboardView.swift`,
+New, `Tonestep/Modules/PlayAlong/`: `PlayAlongView.swift`, `PianoKeyboardView.swift`,
 `PlayAlongResultView.swift`
 
-New, `EarIQ/Resources/Lessons/`: 5–8 `.json` pieces, original or public-domain.
+New, `Tonestep/Resources/Lessons/`: 5–8 `.json` pieces, original or public-domain.
 
-Modified: `project.yml` (CoreMIDI framework), `EarIQ/Info.plist` via project.yml if Bluetooth
+Modified: `project.yml` (CoreMIDI framework), `Tonestep/Info.plist` via project.yml if Bluetooth
 MIDI is enabled later.
 
 ## Open question to resolve before this becomes a business

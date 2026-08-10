@@ -5,17 +5,17 @@ Status: Approved for planning
 
 ## Problem
 
-EarIQ ships 15 training modules — more breadth than most competitors. But there is no
+Tonestep ships 15 training modules — more breadth than most competitors. But there is no
 difficulty or progression system anywhere in the codebase. A user's 200th interval drill is
 statistically identical to their 1st.
 
 This is the gap. Complete Ear Trainer's moat is its hundreds of graded levels; EarMaster sells
-structured courses. EarIQ competes on neither. Adding a 16th module would widen a shallow app
+structured courses. Tonestep competes on neither. Adding a 16th module would widen a shallow app
 rather than deepen it.
 
 Two defects found while auditing reinforce the same conclusion:
 
-1. `DailySessionBuilder.randomDrillType` (`EarIQ/Core/SpacedRepetition/SREngine.swift:103`)
+1. `DailySessionBuilder.randomDrillType` (`Tonestep/Core/SpacedRepetition/SREngine.swift:103`)
    handles only four modules. All others fall through `default:` and return the hardcoded string
    `"interval_major_third_ascending"`. The Daily Session has never generated a drill for Rhythm,
    Melody, Jazz Chords, Absolute Pitch, or any other module.
@@ -46,7 +46,7 @@ Recognition, Scale Recognition, Functional Ear. Enough to prove the curve end to
 
 ## Naming
 
-`EarIQLevel` already means "XP level" (Level 1, "Tone Seeker"). Curriculum position is a separate
+`TonestepLevel` already means "XP level" (Level 1, "Tone Seeker"). Curriculum position is a separate
 axis. Curriculum uses **Stage**; **Level** remains the XP cosmetic. These terms must not be mixed
 in UI copy.
 
@@ -212,7 +212,7 @@ New SwiftData models alongside the existing `DrillResult`, `DailySessionRecord`,
 }
 ```
 
-Both must be registered in the `modelContainer` call in `EarIQApp.swift`.
+Both must be registered in the `modelContainer` call in `TonestepApp.swift`.
 
 ## Curriculum
 
@@ -253,7 +253,7 @@ Stage identity is designed to absorb that insertion without disturbing saved pro
   work rather than engineering.
 - **`TodayView`** — Daily Session card surfaces current chapter and stage. The file is already
   420 lines and will grow; its card subviews are extracted to a sibling file in the same pass.
-- **`JourneyView`** — new, in `EarIQ/Modules/Journey/`. Renders the path, chapter headers, stage
+- **`JourneyView`** — new, in `Tonestep/Modules/Journey/`. Renders the path, chapter headers, stage
   states (locked / current / passed with stars).
 - **`TrainView`** — unchanged.
 - **`SREngine.grade`** — unchanged. Stage results continue to flow into it.
@@ -292,14 +292,14 @@ build time via a validation pass over all chapters, covered by test.
 
 ## Files
 
-New, `EarIQ/Core/Curriculum/`:
+New, `Tonestep/Core/Curriculum/`:
 `DrillSpec.swift`, `DifficultyParams.swift`, `ConfusionMatrix.swift`, `Chapter.swift`,
 `CurriculumBuilder.swift`, `StageEvaluator.swift`, `JourneyProgress.swift`, `JourneySeeder.swift`
 
-New, `EarIQ/Modules/Journey/`: `JourneyView.swift`
+New, `Tonestep/Modules/Journey/`: `JourneyView.swift`
 
 Modified: `SREngine.swift` (remove `randomDrillType`, accept specs), the four anchor module
-views, `TodayView.swift` (+ extracted cards file), `EarIQApp.swift` (model container).
+views, `TodayView.swift` (+ extracted cards file), `TonestepApp.swift` (model container).
 
 ## Follow-up specs
 

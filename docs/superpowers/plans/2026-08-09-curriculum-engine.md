@@ -14,19 +14,19 @@
 - Phase 1 covers four anchor modules only: `.intervalRecognition`, `.chordRecognition`, `.scaleRecognition`, `.functionalEar`.
 - Stage identity is `"\(chapterId)-\(indexInChapter)"`, never a global integer.
 - `indexInChapter` is 0-based internally. Any user-facing number is computed at render time.
-- Curriculum position is called **Stage**. `EarIQLevel` keeps the word **Level** for XP. Never mix these terms.
+- Curriculum position is called **Stage**. `TonestepLevel` keeps the word **Level** for XP. Never mix these terms.
 - `drillType` strings must match the legacy formats already in `SRItem`/`DrillResult`, so spaced-repetition history survives: `interval_major_3rd_ascending`, `chord_major`, `scale_natural_minor`, `functional_degree_do`.
 - Free entitlement yields 70 stages (chapters 1–7). Pro yields 102 (all 10).
-- All new engine files live in `EarIQ/Core/Curriculum/`.
+- All new engine files live in `Tonestep/Core/Curriculum/`.
 - **xcodegen:** new files are picked up by path, so run `xcodegen generate` after creating any file and before building.
 - Simulator UDID for all test commands: `907A43A4-894B-4875-A20B-660CFCB02AD0`.
 
 ## Prerequisite (already complete)
 
-`EarIQTests` had no Info.plist and no `GENERATE_INFOPLIST_FILE`, so `xcodebuild test` failed at code signing and never ran a test. Fixed in commit `fd3b190`; 11 existing tests now pass. Verify before starting:
+`TonestepTests` had no Info.plist and no `GENERATE_INFOPLIST_FILE`, so `xcodebuild test` failed at code signing and never ran a test. Fixed in commit `fd3b190`; 11 existing tests now pass. Verify before starting:
 
 ```bash
-xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
+xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
 ```
 Expected: `Executed 11 tests, with 0 failures` and `** TEST SUCCEEDED **`
 
@@ -41,8 +41,8 @@ Expected: `Executed 11 tests, with 0 failures` and `** TEST SUCCEEDED **`
 ### Task 1: ContentItem and Entitlement
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/ContentItem.swift`
-- Test: `EarIQTests/ContentItemTests.swift`
+- Create: `Tonestep/Core/Curriculum/ContentItem.swift`
+- Test: `TonestepTests/ContentItemTests.swift`
 
 **Interfaces:**
 - Consumes: `Interval`, `ChordQuality`, `ScaleType`, `ScaleDegree`, `TrainingModule` (existing).
@@ -50,11 +50,11 @@ Expected: `Executed 11 tests, with 0 failures` and `** TEST SUCCEEDED **`
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/ContentItemTests.swift`:
+Create `TonestepTests/ContentItemTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class ContentItemTests: XCTestCase {
     func test_interval_drillType_matches_legacy_format() {
@@ -96,13 +96,13 @@ final class ContentItemTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ContentItemTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ContentItemTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'ContentItem' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/ContentItem.swift`:
+Create `Tonestep/Core/Curriculum/ContentItem.swift`:
 
 ```swift
 import Foundation
@@ -165,14 +165,14 @@ enum Entitlement {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ContentItemTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ContentItemTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 7 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/ContentItem.swift EarIQTests/ContentItemTests.swift project.yml EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/ContentItem.swift TonestepTests/ContentItemTests.swift project.yml Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add ContentItem and Entitlement for curriculum engine"
 ```
 
@@ -181,8 +181,8 @@ git commit -m "feat: add ContentItem and Entitlement for curriculum engine"
 ### Task 2: ConfusionMatrix
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/ConfusionMatrix.swift`
-- Test: `EarIQTests/ConfusionMatrixTests.swift`
+- Create: `Tonestep/Core/Curriculum/ConfusionMatrix.swift`
+- Test: `TonestepTests/ConfusionMatrixTests.swift`
 
 **Interfaces:**
 - Consumes: `ContentItem` from Task 1.
@@ -192,11 +192,11 @@ This is the differentiator: difficulty tracks perceptual distance, not item coun
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/ConfusionMatrixTests.swift`:
+Create `TonestepTests/ConfusionMatrixTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class ConfusionMatrixTests: XCTestCase {
     func test_near_intervals_more_confusable_than_far() {
@@ -244,13 +244,13 @@ final class ConfusionMatrixTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ConfusionMatrixTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ConfusionMatrixTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'ConfusionMatrix' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/ConfusionMatrix.swift`:
+Create `Tonestep/Core/Curriculum/ConfusionMatrix.swift`:
 
 ```swift
 import Foundation
@@ -312,14 +312,14 @@ enum ConfusionMatrix {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ConfusionMatrixTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ConfusionMatrixTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 8 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/ConfusionMatrix.swift EarIQTests/ConfusionMatrixTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/ConfusionMatrix.swift TonestepTests/ConfusionMatrixTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add ConfusionMatrix for perceptual difficulty weighting"
 ```
 
@@ -328,8 +328,8 @@ git commit -m "feat: add ConfusionMatrix for perceptual difficulty weighting"
 ### Task 3: DifficultyParams and its axis enums
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/DifficultyParams.swift`
-- Test: `EarIQTests/DifficultyParamsTests.swift`
+- Create: `Tonestep/Core/Curriculum/DifficultyParams.swift`
+- Test: `TonestepTests/DifficultyParamsTests.swift`
 
 **Interfaces:**
 - Consumes: `ContentItem`, `ConfusionMatrix`.
@@ -337,11 +337,11 @@ git commit -m "feat: add ConfusionMatrix for perceptual difficulty weighting"
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/DifficultyParamsTests.swift`:
+Create `TonestepTests/DifficultyParamsTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class DifficultyParamsTests: XCTestCase {
 
@@ -418,13 +418,13 @@ final class DifficultyParamsTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DifficultyParamsTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DifficultyParamsTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'DifficultyParams' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/DifficultyParams.swift`:
+Create `Tonestep/Core/Curriculum/DifficultyParams.swift`:
 
 ```swift
 import Foundation
@@ -525,14 +525,14 @@ struct DifficultyParams: Codable, Equatable {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DifficultyParamsTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DifficultyParamsTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 9 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/DifficultyParams.swift EarIQTests/DifficultyParamsTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/DifficultyParams.swift TonestepTests/DifficultyParamsTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add DifficultyParams with scalar difficulty score"
 ```
 
@@ -541,8 +541,8 @@ git commit -m "feat: add DifficultyParams with scalar difficulty score"
 ### Task 4: DrillSpec
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/DrillSpec.swift`
-- Test: `EarIQTests/DrillSpecTests.swift`
+- Create: `Tonestep/Core/Curriculum/DrillSpec.swift`
+- Test: `TonestepTests/DrillSpecTests.swift`
 
 **Interfaces:**
 - Consumes: `ContentItem`, `VoicingMode`, `HarmonicContext`.
@@ -550,11 +550,11 @@ git commit -m "feat: add DifficultyParams with scalar difficulty score"
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/DrillSpecTests.swift`:
+Create `TonestepTests/DrillSpecTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class DrillSpecTests: XCTestCase {
 
@@ -612,13 +612,13 @@ final class DrillSpecTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DrillSpecTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DrillSpecTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'DrillSpec' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/DrillSpec.swift`:
+Create `Tonestep/Core/Curriculum/DrillSpec.swift`:
 
 ```swift
 import Foundation
@@ -655,14 +655,14 @@ struct DrillSpec: Equatable {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DrillSpecTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DrillSpecTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 6 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/DrillSpec.swift EarIQTests/DrillSpecTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/DrillSpec.swift TonestepTests/DrillSpecTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add DrillSpec with legacy-compatible drillType"
 ```
 
@@ -671,8 +671,8 @@ git commit -m "feat: add DrillSpec with legacy-compatible drillType"
 ### Task 5: Chapter, DifficultyEnvelope, Stage, PassCriteria
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/Chapter.swift`
-- Test: `EarIQTests/ChapterTests.swift`
+- Create: `Tonestep/Core/Curriculum/Chapter.swift`
+- Test: `TonestepTests/ChapterTests.swift`
 
 **Interfaces:**
 - Consumes: `DifficultyParams` and its axis enums, `ContentItem`, `TrainingModule`.
@@ -682,11 +682,11 @@ The envelope is what keeps 102 stages down to ~150 lines of authored data. Every
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/ChapterTests.swift`:
+Create `TonestepTests/ChapterTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class ChapterTests: XCTestCase {
 
@@ -782,13 +782,13 @@ final class ChapterTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ChapterTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ChapterTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'DifficultyEnvelope' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/Chapter.swift`:
+Create `Tonestep/Core/Curriculum/Chapter.swift`:
 
 ```swift
 import Foundation
@@ -883,14 +883,14 @@ struct Stage: Identifiable, Equatable {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/ChapterTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/ChapterTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 8 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/Chapter.swift EarIQTests/ChapterTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/Chapter.swift TonestepTests/ChapterTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add Chapter, DifficultyEnvelope, Stage and PassCriteria"
 ```
 
@@ -899,8 +899,8 @@ git commit -m "feat: add Chapter, DifficultyEnvelope, Stage and PassCriteria"
 ### Task 6: CurriculumBuilder chapter definitions and stage generation
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/CurriculumBuilder.swift`
-- Test: `EarIQTests/CurriculumBuilderTests.swift`
+- Create: `Tonestep/Core/Curriculum/CurriculumBuilder.swift`
+- Test: `TonestepTests/CurriculumBuilderTests.swift`
 
 **Interfaces:**
 - Consumes: `Chapter`, `DifficultyEnvelope`, `Stage`, `PassCriteria`, `ContentItem`, `Entitlement`.
@@ -910,11 +910,11 @@ The ten chapters run functional → intervallic → harmonic → modal → integ
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/CurriculumBuilderTests.swift`:
+Create `TonestepTests/CurriculumBuilderTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class CurriculumBuilderTests: XCTestCase {
 
@@ -1026,13 +1026,13 @@ final class CurriculumBuilderTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/CurriculumBuilderTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/CurriculumBuilderTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'CurriculumBuilder' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/CurriculumBuilder.swift`:
+Create `Tonestep/Core/Curriculum/CurriculumBuilder.swift`:
 
 ```swift
 import Foundation
@@ -1277,7 +1277,7 @@ enum CurriculumBuilder {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/CurriculumBuilderTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/CurriculumBuilderTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 17 tests, with 0 failures`
 
@@ -1286,7 +1286,7 @@ If `test_difficulty_non_decreasing_within_every_chapter` fails, the named chapte
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/CurriculumBuilder.swift EarIQTests/CurriculumBuilderTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/CurriculumBuilder.swift TonestepTests/CurriculumBuilderTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add 10-chapter curriculum generating 102 graded stages"
 ```
 
@@ -1295,9 +1295,9 @@ git commit -m "feat: add 10-chapter curriculum generating 102 graded stages"
 ### Task 7: Deterministic drill sampling
 
 **Files:**
-- Modify: `EarIQ/Core/Curriculum/CurriculumBuilder.swift`
-- Create: `EarIQ/Core/Curriculum/SeededGenerator.swift`
-- Test: `EarIQTests/DrillSamplingTests.swift`
+- Modify: `Tonestep/Core/Curriculum/CurriculumBuilder.swift`
+- Create: `Tonestep/Core/Curriculum/SeededGenerator.swift`
+- Test: `TonestepTests/DrillSamplingTests.swift`
 
 **Interfaces:**
 - Consumes: `Stage`, `DifficultyParams`, `DrillSpec`.
@@ -1307,11 +1307,11 @@ Determinism matters so a given stage always presents the same drills. `String.ha
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/DrillSamplingTests.swift`:
+Create `TonestepTests/DrillSamplingTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class DrillSamplingTests: XCTestCase {
 
@@ -1410,13 +1410,13 @@ final class DrillSamplingTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DrillSamplingTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DrillSamplingTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'SeededGenerator' in scope`
 
 - [ ] **Step 3a: Create the generator**
 
-Create `EarIQ/Core/Curriculum/SeededGenerator.swift`:
+Create `Tonestep/Core/Curriculum/SeededGenerator.swift`:
 
 ```swift
 import Foundation
@@ -1507,14 +1507,14 @@ Note: `fixedC` uses MIDI 60 regardless of `registerSpan`, and `RegisterSpan.fixe
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/DrillSamplingTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/DrillSamplingTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 13 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/SeededGenerator.swift EarIQ/Core/Curriculum/CurriculumBuilder.swift EarIQTests/DrillSamplingTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/SeededGenerator.swift Tonestep/Core/Curriculum/CurriculumBuilder.swift TonestepTests/DrillSamplingTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add deterministic drill sampling from stage params"
 ```
 
@@ -1523,8 +1523,8 @@ git commit -m "feat: add deterministic drill sampling from stage params"
 ### Task 8: StageEvaluator
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/StageEvaluator.swift`
-- Test: `EarIQTests/StageEvaluatorTests.swift`
+- Create: `Tonestep/Core/Curriculum/StageEvaluator.swift`
+- Test: `TonestepTests/StageEvaluatorTests.swift`
 
 **Interfaces:**
 - Consumes: `DrillResult` (existing), `PassCriteria`.
@@ -1532,11 +1532,11 @@ git commit -m "feat: add deterministic drill sampling from stage params"
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/StageEvaluatorTests.swift`:
+Create `TonestepTests/StageEvaluatorTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class StageEvaluatorTests: XCTestCase {
 
@@ -1595,13 +1595,13 @@ final class StageEvaluatorTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/StageEvaluatorTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/StageEvaluatorTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'StageEvaluator' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/StageEvaluator.swift`:
+Create `Tonestep/Core/Curriculum/StageEvaluator.swift`:
 
 ```swift
 import Foundation
@@ -1635,14 +1635,14 @@ enum StageEvaluator {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/StageEvaluatorTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/StageEvaluatorTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 8 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/StageEvaluator.swift EarIQTests/StageEvaluatorTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/StageEvaluator.swift TonestepTests/StageEvaluatorTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add StageEvaluator for pass and star scoring"
 ```
 
@@ -1651,9 +1651,9 @@ git commit -m "feat: add StageEvaluator for pass and star scoring"
 ### Task 9: JourneyProgress and StageRecord persistence
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/JourneyProgress.swift`
-- Modify: `EarIQ/App/EarIQApp.swift:41`
-- Test: `EarIQTests/JourneyProgressTests.swift`
+- Create: `Tonestep/Core/Curriculum/JourneyProgress.swift`
+- Modify: `Tonestep/App/TonestepApp.swift:41`
+- Test: `TonestepTests/JourneyProgressTests.swift`
 
 **Interfaces:**
 - Consumes: SwiftData.
@@ -1661,11 +1661,11 @@ git commit -m "feat: add StageEvaluator for pass and star scoring"
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/JourneyProgressTests.swift`:
+Create `TonestepTests/JourneyProgressTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class JourneyProgressTests: XCTestCase {
 
@@ -1715,13 +1715,13 @@ final class JourneyProgressTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/JourneyProgressTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/JourneyProgressTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'JourneyProgress' in scope`
 
 - [ ] **Step 3a: Create the models**
 
-Create `EarIQ/Core/Curriculum/JourneyProgress.swift`:
+Create `Tonestep/Core/Curriculum/JourneyProgress.swift`:
 
 ```swift
 import Foundation
@@ -1780,7 +1780,7 @@ final class StageRecord {
 
 - [ ] **Step 3b: Register the models in the container**
 
-In `EarIQ/App/EarIQApp.swift`, replace line 41:
+In `Tonestep/App/TonestepApp.swift`, replace line 41:
 
 ```swift
                 .modelContainer(for: [DrillResult.self, DailySessionRecord.self, SRItem.self])
@@ -1798,14 +1798,14 @@ with:
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/JourneyProgressTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/JourneyProgressTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 6 tests, with 0 failures`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add EarIQ/Core/Curriculum/JourneyProgress.swift EarIQ/App/EarIQApp.swift EarIQTests/JourneyProgressTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/JourneyProgress.swift Tonestep/App/TonestepApp.swift TonestepTests/JourneyProgressTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: add JourneyProgress and StageRecord persistence"
 ```
 
@@ -1814,8 +1814,8 @@ git commit -m "feat: add JourneyProgress and StageRecord persistence"
 ### Task 10: JourneySeeder for existing users
 
 **Files:**
-- Create: `EarIQ/Core/Curriculum/JourneySeeder.swift`
-- Test: `EarIQTests/JourneySeederTests.swift`
+- Create: `Tonestep/Core/Curriculum/JourneySeeder.swift`
+- Test: `TonestepTests/JourneySeederTests.swift`
 
 **Interfaces:**
 - Consumes: `DrillResult`, `CurriculumBuilder`, `Entitlement`, `Stage`.
@@ -1825,11 +1825,11 @@ Existing users have drill history. Dropping them at stage 1 would read as a wipe
 
 - [ ] **Step 1: Write the failing test**
 
-Create `EarIQTests/JourneySeederTests.swift`:
+Create `TonestepTests/JourneySeederTests.swift`:
 
 ```swift
 import XCTest
-@testable import EarIQ
+@testable import Tonestep
 
 final class JourneySeederTests: XCTestCase {
 
@@ -1892,13 +1892,13 @@ final class JourneySeederTests: XCTestCase {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/JourneySeederTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/JourneySeederTests 2>&1 | grep -E "error:|Executed [0-9]+ tests"
 ```
 Expected: FAIL — `cannot find 'JourneySeeder' in scope`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `EarIQ/Core/Curriculum/JourneySeeder.swift`:
+Create `Tonestep/Core/Curriculum/JourneySeeder.swift`:
 
 ```swift
 import Foundation
@@ -1944,20 +1944,20 @@ enum JourneySeeder {
 - [ ] **Step 4: Run test to verify it passes**
 
 ```bash
-xcodegen generate && xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:EarIQTests/JourneySeederTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
+xcodegen generate && xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' -only-testing:TonestepTests/JourneySeederTests 2>&1 | grep -E "Executed [0-9]+ tests|TEST"
 ```
 Expected: `Executed 7 tests, with 0 failures`
 
 - [ ] **Step 5: Run the whole suite and commit**
 
 ```bash
-xcodebuild test -scheme EarIQ -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
+xcodebuild test -scheme Tonestep -destination 'platform=iOS Simulator,id=907A43A4-894B-4875-A20B-660CFCB02AD0' 2>&1 | grep -E "Executed [0-9]+ tests|TEST (SUCCEEDED|FAILED)"
 ```
 Expected: `Executed 100 tests, with 0 failures` and `** TEST SUCCEEDED **`
 (11 pre-existing + 89 new. If the count differs, confirm no test file was missed by xcodegen.)
 
 ```bash
-git add EarIQ/Core/Curriculum/JourneySeeder.swift EarIQTests/JourneySeederTests.swift EarIQ.xcodeproj/project.pbxproj
+git add Tonestep/Core/Curriculum/JourneySeeder.swift TonestepTests/JourneySeederTests.swift Tonestep.xcodeproj/project.pbxproj
 git commit -m "feat: seed journey position from existing drill history"
 ```
 
@@ -1965,12 +1965,12 @@ git commit -m "feat: seed journey position from existing drill history"
 
 ## Definition of done
 
-- `xcodebuild test -scheme EarIQ` passes with 0 failures.
+- `xcodebuild test -scheme Tonestep` passes with 0 failures.
 - `CurriculumBuilder.stages(for: .free).count == 70`, `.pro == 102`.
 - Every stage in both entitlements yields 10 valid drills whose answer is among the choices.
 - Difficulty is non-decreasing within every chapter.
 - Sampling is reproducible across processes.
-- No UI file has been modified except `EarIQApp.swift` for model registration.
+- No UI file has been modified except `TonestepApp.swift` for model registration.
 
 ## Follow-on plans
 
