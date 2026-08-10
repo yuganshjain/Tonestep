@@ -19,6 +19,7 @@
 		1F803AA4B963ABA0F1AA3303 /* DifficultyParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01112123F670BA95DFD0D95 /* DifficultyParamsTests.swift */; };
 		204A2F0D5CDC59F468875929 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877E49A088A9B47D0F5ECEE /* NotificationManager.swift */; };
 		22C4E3612DBDE6DD8B80C82B /* SREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C614C1647F4A5EDE4F0108 /* SREngine.swift */; };
+		24A251DC3250645BA766FAD5 /* CurriculumBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4C02B1B858B46C95733F7 /* CurriculumBuilderTests.swift */; };
 		260ABA844815C34BEDD85A35 /* DifficultyParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1A1C40652178D56A27AF9 /* DifficultyParams.swift */; };
 		2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04984D76137530159A190FB5 /* SRItem.swift */; };
 		41DE1874DEA6DC8967871A9C /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A079A797EC20F5FD511462FD /* SpeedRoundView.swift */; };
@@ -38,6 +39,7 @@
 		78D93F8840CB87A0F06C79B9 /* DrillSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24ECF11203AD66CED6A4DD0 /* DrillSpec.swift */; };
 		7EE61ECC934C30144DFADDC3 /* EarIQWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078383145A676AC99292A5EA /* EarIQWidget.swift */; };
 		85664A0F87826CBBEFCE5046 /* DrillResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413475D498C6A6C2BDB48B3 /* DrillResult.swift */; };
+		856F53DCC65CDDF097D38615 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD23DDC78AAC454D67BAEE /* SeededGenerator.swift */; };
 		8A482E6C6044F82A6A1C2BB7 /* ProgressTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BC2FB25DAFB52360F7273 /* ProgressTabView.swift */; };
 		8F0FB685D5FAA597050E2F2C /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541ABBCDC31BFA1B4F4521F /* PaywallView.swift */; };
 		962370C805C9E40A7D141406 /* ConfusionMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C40EFEA9B3F406C076B66 /* ConfusionMatrix.swift */; };
@@ -50,6 +52,7 @@
 		AA5DF1B724AC6F66B7E22DB9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258E976FF42E8D3596C9549D /* OnboardingView.swift */; };
 		AE7463D9265B3D344BD7C6C5 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF129F24F5C3B76BAEBE1CCD /* Chapter.swift */; };
 		B0C218A03B22979C01771F62 /* TheoryLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE2AAA806D84302C67EC779 /* TheoryLessonsView.swift */; };
+		B50E0E3F8EBE1B30037127F9 /* DrillSamplingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9518E344803C27007BFA922 /* DrillSamplingTests.swift */; };
 		B78AF5E3E9AAF24151284964 /* ErrorDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8291915C8D5F908DA5DC7BC /* ErrorDetectionView.swift */; };
 		B91E265995BD5A3C5432A7CE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A1D0EB9B3D32C07AA14E29 /* SettingsView.swift */; };
 		BADDDC96530A8F2C1FAC4439 /* ChordProgressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1365C9E04DF07998E02EFD5 /* ChordProgressionView.swift */; };
@@ -72,6 +75,7 @@
 		F1049FD9A55F453963DE9BF7 /* MelodyDictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AACC30350616B730AB974 /* MelodyDictationView.swift */; };
 		F514E223234AAC84E9E37003 /* EarIQApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A721BDBAF498B31D77926A0C /* EarIQApp.swift */; };
 		F82C2CBE5E12D2362628B0AB /* RelativePitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62803B5D4F5746F97CD9F64F /* RelativePitchView.swift */; };
+		F8F943637F96DF4B3E9BA281 /* CurriculumBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CE8015DF8E3F4BA3111301 /* CurriculumBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +118,7 @@
 		0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		14239ECD9E5499A3A1D7B8CB /* SingingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingingPracticeView.swift; sourceTree = "<group>"; };
 		1842708A812D7F71CEC14E6C /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
+		19AD23DDC78AAC454D67BAEE /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
 		1AE481987A1143D0C5950CAC /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		226EDCB72329FDE3CEED3662 /* RhythmTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmTrainerView.swift; sourceTree = "<group>"; };
 		22AAA42FA8AFDA181DF2D4E8 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
@@ -125,7 +130,9 @@
 		33E1986E3231F1A86409EFD0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		36134B7A53CE9ED75C63C725 /* FocusSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSessionView.swift; sourceTree = "<group>"; };
 		372C40EFEA9B3F406C076B66 /* ConfusionMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfusionMatrix.swift; sourceTree = "<group>"; };
+		3BC4C02B1B858B46C95733F7 /* CurriculumBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumBuilderTests.swift; sourceTree = "<group>"; };
 		3FE2AAA806D84302C67EC779 /* TheoryLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheoryLessonsView.swift; sourceTree = "<group>"; };
+		40CE8015DF8E3F4BA3111301 /* CurriculumBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumBuilder.swift; sourceTree = "<group>"; };
 		4193A24996924B6F8AF9D679 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		42C614C1647F4A5EDE4F0108 /* SREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SREngine.swift; sourceTree = "<group>"; };
 		43416B02BEF9DE97E72A150F /* EarIQTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = EarIQTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +181,7 @@
 		DEBFB737BF423CE8138FC142 /* EarIQ.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EarIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F667C63D7320EBE982D6F5F6 /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
 		F851F1FD6DDAD4FBDDC300B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F9518E344803C27007BFA922 /* DrillSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSamplingTests.swift; sourceTree = "<group>"; };
 		FA814535A97DD25F513082D5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FF129F24F5C3B76BAEBE1CCD /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -393,7 +401,9 @@
 				A86F037FA133B3363F5435EF /* ChapterTests.swift */,
 				BA885C41348812D7C610CB7B /* ConfusionMatrixTests.swift */,
 				B20D28F2E3727A3A4A074EE0 /* ContentItemTests.swift */,
+				3BC4C02B1B858B46C95733F7 /* CurriculumBuilderTests.swift */,
 				B01112123F670BA95DFD0D95 /* DifficultyParamsTests.swift */,
+				F9518E344803C27007BFA922 /* DrillSamplingTests.swift */,
 				5D6C1CF78FBE5B59E34FABC7 /* DrillSpecTests.swift */,
 				43CF32221A22D970960756F5 /* SREngineTests.swift */,
 			);
@@ -468,8 +478,10 @@
 				FF129F24F5C3B76BAEBE1CCD /* Chapter.swift */,
 				372C40EFEA9B3F406C076B66 /* ConfusionMatrix.swift */,
 				2FB406145A23391EAE70ED4A /* ContentItem.swift */,
+				40CE8015DF8E3F4BA3111301 /* CurriculumBuilder.swift */,
 				8EE1A1C40652178D56A27AF9 /* DifficultyParams.swift */,
 				B24ECF11203AD66CED6A4DD0 /* DrillSpec.swift */,
+				19AD23DDC78AAC454D67BAEE /* SeededGenerator.swift */,
 			);
 			path = Curriculum;
 			sourceTree = "<group>";
@@ -617,7 +629,9 @@
 				CF4ACDC9C141AE99E757C02D /* ChapterTests.swift in Sources */,
 				64EB5CB4DF3673CD6C75CA25 /* ConfusionMatrixTests.swift in Sources */,
 				1BBED8CF13023731F1B14EF9 /* ContentItemTests.swift in Sources */,
+				24A251DC3250645BA766FAD5 /* CurriculumBuilderTests.swift in Sources */,
 				1F803AA4B963ABA0F1AA3303 /* DifficultyParamsTests.swift in Sources */,
+				B50E0E3F8EBE1B30037127F9 /* DrillSamplingTests.swift in Sources */,
 				C35F4CDAC30FE51D7DC1A4D1 /* DrillSpecTests.swift in Sources */,
 				166601CAD2698FF6E3ACE2BB /* SREngineTests.swift in Sources */,
 			);
@@ -639,6 +653,7 @@
 				962370C805C9E40A7D141406 /* ConfusionMatrix.swift in Sources */,
 				DCCE46419C91398F2CEA247E /* ContentItem.swift in Sources */,
 				9FE99A9ECD408D4B609DEC23 /* ContentView.swift in Sources */,
+				F8F943637F96DF4B3E9BA281 /* CurriculumBuilder.swift in Sources */,
 				D582B435149D763887B9F001 /* DailySessionView.swift in Sources */,
 				260ABA844815C34BEDD85A35 /* DifficultyParams.swift in Sources */,
 				85664A0F87826CBBEFCE5046 /* DrillResult.swift in Sources */,
@@ -666,6 +681,7 @@
 				22C4E3612DBDE6DD8B80C82B /* SREngine.swift in Sources */,
 				2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */,
 				EB01AAA68A469AAB86F039B9 /* ScaleDrillView.swift in Sources */,
+				856F53DCC65CDDF097D38615 /* SeededGenerator.swift in Sources */,
 				B91E265995BD5A3C5432A7CE /* SettingsView.swift in Sources */,
 				C325DD1AC664A8D316383A55 /* SingingPracticeView.swift in Sources */,
 				41DE1874DEA6DC8967871A9C /* SpeedRoundView.swift in Sources */,

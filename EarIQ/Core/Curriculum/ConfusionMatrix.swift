@@ -22,18 +22,24 @@ enum ConfusionMatrix {
         }
     }
 
-    /// Mean pairwise confusability across the pool. 0 for pools of 0 or 1.
+    /// Hardest discrimination the pool demands: the maximum pairwise
+    /// confusability. 0 for pools of 0 or 1.
+    ///
+    /// Deliberately max rather than mean. A mean *falls* as a pool grows —
+    /// adding distant items dilutes it — which made larger pools score as
+    /// easier and broke the monotonic difficulty curve. It is also the better
+    /// model: a pool is hard because of the closest pair you must tell apart,
+    /// not the average distance. Pool breadth is scored separately by the
+    /// contentPool.count term in DifficultyParams.difficultyScore.
     static func poolDifficulty(_ pool: [ContentItem]) -> Double {
         guard pool.count > 1 else { return 0 }
-        var total = 0.0
-        var pairs = 0
+        var hardest = 0.0
         for i in 0..<pool.count {
             for j in (i + 1)..<pool.count {
-                total += confusability(pool[i], pool[j])
-                pairs += 1
+                hardest = max(hardest, confusability(pool[i], pool[j]))
             }
         }
-        return pairs == 0 ? 0 : total / Double(pairs)
+        return hardest
     }
 
     private static func jaccard(_ a: Set<Int>, _ b: Set<Int>) -> Double {
