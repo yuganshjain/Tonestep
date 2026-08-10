@@ -82,6 +82,8 @@ struct ChordModuleView: View {
 
 struct ChordDrillView: View {
     let drillType: String
+    /// When supplied, this exact drill is rendered instead of a random one.
+    var spec: DrillSpec? = nil
     let onComplete: (Bool, TimeInterval) -> Void
     @EnvironmentObject private var storeManager: StoreManager
 
@@ -170,10 +172,18 @@ struct ChordDrillView: View {
     private func newDrill() {
         answered = nil
         startTime = Date()
-        rootMidi = UInt8.random(in: 48...72)
-        targetChord = availableChords.randomElement() ?? .major
-        var pool = availableChords.filter { $0 != targetChord }; pool.shuffle()
-        choices = ([targetChord] + pool.prefix(3)).shuffled()
+        if let spec, case .chord(let quality) = spec.item {
+            rootMidi = spec.rootMidi
+            targetChord = quality
+            choices = spec.choices.compactMap {
+                if case .chord(let c) = $0 { return c } else { return nil }
+            }
+        } else {
+            rootMidi = UInt8.random(in: 48...72)
+            targetChord = availableChords.randomElement() ?? .major
+            var pool = availableChords.filter { $0 != targetChord }; pool.shuffle()
+            choices = ([targetChord] + pool.prefix(3)).shuffled()
+        }
         playChord()
     }
 

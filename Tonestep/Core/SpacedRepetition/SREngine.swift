@@ -46,9 +46,10 @@ final class DailySessionBuilder {
         recentResults: [DrillResult],
         targetCount: Int,
         isPro: Bool,
-        availableModules: [TrainingModule]
+        availableModules: [TrainingModule] = []
     ) -> [DrillPlan] {
         var plans: [DrillPlan] = []
+        let entitlement: Entitlement = isPro ? .pro : .free
 
         // 1. Due SR items (pro only)
         if isPro {
@@ -62,13 +63,12 @@ final class DailySessionBuilder {
             .filter { dt in !plans.contains(where: { $0.drillType == dt }) }
             .map { DrillPlan(drillType: $0, source: .weakSpot) }
 
-        // 3. Fill remainder with random drills from available modules
+        // 3. Fill the remainder from the curriculum, which covers every module
+        //    the user has access to.
         let remaining = targetCount - plans.count
         if remaining > 0 {
-            let randomDrills = randomDrillTypes(from: availableModules, count: remaining)
-                .filter { dt in !plans.contains(where: { $0.drillType == dt }) }
-                .map { DrillPlan(drillType: $0, source: .random) }
-            plans += randomDrills
+            plans += curriculumSpecs(for: entitlement, count: remaining)
+                .map { DrillPlan(drillType: $0.drillType, spec: $0, source: .random) }
         }
 
         return Array(plans.prefix(targetCount)).shuffled()
@@ -90,39 +90,32 @@ final class DailySessionBuilder {
         return Array(sorted.prefix(limit).map(\.key))
     }
 
-    private static func randomDrillTypes(from modules: [TrainingModule], count: Int) -> [String] {
-        var types: [String] = []
-        for _ in 0..<count {
-            guard let module = modules.randomElement() else { continue }
-            let type_ = randomDrillType(for: module)
-            types.append(type_)
-        }
-        return types
-    }
+    /// Draws real drills from the curriculum rather than hand-rolled randomisation.
+    ///
+    /// The previous implementation switched over four modules and returned a
+    /// hardcoded "interval_major_third_ascending" for the other eleven, so the
+    /// Daily Session could never produce a drill for most of the app.
+    private static func curriculumSpecs(for entitlement: Entitlement, count: Int) -> [DrillSpec] {
+        guard count > 0 else { return [] }
+        let stages = CurriculumBuilder.stages(for: entitlement)
+        guard !stages.isEmpty else { return [] }
 
-    private static func randomDrillType(for module: TrainingModule) -> String {
-        switch module {
-        case .intervalRecognition:
-            let interval = Interval.allCases.filter { $0 != .unison }.randomElement()!
-            let direction = IntervalDirection.allCases.randomElement()!
-            return "interval_\(interval.name.lowercased().replacingOccurrences(of: " ", with: "_"))_\(direction.rawValue.lowercased())"
-        case .chordRecognition:
-            let chord = ChordQuality.allCases.filter { !$0.isProOnly }.randomElement()!
-            return chord.drillType
-        case .scaleRecognition:
-            let scale = ScaleType.allCases.filter(\.freeForAll).randomElement()!
-            return scale.drillType
-        case .functionalEar:
-            let degree = ScaleDegree.beginnerSet.randomElement()!
-            return degree.drillType
-        default:
-            return "interval_major_third_ascending"
+        var specs: [DrillSpec] = []
+        while specs.count < count {
+            guard let stage = stages.randomElement() else { break }
+            let drawn = CurriculumBuilder.drillSpecs(for: stage, count: count - specs.count)
+            if drawn.isEmpty { break }
+            specs += drawn
         }
+        return Array(specs.prefix(count))
     }
 }
 
 struct DrillPlan {
     let drillType: String
+    /// Present when the plan came from the curriculum; lets the view render the
+    /// exact drill rather than re-randomising from the type string.
+    var spec: DrillSpec? = nil
     let source: DrillSource
 
     enum DrillSource {

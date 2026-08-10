@@ -74,7 +74,8 @@ struct DailySessionView: View {
     private var drillView: some View {
         VStack(spacing: 0) {
             sessionProgressBar
-            DrillDispatchView(drillType: plans[currentIndex].drillType) { correct, responseTime in
+            DrillDispatchView(drillType: plans[currentIndex].drillType,
+                              spec: plans[currentIndex].spec) { correct, responseTime in
                 recordResult(correct: correct, responseTime: responseTime)
             }
         }
@@ -241,11 +242,22 @@ struct DailySessionView: View {
 
 struct DrillDispatchView: View {
     let drillType: String
+    /// When supplied, routing uses spec.module and the exact drill is rendered.
+    var spec: DrillSpec? = nil
     let onComplete: (Bool, TimeInterval) -> Void
 
     var body: some View {
-        if drillType.hasPrefix("interval_") {
-            IntervalDrillView(drillType: drillType, onComplete: onComplete)
+        if let spec {
+            switch spec.module {
+            case .chordRecognition:
+                ChordDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
+            case .scaleRecognition:
+                ScaleDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
+            case .functionalEar:
+                FunctionalEarDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
+            default:
+                IntervalDrillView(drillType: drillType, spec: spec, onComplete: onComplete)
+            }
         } else if drillType.hasPrefix("chord_") {
             ChordDrillView(drillType: drillType, onComplete: onComplete)
         } else if drillType.hasPrefix("scale_") {

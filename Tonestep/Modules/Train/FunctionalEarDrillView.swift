@@ -79,6 +79,8 @@ struct FunctionalEarModuleView: View {
 
 struct FunctionalEarDrillView: View {
     let drillType: String
+    /// When supplied, this exact drill is rendered instead of a random one.
+    var spec: DrillSpec? = nil
     let onComplete: (Bool, TimeInterval) -> Void
     @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
@@ -252,11 +254,19 @@ struct FunctionalEarDrillView: View {
         isPlayingNote = false
         isPlayingCadence = false
         startTime = Date()
-        rootMidi = UInt8.random(in: 53...67)
-        targetDegree = activeDegrees.randomElement() ?? .do_
-        var pool = activeDegrees.filter { $0 != targetDegree }
-        pool.shuffle()
-        choices = ([targetDegree] + pool.prefix(3)).shuffled()
+        if let spec, case .degree(let degree) = spec.item {
+            rootMidi = max(53, min(spec.rootMidi, 67))
+            targetDegree = degree
+            choices = spec.choices.compactMap {
+                if case .degree(let d) = $0 { return d } else { return nil }
+            }
+        } else {
+            rootMidi = UInt8.random(in: 53...67)
+            targetDegree = activeDegrees.randomElement() ?? .do_
+            var pool = activeDegrees.filter { $0 != targetDegree }
+            pool.shuffle()
+            choices = ([targetDegree] + pool.prefix(3)).shuffled()
+        }
         playCadenceThenNote()
     }
 

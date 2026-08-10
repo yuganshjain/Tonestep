@@ -93,6 +93,9 @@ struct IntervalModuleView: View {
 
 struct IntervalDrillView: View {
     let drillType: String
+    /// When supplied, this exact drill is rendered instead of a random one.
+    /// nil keeps the existing free-practice behaviour, so no call site changes.
+    var spec: DrillSpec? = nil
     let onComplete: (Bool, TimeInterval) -> Void
 
     @State private var rootMidi: UInt8 = 60
@@ -241,11 +244,29 @@ struct IntervalDrillView: View {
         answered = nil
         showMnemonic = false
         startTime = Date()
-        rootMidi = UInt8.random(in: 48...72)
-        targetInterval = Interval.allCases.filter { $0 != .unison }.randomElement()!
-        direction = IntervalDirection.allCases.randomElement()!
-        choices = buildChoices(correct: targetInterval)
+
+        if let spec, case .interval(let interval) = spec.item {
+            rootMidi = spec.rootMidi
+            targetInterval = interval
+            direction = Self.direction(for: spec.voicing)
+            choices = spec.choices.compactMap {
+                if case .interval(let i) = $0 { return i } else { return nil }
+            }
+        } else {
+            rootMidi = UInt8.random(in: 48...72)
+            targetInterval = Interval.allCases.filter { $0 != .unison }.randomElement()!
+            direction = IntervalDirection.allCases.randomElement()!
+            choices = buildChoices(correct: targetInterval)
+        }
         playInterval()
+    }
+
+    private static func direction(for voicing: VoicingMode) -> IntervalDirection {
+        switch voicing {
+        case .ascending:  return .ascending
+        case .descending: return .descending
+        case .harmonic:   return .harmonic
+        }
     }
 
     private func playInterval() {

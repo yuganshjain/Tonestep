@@ -4,6 +4,7 @@ import SwiftData
 struct TodayView: View {
     @EnvironmentObject private var userProfile: UserProfileStore
     @Query(sort: \DrillResult.timestamp, order: .reverse) private var allResults: [DrillResult]
+    @Query private var journeyProgress: [JourneyProgress]
     @State private var showingDailySession = false
     @State private var showingWarmup = false
     @State private var showingFocus = false
@@ -40,6 +41,7 @@ struct TodayView: View {
                 VStack(spacing: 16) {
                     mascotHeader
                     heroCard
+                    journeyCard
                     xpCard
                     HStack(spacing: 12) {
                         warmupCard
@@ -174,6 +176,43 @@ struct TodayView: View {
         case 30...: return "A month of dedicated training! 🎵"
         default: return "Keep going!"
         }
+    }
+
+    // MARK: - Journey Card
+
+    private var journeyCard: some View {
+        NavigationLink { JourneyView() } label: {
+            HStack(spacing: 16) {
+                ZStack {
+                    Circle().fill(Color.appPurple).frame(width: 52, height: 52)
+                    Image(systemName: "map.fill")
+                        .font(.title3).foregroundStyle(.white)
+                }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Your Journey")
+                        .font(.headline)
+                        .foregroundStyle(TrainingModule.pastelText)
+                    Text(journeySubtitle)
+                        .font(.caption)
+                        .foregroundStyle(TrainingModule.pastelSubtext)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(TrainingModule.pastelSubtext)
+            }
+            .padding(16)
+            .background(Color.white, in: RoundedRectangle(cornerRadius: 20))
+        }
+        .buttonStyle(PressableButtonStyle())
+    }
+
+    private var journeySubtitle: String {
+        guard let progress = journeyProgress.first,
+              let chapter = CurriculumBuilder.allChapters
+                .first(where: { $0.id == progress.currentChapterId })
+        else { return "Start your graded curriculum" }
+        return "\(chapter.title) · Stage \(progress.currentIndexInChapter + 1)"
     }
 
     // MARK: - Focus Mode Card

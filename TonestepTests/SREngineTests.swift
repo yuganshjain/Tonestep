@@ -63,3 +63,53 @@ final class MusicTheoryTests: XCTestCase {
         XCTAssertEqual(TonestepLevel.title(for: 0), "Tone Seeker")
     }
 }
+
+// MARK: - Daily session now covers the whole curriculum
+
+final class DailySessionBuilderTests: XCTestCase {
+
+    private func session(isPro: Bool) -> [DrillPlan] {
+        DailySessionBuilder.buildSession(
+            srItems: [], recentResults: [], targetCount: 12, isPro: isPro
+        )
+    }
+
+    /// Regression: the old randomDrillType returned this literal for 11 of the
+    /// 15 modules, so most of the app could never appear in a daily session.
+    func test_session_never_contains_the_hardcoded_sentinel() {
+        for plan in session(isPro: true) {
+            XCTAssertNotEqual(plan.drillType, "interval_major_third_ascending")
+        }
+    }
+
+    func test_session_returns_the_requested_count() {
+        XCTAssertEqual(session(isPro: true).count, 12)
+    }
+
+    func test_curriculum_plans_carry_a_valid_spec() throws {
+        let curriculumPlans = session(isPro: true).filter { $0.source == .random }
+        XCTAssertFalse(curriculumPlans.isEmpty, "expected the filler to come from the curriculum")
+        for plan in curriculumPlans {
+            let spec = try XCTUnwrap(plan.spec)
+            XCTAssertNotNil(spec.correctChoiceIndex, "answer missing from choices")
+        }
+    }
+
+    func test_plan_drillType_matches_its_spec() {
+        for plan in session(isPro: true) {
+            if let spec = plan.spec {
+                XCTAssertEqual(plan.drillType, spec.drillType)
+            }
+        }
+    }
+
+    func test_free_session_only_uses_free_curriculum_content() {
+        let freeItems = Set(CurriculumBuilder.stages(for: .free)
+            .flatMap { $0.params.contentPool })
+        for plan in session(isPro: false) {
+            if let spec = plan.spec {
+                XCTAssertTrue(freeItems.contains(spec.item), "pro content in a free session")
+            }
+        }
+    }
+}

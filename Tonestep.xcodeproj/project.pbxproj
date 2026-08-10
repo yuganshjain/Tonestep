@@ -32,6 +32,7 @@
 		317268ED4EC00B0FBEC7F16E /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0405E4E94A90296422562 /* ContentItem.swift */; };
 		375E55F01D07EA494A16FBC5 /* MascotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA323AFB88052A64C5E28E9 /* MascotView.swift */; };
 		3C1C2F9CAD7E8CAAEF485B5D /* NoteIdentificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66523DCD9B9B74E8B51B34AD /* NoteIdentificationView.swift */; };
+		3E3907CF1F07B70789AAD06D /* JourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5917C0DD5B03D4744EB3B18 /* JourneyView.swift */; };
 		40262D0C5F222A73AC366580 /* ConfusionMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481A6EDB66C2B1B72F99B665 /* ConfusionMatrix.swift */; };
 		40F01093372137BCD2376160 /* LessonPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35470339298BAAD1D6410A99 /* LessonPieceTests.swift */; };
 		45416410296C4CD0280F05D0 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */; };
@@ -82,6 +83,7 @@
 		CED9B0BC89F4744912D7930C /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */; };
 		D15FB38E973FC8A774707080 /* CurriculumBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942DA4DD947C6616F387CAB3 /* CurriculumBuilderTests.swift */; };
 		D1B71E053239722533CB74C6 /* DifficultyParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469B0C80A99ADFEA6212AAB5 /* DifficultyParamsTests.swift */; };
+		D2544B8D1088F73280837221 /* StageSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30763D92751C71C68E99C830 /* StageSessionView.swift */; };
 		DB79F0602C59F959F4911BA3 /* PitchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */; };
 		DD8300B4F3CD34C6D4E7769A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE26AA4C86F5526D6A873201 /* StoreKit.framework */; };
 		E7642407AF66E48A166E19D8 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D770FFEBBD784D377EE8214 /* ChallengesView.swift */; };
@@ -144,6 +146,7 @@
 		2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTheory.swift; sourceTree = "<group>"; };
 		2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
 		2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		30763D92751C71C68E99C830 /* StageSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSessionView.swift; sourceTree = "<group>"; };
 		323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JazzChordsView.swift; sourceTree = "<group>"; };
 		32B183A3CA3DD1820DCBC135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		35470339298BAAD1D6410A99 /* LessonPieceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPieceTests.swift; sourceTree = "<group>"; };
@@ -188,6 +191,7 @@
 		A90A1CDB709CDD2FCE5C8574 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
 		AA9508C648F23EBEA1C3B29E /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		AECB29F50A81B46A0551F033 /* DrillSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSpec.swift; sourceTree = "<group>"; };
+		B5917C0DD5B03D4744EB3B18 /* JourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyView.swift; sourceTree = "<group>"; };
 		B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSamplingTests.swift; sourceTree = "<group>"; };
 		B8DAEE53AD8A3AD49889F890 /* QuickWarmupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWarmupView.swift; sourceTree = "<group>"; };
 		BE26AA4C86F5526D6A873201 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -465,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				1601B7D748D05F6A1E03237A /* Challenges */,
+				F81BA8992EAD2E60AD6D2208 /* Journey */,
 				15CE4235A9A4F82377EAEC93 /* Learn */,
 				EA63B34B2D00FD73AF2BF699 /* Onboarding */,
 				E96A417A47DB86B6112CD25E /* PlayAlong */,
@@ -577,6 +582,15 @@
 				0F2A331C048C7AAE13C23B0C /* StageEvaluator.swift */,
 			);
 			path = Curriculum;
+			sourceTree = "<group>";
+		};
+		F81BA8992EAD2E60AD6D2208 /* Journey */ = {
+			isa = PBXGroup;
+			children = (
+				B5917C0DD5B03D4744EB3B18 /* JourneyView.swift */,
+				30763D92751C71C68E99C830 /* StageSessionView.swift */,
+			);
+			path = Journey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -750,6 +764,7 @@
 				8BBBBC0F2BA524B52F5C7B60 /* JazzChordsView.swift in Sources */,
 				8A241B053CC08A7AFE2ADE6F /* JourneyProgress.swift in Sources */,
 				1C455E73D0FE0D99C695B365 /* JourneySeeder.swift in Sources */,
+				3E3907CF1F07B70789AAD06D /* JourneyView.swift in Sources */,
 				B1CCF96F39CBB73747448076 /* LessonPiece.swift in Sources */,
 				9E4C2CED8C8113075899B85C /* MIDIInputSource.swift in Sources */,
 				375E55F01D07EA494A16FBC5 /* MascotView.swift in Sources */,
@@ -780,6 +795,7 @@
 				5DEE999C41AD66AF32ED479E /* SingingPracticeView.swift in Sources */,
 				A97BE7223F157224359C312C /* SpeedRoundView.swift in Sources */,
 				173650BD9006732852DD399D /* StageEvaluator.swift in Sources */,
+				D2544B8D1088F73280837221 /* StageSessionView.swift in Sources */,
 				46D79D3B9E8F296455340F87 /* StoreManager.swift in Sources */,
 				0BCB425AFED85AACB774B6DA /* TheoryLessonsView.swift in Sources */,
 				F17F7C6F1B34116E0F0A00A0 /* TodayView.swift in Sources */,

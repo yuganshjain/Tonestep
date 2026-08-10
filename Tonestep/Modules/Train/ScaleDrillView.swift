@@ -82,6 +82,8 @@ struct ScaleModuleView: View {
 
 struct ScaleDrillView: View {
     let drillType: String
+    /// When supplied, this exact drill is rendered instead of a random one.
+    var spec: DrillSpec? = nil
     let onComplete: (Bool, TimeInterval) -> Void
     @EnvironmentObject private var storeManager: StoreManager
 
@@ -172,10 +174,18 @@ struct ScaleDrillView: View {
     private func newDrill() {
         answered = nil
         startTime = Date()
-        rootMidi = UInt8.random(in: 48...65)
-        targetScale = availableScales.randomElement() ?? .major
-        var pool = availableScales.filter { $0 != targetScale }; pool.shuffle()
-        choices = ([targetScale] + pool.prefix(3)).shuffled()
+        if let spec, case .scale(let scale) = spec.item {
+            rootMidi = min(spec.rootMidi, 65)
+            targetScale = scale
+            choices = spec.choices.compactMap {
+                if case .scale(let s) = $0 { return s } else { return nil }
+            }
+        } else {
+            rootMidi = UInt8.random(in: 48...65)
+            targetScale = availableScales.randomElement() ?? .major
+            var pool = availableScales.filter { $0 != targetScale }; pool.shuffle()
+            choices = ([targetScale] + pool.prefix(3)).shuffled()
+        }
         playScale()
     }
 
