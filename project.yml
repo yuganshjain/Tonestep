@@ -25,6 +25,8 @@ targets:
       - path: Tonestep
         excludes:
           - "Resources/Lessons"
+          # Dev-only: referenced by the scheme, must not ship in the bundle.
+          - "Tonestep.storekit"
       # Folder reference, not a group: LessonLibrary looks the pieces up with
       # Bundle.urls(forResourcesWithExtension:subdirectory:"Lessons"), which
       # only resolves if the directory survives into the bundle.
@@ -51,6 +53,11 @@ targets:
         # app into the device's native full-screen size.
         UILaunchScreen:
           UIColorName: LaunchBackground
+    scheme:
+      testTargets:
+        - TonestepTests
+      # Lets the paywall be exercised in the Simulator without App Store Connect.
+      storeKitConfiguration: Tonestep/Tonestep.storekit
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.yugansh.Tonestep

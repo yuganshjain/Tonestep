@@ -1,0 +1,83 @@
+{
+  "identifier" : "A1B2C3D4",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "79.99",
+      "familyShareable" : false,
+      "internalID" : "1000000001",
+      "localizations" : [
+        {
+          "description" : "One-time purchase. All Pro modules and features, forever.",
+          "displayName" : "Tonestep Pro — Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.yugansh.Tonestep.pro.lifetime",
+      "referenceName" : "Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1000000000",
+    "_developerTeamID" : "GD3K4V2Y8Q",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "20000001",
+      "localizations" : [],
+      "name" : "Tonestep Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "2000000001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All Pro modules, the full graded curriculum, and spaced repetition.",
+              "displayName" : "Tonestep Pro — Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.yugansh.Tonestep.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "20000001",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "displayPrice" : "29.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "2000000002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All Pro modules, the full graded curriculum, and spaced repetition.",
+              "displayName" : "Tonestep Pro — Annual",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.yugansh.Tonestep.pro.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro Annual",
+          "subscriptionGroupID" : "20000001",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}
