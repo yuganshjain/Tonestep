@@ -155,10 +155,7 @@ struct SettingsView: View {
                 Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                     .foregroundStyle(.secondary)
             }
-            // Served by GitHub Pages from docs/. Verified live.
-            // NOTE: the path carries the old repo name. Renaming the GitHub repo
-            // to match the app would break this link and fail App Store review,
-            // which requires the privacy URL to load.
+            // Served by GitHub Pages from docs/. See AppLinks for the rename caveat.
             Link("Privacy Policy", destination: AppLinks.privacyPolicy)
             Button("Rate Tonestep on the App Store") {
                 requestReview()
