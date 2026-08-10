@@ -285,6 +285,7 @@ struct ChordInversionsDrillView: View {
         let result = DrillResult(module: .chordInversions, drillType: "inversion_\(targetInversion.rawValue)",
                                   wasCorrect: correct, responseTime: Date().timeIntervalSince(drillStart))
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         if correct { userProfile.addXP(20) }
     }
 }

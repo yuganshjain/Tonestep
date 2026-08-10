@@ -185,6 +185,7 @@ struct RhythmDrillView: View {
                                  wasCorrect: correct,
                                  responseTime: Date().timeIntervalSince(drillStart))
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         if correct { userProfile.addXP(12) }
     }
 

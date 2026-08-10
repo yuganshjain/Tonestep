@@ -350,6 +350,7 @@ struct SingingDrillView: View {
                                  wasCorrect: wasCorrect,
                                  responseTime: Date().timeIntervalSince(sessionStart))
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         if wasCorrect { userProfile.addXP(15) }
     }
 

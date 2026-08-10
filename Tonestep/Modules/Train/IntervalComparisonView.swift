@@ -293,6 +293,7 @@ struct IntervalComparisonDrillView: View {
                                   drillType: "compare_\(intervalA.name)_vs_\(intervalB.name)",
                                   wasCorrect: correct, responseTime: Date().timeIntervalSince(drillStart))
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         if correct { userProfile.addXP(15) }
     }
 }

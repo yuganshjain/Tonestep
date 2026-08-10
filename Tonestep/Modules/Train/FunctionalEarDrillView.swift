@@ -1,6 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct FunctionalEarModuleView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var userProfile: UserProfileStore
     @State private var showDrill = false
 
     var body: some View {
@@ -16,7 +19,14 @@ struct FunctionalEarModuleView: View {
         .navigationTitle("Functional Ear")
         .fullScreenCover(isPresented: $showDrill) {
             NavigationStack {
-                FunctionalEarDrillView(drillType: "functional_degree", onComplete: { _, _ in })
+                FunctionalEarDrillView(drillType: "functional_degree") { correct, responseTime in
+                        DrillRecorder.record(module: .functionalEar,
+                                             drillType: "functional_degree",
+                                             correct: correct,
+                                             responseTime: responseTime,
+                                             context: modelContext,
+                                             userProfile: userProfile)
+                    }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Done") { showDrill = false }

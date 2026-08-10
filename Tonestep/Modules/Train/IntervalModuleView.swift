@@ -1,6 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct IntervalModuleView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var userProfile: UserProfileStore
     @State private var selectedDirection: IntervalDirection = .ascending
     @State private var showDrill = false
 
@@ -18,7 +21,14 @@ struct IntervalModuleView: View {
         .navigationTitle("Interval Recognition")
         .fullScreenCover(isPresented: $showDrill) {
             NavigationStack {
-                IntervalDrillView(drillType: "interval_free_drill", onComplete: { _, _ in })
+                IntervalDrillView(drillType: "interval_free_drill") { correct, responseTime in
+                        DrillRecorder.record(module: .intervalRecognition,
+                                             drillType: "interval_free_drill",
+                                             correct: correct,
+                                             responseTime: responseTime,
+                                             context: modelContext,
+                                             userProfile: userProfile)
+                    }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Done") { showDrill = false }

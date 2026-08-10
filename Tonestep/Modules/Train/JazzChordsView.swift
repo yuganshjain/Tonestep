@@ -236,11 +236,13 @@ struct JazzChordsDrillView: View {
         } else {
             HapticsManager.error()
         }
-        modelContext.insert(DrillResult(
+        let result = DrillResult(
             module: .jazzChords,
             drillType: "jazz_\(t.name.lowercased().replacingOccurrences(of: " ", with: "_"))",
             wasCorrect: correct,
             responseTime: Date().timeIntervalSince(drillStart)
-        ))
+        )
+        modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
     }
 }

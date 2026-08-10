@@ -264,12 +264,14 @@ struct RelativePitchDrillView: View {
         } else {
             HapticsManager.error()
         }
-        modelContext.insert(DrillResult(
+        let result = DrillResult(
             module: .relativePitch,
             drillType: "rp_degree_\(target.id)",
             wasCorrect: correct,
             responseTime: Date().timeIntervalSince(sessionStart)
-        ))
+        )
+        modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         sessionStart = Date()
     }
 }

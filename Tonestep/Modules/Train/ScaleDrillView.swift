@@ -1,6 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct ScaleModuleView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
     @State private var showDrill = false
 
@@ -17,7 +20,14 @@ struct ScaleModuleView: View {
         .navigationTitle("Scale Recognition")
         .fullScreenCover(isPresented: $showDrill) {
             NavigationStack {
-                ScaleDrillView(drillType: "scale_practice", onComplete: { _, _ in })
+                ScaleDrillView(drillType: "scale_practice") { correct, responseTime in
+                        DrillRecorder.record(module: .scaleRecognition,
+                                             drillType: "scale_practice",
+                                             correct: correct,
+                                             responseTime: responseTime,
+                                             context: modelContext,
+                                             userProfile: userProfile)
+                    }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Done") { showDrill = false }

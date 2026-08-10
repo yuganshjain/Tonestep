@@ -1,6 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct ChordModuleView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var userProfile: UserProfileStore
     @EnvironmentObject private var storeManager: StoreManager
     @State private var showDrill = false
 
@@ -17,7 +20,14 @@ struct ChordModuleView: View {
         .navigationTitle("Chord Recognition")
         .fullScreenCover(isPresented: $showDrill) {
             NavigationStack {
-                ChordDrillView(drillType: "chord_practice", onComplete: { _, _ in })
+                ChordDrillView(drillType: "chord_practice") { correct, responseTime in
+                        DrillRecorder.record(module: .chordRecognition,
+                                             drillType: "chord_practice",
+                                             correct: correct,
+                                             responseTime: responseTime,
+                                             context: modelContext,
+                                             userProfile: userProfile)
+                    }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Done") { showDrill = false }

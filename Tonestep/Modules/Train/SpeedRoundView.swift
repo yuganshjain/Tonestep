@@ -255,6 +255,7 @@ struct SpeedRoundView: View {
         let result = DrillResult(module: .intervalRecognition, drillType: "speed_\(currentInterval.name)",
                                   wasCorrect: correct, responseTime: 0)
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if timeLeft > 0 { generateQuestion(); playCurrentInterval() }
         }

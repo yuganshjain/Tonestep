@@ -292,6 +292,7 @@ struct ErrorDetectionDrillView: View {
         let result = DrillResult(module: .errorDetection, drillType: "error_beat\(errorBeat + 1)",
                                   wasCorrect: correct, responseTime: Date().timeIntervalSince(drillStart))
         modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         if correct { userProfile.addXP(25) }
     }
 }

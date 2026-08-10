@@ -265,12 +265,14 @@ struct AbsolutePitchDrillView: View {
         } else {
             HapticsManager.error()
         }
-        modelContext.insert(DrillResult(
+        let result = DrillResult(
             module: .absolutePitch,
             drillType: "ap_\(chromaticNames[targetChroma].lowercased())",
             wasCorrect: correct,
             responseTime: Date().timeIntervalSince(sessionStart)
-        ))
+        )
+        modelContext.insert(result)
+        DrillRecorder.grade(result, context: modelContext)
         sessionStart = Date()
     }
 }
