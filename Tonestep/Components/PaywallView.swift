@@ -9,11 +9,11 @@ struct PaywallView: View {
     @State private var errorMessage: String?
 
     private let proFeatures = [
-        ("All 9 Training Modules", "checkmark.circle.fill"),
+        ("The Full 112-Stage Journey", "map.fill"),
+        ("All 15 Training Modules", "checkmark.circle.fill"),
         ("Smart Spaced Repetition", "arrow.triangle.2.circlepath"),
         ("Full Progress Analytics", "chart.bar.fill"),
         ("All 5 Instrument Sounds", "music.note"),
-        ("Weekly Challenges", "trophy.fill"),
         ("Streak Freeze Protection", "flame.fill"),
     ]
 
@@ -26,8 +26,14 @@ struct PaywallView: View {
                     if !storeManager.products.isEmpty {
                         pricingSection
                         purchaseButton
-                    } else {
+                    } else if storeManager.isLoading {
                         ProgressView()
+                    } else {
+                        // Without this the view spins forever when products fail
+                        // to load — no network, or the IDs are not yet live in
+                        // App Store Connect — leaving the user with no
+                        // explanation and no way to retry.
+                        unavailableSection
                     }
                     restoreButton
                     legalText
@@ -150,6 +156,26 @@ struct PaywallView: View {
             .fontWeight(.semibold)
         }
         .disabled(isPurchasing)
+    }
+
+    private var unavailableSection: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "wifi.exclamationmark")
+                .font(.title2)
+                .foregroundStyle(.secondary)
+            Text("Plans couldn't be loaded")
+                .font(.subheadline).fontWeight(.semibold)
+            Text("Check your connection and try again.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            Button("Try Again") {
+                Task { await storeManager.loadProducts() }
+            }
+            .fontWeight(.semibold)
+            .foregroundStyle(Color.appPurple)
+        }
+        .padding(.vertical, 8)
     }
 
     private var restoreButton: some View {
