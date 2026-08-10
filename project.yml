@@ -60,6 +60,7 @@ targets:
       - sdk: SwiftData.framework
       - sdk: AudioToolbox.framework
       - sdk: GameKit.framework
+      - sdk: CoreMIDI.framework
       - sdk: WidgetKit.framework
       - target: EarIQWidget
 

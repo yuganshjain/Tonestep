@@ -38,25 +38,64 @@ struct TodayView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
+                    mascotHeader
                     heroCard
                     xpCard
-                    warmupCard
-                    focusCard
+                    HStack(spacing: 12) {
+                        warmupCard
+                        focusCard
+                    }
                     dailySessionCard
                     if !weakModulesForToday.isEmpty { weakSpotsCard }
                 }
                 .padding(.horizontal)
-                .padding(.top, 4)
+                .padding(.top, 8)
                 .padding(.bottom, 110)
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("Today")
-            .navigationBarTitleDisplayMode(.large)
+            .scrollContentBackground(.hidden)
+            .background(Color.appPurple)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.appPurple, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar { ToolbarItem(placement: .principal) { EmptyView() } }
         }
+        .background(Color.appPurple.ignoresSafeArea())
         .fullScreenCover(isPresented: $showingDailySession) { DailySessionView() }
         .fullScreenCover(isPresented: $showingFocus) { FocusSessionView() }
         .sheet(isPresented: $showingWarmup) { QuickWarmupView() }
         .onAppear { GameCenterManager.shared.authenticate() }
+    }
+
+    // MARK: - Mascot Header
+
+    private var mascotHeader: some View {
+        HStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Good \(timeGreeting),")
+                    .font(.subheadline)
+                    .foregroundStyle(.white.opacity(0.75))
+                Text("Musician! 👋")
+                    .font(.title2).fontWeight(.bold)
+                    .foregroundStyle(.white)
+                Text("Let's train your ears today")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.6))
+            }
+            Spacer()
+            MascotView(size: 90)
+        }
+        .padding(.horizontal, 4)
+        .padding(.top, 4)
+    }
+
+    private var timeGreeting: String {
+        let h = Calendar.current.component(.hour, from: Date())
+        switch h {
+        case 0..<12: return "morning"
+        case 12..<17: return "afternoon"
+        default: return "evening"
+        }
     }
 
     // MARK: - Hero Streak Card
@@ -64,13 +103,10 @@ struct TodayView: View {
     private var heroCard: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 24)
-                .fill(
-                    LinearGradient(
-                        colors: [Color(red: 0.42, green: 0.20, blue: 0.90),
-                                 Color(red: 0.60, green: 0.10, blue: 0.75)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
+                .fill(Color.white.opacity(0.15))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24)
+                        .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                 )
 
             VStack(alignment: .leading, spacing: 8) {
@@ -144,34 +180,26 @@ struct TodayView: View {
 
     private var focusCard: some View {
         Button { showingFocus = true } label: {
-            HStack(spacing: 14) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(LinearGradient(colors: [Color.purple, Color(red: 0.5, green: 0.1, blue: 0.85)],
-                                             startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .frame(width: 44, height: 44)
-                    Image(systemName: "scope")
-                        .font(.system(size: 18, weight: .semibold)).foregroundStyle(.white)
+            VStack(alignment: .leading, spacing: 10) {
+                Text("🎯")
+                    .font(.system(size: 28))
+                HStack(spacing: 4) {
+                    Text("Focus").font(.subheadline).fontWeight(.bold)
+                        .foregroundStyle(TrainingModule.pastelText)
+                    Text("SMART")
+                        .font(.system(size: 7, weight: .bold))
+                        .padding(.horizontal, 4).padding(.vertical, 2)
+                        .background(Color.appPurple).foregroundStyle(.white)
+                        .clipShape(Capsule())
                 }
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
-                        Text("Focus Mode").font(.subheadline).fontWeight(.semibold)
-                        Text("SMART")
-                            .font(.system(size: 8, weight: .bold))
-                            .padding(.horizontal, 5).padding(.vertical, 2)
-                            .background(Color.purple).foregroundStyle(.white)
-                            .clipShape(Capsule())
-                    }
-                    Text(weakModulesForToday.isEmpty
-                         ? "10 questions · 5 min · Targets your weak spots"
-                         : "Targeting: \(weakModulesForToday.prefix(2).map { $0.0.rawValue }.joined(separator: " & "))")
-                        .font(.caption).foregroundStyle(.secondary)
-                }
-                Spacer()
-                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.secondary)
+                Text("5 min · \(weakModulesForToday.isEmpty ? "All modules" : "Weak spots")")
+                    .font(.caption2)
+                    .foregroundStyle(TrainingModule.pastelSubtext)
+                    .lineLimit(2)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(14)
-            .background(.background, in: RoundedRectangle(cornerRadius: 16))
+            .background(Color(red: 0.91, green: 0.88, blue: 1.00), in: RoundedRectangle(cornerRadius: 18))
         }
         .buttonStyle(PressableButtonStyle())
     }
@@ -180,24 +208,19 @@ struct TodayView: View {
 
     private var warmupCard: some View {
         Button { showingWarmup = true } label: {
-            HStack(spacing: 14) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(LinearGradient(colors: [.orange, Color(red:0.9,green:0.4,blue:0.0)],
-                                             startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .frame(width: 44, height: 44)
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 18, weight: .semibold)).foregroundStyle(.white)
-                }
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Quick Warmup").font(.subheadline).fontWeight(.semibold)
-                    Text("5 questions · 2 min · Wake up your ears").font(.caption).foregroundStyle(.secondary)
-                }
-                Spacer()
-                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 10) {
+                Text("🔥")
+                    .font(.system(size: 28))
+                Text("Warmup")
+                    .font(.subheadline).fontWeight(.bold)
+                    .foregroundStyle(TrainingModule.pastelText)
+                Text("2 min · 5 Qs")
+                    .font(.caption2)
+                    .foregroundStyle(TrainingModule.pastelSubtext)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(14)
-            .background(.background, in: RoundedRectangle(cornerRadius: 16))
+            .background(Color(red: 1.00, green: 0.89, blue: 0.84), in: RoundedRectangle(cornerRadius: 18))
         }
         .buttonStyle(PressableButtonStyle())
     }
@@ -213,11 +236,12 @@ struct TodayView: View {
                     Text("Level \(userProfile.level + 1)")
                         .font(.subheadline)
                         .fontWeight(.semibold)
+                        .foregroundStyle(TrainingModule.pastelText)
                 }
                 Spacer()
                 Text(EarIQLevel.title(for: userProfile.xp))
                     .font(.subheadline)
-                    .foregroundStyle(Color.purple)
+                    .foregroundStyle(Color.appPurple)
                     .fontWeight(.medium)
             }
 
@@ -225,15 +249,15 @@ struct TodayView: View {
 
             HStack {
                 Text("\(userProfile.xp) XP")
-                    .font(.caption).foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(TrainingModule.pastelSubtext)
                 Spacer()
                 let next = EarIQLevel.nextThreshold(for: userProfile.xp)
                 Text("\(next) XP to Level \(userProfile.level + 2)")
-                    .font(.caption).foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(TrainingModule.pastelSubtext)
             }
         }
         .padding(16)
-        .background(.background, in: RoundedRectangle(cornerRadius: 20))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 20))
     }
 
     // MARK: - Daily Session Card
@@ -243,10 +267,9 @@ struct TodayView: View {
             HStack(spacing: 16) {
                 ZStack {
                     Circle()
-                        .fill(AnyShapeStyle(todayCompleted
-                              ? AnyShapeStyle(Color.green.opacity(0.15))
-                              : AnyShapeStyle(LinearGradient(colors: [Color.purple, Color(red: 0.5, green: 0.1, blue: 0.8)],
-                                               startPoint: .topLeading, endPoint: .bottomTrailing))))
+                        .fill(todayCompleted
+                              ? Color.green.opacity(0.15)
+                              : Color.appPurple)
                         .frame(width: 52, height: 52)
                     Image(systemName: todayCompleted ? "checkmark" : "play.fill")
                         .font(.title3)
@@ -256,22 +279,22 @@ struct TodayView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(todayCompleted ? "Session Complete" : "Daily Session")
                         .font(.headline)
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(TrainingModule.pastelText)
                     Text(todayCompleted
                          ? "Come back tomorrow to continue your streak"
                          : "~\(userProfile.sessionLength.rawValue) min · \(todayFocusLabel)")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(TrainingModule.pastelSubtext)
                 }
                 Spacer()
                 if !todayCompleted {
                     Image(systemName: "chevron.right")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(TrainingModule.pastelSubtext)
                 }
             }
             .padding(16)
-            .background(.background, in: RoundedRectangle(cornerRadius: 20))
+            .background(Color.white, in: RoundedRectangle(cornerRadius: 20))
         }
         .buttonStyle(PressableButtonStyle())
     }
@@ -283,22 +306,23 @@ struct TodayView: View {
             HStack {
                 Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
                 Text("Your Weak Spots").font(.headline)
+                    .foregroundStyle(TrainingModule.pastelText)
                 Spacer()
-                Text("Tap to train").font(.caption2).foregroundStyle(.secondary)
+                Text("Tap to train").font(.caption2).foregroundStyle(TrainingModule.pastelSubtext)
             }
             ForEach(weakModulesForToday, id: \.0) { module, accuracy in
                 NavigationLink(destination: todayModuleDestination(for: module)) {
                     HStack(spacing: 10) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 7)
-                                .fill((accuracy < 0.5 ? Color.red : Color.orange).opacity(0.12))
-                                .frame(width: 32, height: 32)
-                            Image(systemName: module.systemImage)
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                                .fill(module.pastelColor)
+                                .frame(width: 34, height: 34)
+                            Text(module.moduleEmoji)
+                                .font(.system(size: 16))
                         }
                         VStack(alignment: .leading, spacing: 3) {
-                            Text(module.rawValue).font(.subheadline).foregroundStyle(.primary)
+                            Text(module.rawValue).font(.subheadline)
+                                .foregroundStyle(TrainingModule.pastelText)
                             SwiftUI.ProgressView(value: accuracy)
                                 .tint(accuracy < 0.5 ? .red : .orange)
                         }
@@ -308,13 +332,13 @@ struct TodayView: View {
                             .foregroundStyle(accuracy < 0.5 ? .red : .orange)
                     }
                     .padding(10)
-                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(red: 0.97, green: 0.97, blue: 1.0), in: RoundedRectangle(cornerRadius: 12))
                 }
                 .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(16)
-        .background(.background, in: RoundedRectangle(cornerRadius: 20))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 20))
     }
 
     @ViewBuilder
@@ -334,6 +358,7 @@ struct TodayView: View {
         case .errorDetection:      ErrorDetectionModuleView()
         case .relativePitch:       RelativePitchModuleView()
         case .absolutePitch:       AbsolutePitchModuleView()
+        case .jazzChords:          JazzChordsModuleView()
         }
     }
 }

@@ -5,13 +5,16 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .today
 
     var body: some View {
-        Group {
+        ZStack {
+            Color.appPurple
             if userProfile.hasCompletedOnboarding {
                 mainTabView
             } else {
                 OnboardingView()
             }
         }
+        .ignoresSafeArea()
+        .preferredColorScheme(.light)
     }
 
     private var mainTabView: some View {
@@ -36,7 +39,9 @@ struct ContentView: View {
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
                 .tag(Tab.settings)
         }
-        .tint(Color.purple)
+        .tint(Color.appPurple)
+        .toolbarBackground(Color.appPurple.opacity(0.95), for: .tabBar)
+        .toolbarColorScheme(.dark, for: .tabBar)
     }
 }
 

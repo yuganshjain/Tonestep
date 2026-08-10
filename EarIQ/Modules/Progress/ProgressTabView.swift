@@ -68,7 +68,8 @@ struct ProgressTabView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 16) {
+                    progressHeader
                     overallCard
                     accuracyChartCard
                     if !accuracyByModule.isEmpty { moduleCard }
@@ -79,23 +80,13 @@ struct ProgressTabView: View {
                 .padding()
                 .padding(.bottom, 100)
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("Progress")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: 14) {
-                        if GameCenterManager.shared.isAuthenticated {
-                            Button { showLeaderboard = true } label: {
-                                Image(systemName: "trophy.fill").foregroundStyle(.yellow)
-                            }
-                        }
-                        Button { renderShareImage(); showShare = true } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                    }
-                }
-            }
+            .scrollContentBackground(.hidden)
+            .background(Color.appPurple)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.appPurple, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar { ToolbarItem(placement: .principal) { EmptyView() } }
             .sheet(isPresented: $showLeaderboard) {
                 GameCenterLeaderboardView(leaderboardID: GameCenterManager.speedRoundLeaderboard)
             }
@@ -105,6 +96,34 @@ struct ProgressTabView: View {
                 }
             }
         }
+        .background(Color.appPurple.ignoresSafeArea())
+    }
+
+    private var progressHeader: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Progress")
+                    .font(.title2).fontWeight(.bold)
+                    .foregroundStyle(.white)
+                Text("Your ear training journey")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.65))
+            }
+            Spacer()
+            HStack(spacing: 16) {
+                if GameCenterManager.shared.isAuthenticated {
+                    Button { showLeaderboard = true } label: {
+                        Image(systemName: "trophy.fill").foregroundStyle(.yellow)
+                            .font(.title3)
+                    }
+                }
+                Button { renderShareImage(); showShare = true } label: {
+                    Image(systemName: "square.and.arrow.up").foregroundStyle(.white)
+                        .font(.title3)
+                }
+            }
+        }
+        .padding(.top, 4)
     }
 
     private func renderShareImage() {
@@ -124,6 +143,7 @@ struct ProgressTabView: View {
     private var accuracyChartCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Accuracy — Last 7 Days").font(.headline)
+                .foregroundStyle(TrainingModule.pastelText)
             GeometryReader { geo in
                 HStack(alignment: .bottom, spacing: 6) {
                     ForEach(last7DaysData, id: \.0) { label, acc, count in
@@ -131,7 +151,7 @@ struct ProgressTabView: View {
                             if count > 0 {
                                 Text("\(Int(acc * 100))%")
                                     .font(.system(size: 8, weight: .semibold))
-                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(TrainingModule.pastelSubtext)
                             }
                             RoundedRectangle(cornerRadius: 5)
                                 .fill(barColor(acc, count: count))
@@ -142,7 +162,7 @@ struct ProgressTabView: View {
                                 .animation(.spring(response: 0.6), value: acc)
                             Text(label)
                                 .font(.system(size: 9))
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(TrainingModule.pastelSubtext)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -152,19 +172,19 @@ struct ProgressTabView: View {
             .frame(height: 120)
 
             HStack(spacing: 14) {
-                legendDot(Color.purple, "≥ 80%")
+                legendDot(Color.appPurple, "≥ 80%")
                 legendDot(Color.orange, "60–79%")
                 legendDot(Color.red, "< 60%")
-                legendDot(Color(.systemFill), "No data")
+                legendDot(Color(red: 0.88, green: 0.88, blue: 0.92), "No data")
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private func barColor(_ acc: Double, count: Int) -> Color {
-        if count == 0 { return Color(.systemFill) }
-        if acc >= 0.8 { return Color.purple }
+        if count == 0 { return Color(red: 0.88, green: 0.88, blue: 0.92) }
+        if acc >= 0.8 { return Color.appPurple }
         if acc >= 0.6 { return Color.orange }
         return Color.red
     }
@@ -172,7 +192,7 @@ struct ProgressTabView: View {
     private func legendDot(_ color: Color, _ label: String) -> some View {
         HStack(spacing: 4) {
             Circle().fill(color).frame(width: 7, height: 7)
-            Text(label).font(.system(size: 9)).foregroundStyle(.secondary)
+            Text(label).font(.system(size: 9)).foregroundStyle(TrainingModule.pastelSubtext)
         }
     }
 
@@ -183,52 +203,55 @@ struct ProgressTabView: View {
             VStack(spacing: 4) {
                 Text("\(Int(overallAccuracy * 100))%")
                     .font(.system(size: 44, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.purple)
+                    .foregroundStyle(Color.appPurple)
                 Text("Overall accuracy")
-                    .font(.caption).foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(TrainingModule.pastelSubtext)
             }
             Divider().frame(height: 60)
             VStack(spacing: 4) {
                 Text("\(allResults.count)")
                     .font(.system(size: 44, weight: .bold, design: .rounded))
+                    .foregroundStyle(TrainingModule.pastelText)
                 Text("Total drills")
-                    .font(.caption).foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(TrainingModule.pastelSubtext)
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var moduleCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Accuracy by Module").font(.headline)
+                .foregroundStyle(TrainingModule.pastelText)
             ForEach(accuracyByModule, id: \.0) { module, accuracy in
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        Image(systemName: module.systemImage)
-                            .foregroundStyle(Color.purple).frame(width: 20)
+                        Text(module.moduleEmoji).frame(width: 22)
                         Text(module.rawValue).font(.subheadline)
+                            .foregroundStyle(TrainingModule.pastelText)
                         Spacer()
                         Text("\(Int(accuracy * 100))%")
                             .font(.subheadline).fontWeight(.semibold)
                             .foregroundStyle(accuracy >= 0.8 ? .green : accuracy >= 0.6 ? .orange : .red)
                     }
                     SwiftUI.ProgressView(value: accuracy)
-                        .tint(accuracy >= 0.8 ? .green : accuracy >= 0.6 ? .orange : .red)
+                        .tint(accuracy >= 0.8 ? Color.appPurple : accuracy >= 0.6 ? .orange : .red)
                 }
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var streakCalendarSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Activity — Last 12 Weeks").font(.headline)
+                .foregroundStyle(TrainingModule.pastelText)
             StreakCalendarView(results: allResults)
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var achievementsSection: some View {
@@ -236,10 +259,11 @@ struct ProgressTabView: View {
             HStack {
                 Text("Achievements")
                     .font(.headline)
+                    .foregroundStyle(TrainingModule.pastelText)
                 Spacer()
                 let unlocked = achievementStore.achievements.filter(\.isUnlocked).count
                 Text("\(unlocked)/\(achievementStore.achievements.count)")
-                    .font(.caption).foregroundStyle(.secondary)
+                    .font(.caption).foregroundStyle(TrainingModule.pastelSubtext)
             }
 
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
@@ -249,7 +273,7 @@ struct ProgressTabView: View {
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var weakSpotsCard: some View {
@@ -257,7 +281,9 @@ struct ProgressTabView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Blind Spots").font(.headline)
-                    Text("Modules to focus on next").font(.caption).foregroundStyle(.secondary)
+                        .foregroundStyle(TrainingModule.pastelText)
+                    Text("Modules to focus on next").font(.caption)
+                        .foregroundStyle(TrainingModule.pastelSubtext)
                 }
                 Spacer()
                 Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
@@ -269,16 +295,16 @@ struct ProgressTabView: View {
                         HStack(spacing: 10) {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill((accuracy < 0.5 ? Color.red : Color.orange).opacity(0.12))
+                                    .fill(module.pastelColor)
                                     .frame(width: 34, height: 34)
-                                Image(systemName: module.systemImage)
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundStyle(accuracy < 0.5 ? .red : .orange)
+                                Text(module.moduleEmoji)
+                                    .font(.system(size: 16))
                             }
                             VStack(alignment: .leading, spacing: 1) {
-                                Text(module.rawValue).font(.subheadline).foregroundStyle(.primary)
+                                Text(module.rawValue).font(.subheadline)
+                                    .foregroundStyle(TrainingModule.pastelText)
                                 Text("\(count) drills · \(Int(accuracy * 100))% accuracy")
-                                    .font(.caption2).foregroundStyle(.secondary)
+                                    .font(.caption2).foregroundStyle(TrainingModule.pastelSubtext)
                             }
                             Spacer()
                             VStack(alignment: .trailing, spacing: 2) {
@@ -286,7 +312,7 @@ struct ProgressTabView: View {
                                     .font(.subheadline).fontWeight(.bold)
                                     .foregroundStyle(accuracy < 0.5 ? .red : .orange)
                                 Text("Train →")
-                                    .font(.caption2).foregroundStyle(.purple)
+                                    .font(.caption2).foregroundStyle(Color.appPurple)
                             }
                         }
 
@@ -296,20 +322,20 @@ struct ProgressTabView: View {
                         if let hint = songHint(for: module) {
                             HStack(spacing: 4) {
                                 Image(systemName: "music.note").font(.system(size: 9))
-                                    .foregroundStyle(.purple)
+                                    .foregroundStyle(Color.appPurple)
                                 Text("Hear it in: \(hint)")
-                                    .font(.caption2).foregroundStyle(.purple)
+                                    .font(.caption2).foregroundStyle(Color.appPurple)
                             }
                         }
                     }
                     .padding(12)
-                    .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color(red: 0.97, green: 0.97, blue: 1.0), in: RoundedRectangle(cornerRadius: 12))
                 }
                 .buttonStyle(PlainButtonStyle())
             }
         }
         .padding()
-        .background(.background, in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private func songHint(for module: TrainingModule) -> String? {
@@ -348,6 +374,7 @@ struct ProgressTabView: View {
         case .errorDetection:      ErrorDetectionModuleView()
         case .relativePitch:       RelativePitchModuleView()
         case .absolutePitch:       AbsolutePitchModuleView()
+        case .jazzChords:          JazzChordsModuleView()
         }
     }
 }
@@ -361,7 +388,7 @@ struct AchievementBadge: View {
         VStack(spacing: 6) {
             ZStack {
                 Circle()
-                    .fill(achievement.isUnlocked ? Color.purple.opacity(0.15) : Color(.systemFill))
+                    .fill(achievement.isUnlocked ? Color.appPurple.opacity(0.12) : Color(red: 0.9, green: 0.9, blue: 0.95))
                     .frame(width: 52, height: 52)
                 Text(achievement.isUnlocked ? achievement.icon : "🔒")
                     .font(.system(size: 26))
@@ -451,7 +478,7 @@ struct StreakCalendarView: View {
         LazyVGrid(columns: columns, spacing: 4) {
             ForEach(days(), id: \.self) { day in
                 RoundedRectangle(cornerRadius: 3)
-                    .fill(activeDays.contains(fmt.string(from: day)) ? Color.purple : Color(.systemFill))
+                    .fill(activeDays.contains(fmt.string(from: day)) ? Color.appPurple : Color(red: 0.88, green: 0.88, blue: 0.92))
                     .frame(width: 14, height: 14)
             }
         }

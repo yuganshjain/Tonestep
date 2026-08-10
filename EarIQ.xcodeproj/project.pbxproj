@@ -22,17 +22,21 @@
 		24A251DC3250645BA766FAD5 /* CurriculumBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4C02B1B858B46C95733F7 /* CurriculumBuilderTests.swift */; };
 		260ABA844815C34BEDD85A35 /* DifficultyParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1A1C40652178D56A27AF9 /* DifficultyParams.swift */; };
 		2CDAC49EA7E351DE3DE1EC93 /* SRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04984D76137530159A190FB5 /* SRItem.swift */; };
+		3C04DAD4254601B1910421A7 /* PlayAlongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A863D192D698102DB422C2 /* PlayAlongView.swift */; };
+		3D19157330B330311ECE5F2E /* PlayAlongSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7FC116DFF08106E85C921 /* PlayAlongSession.swift */; };
 		3E53C419D18D9390922F6E70 /* PlayAlongEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0090873747F63539514BD0C /* PlayAlongEngine.swift */; };
 		41DE1874DEA6DC8967871A9C /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A079A797EC20F5FD511462FD /* SpeedRoundView.swift */; };
 		4638E87AA2E7112F32C4E115 /* FunctionalEarDrillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A78B9267D2C55960FE2A7 /* FunctionalEarDrillView.swift */; };
 		46B954904963D8593136D784 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */; };
 		48A22FDCFEED7850FDCC4157 /* EarIQWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 048A05F341FDF93BDFCCD990 /* EarIQWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		49CE545174ABE4D2C047E278 /* IntervalModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C67ED560478131C6FE13646 /* IntervalModuleView.swift */; };
+		4AF06D56F7A3A14DE5EC8370 /* MIDIInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94F64E2F5427B34C4D78B4 /* MIDIInputSource.swift */; };
 		4C0843E02D9C715EF7468D35 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A14409C7893F1405B8BA3CEF /* AudioToolbox.framework */; };
 		521329BD6C68D419CDEDC525 /* StageEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70EC47223CE2D8CC0F47E8C /* StageEvaluator.swift */; };
 		556F4EAD3DAA131CBA7BCDE9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA814535A97DD25F513082D5 /* SwiftUI.framework */; };
 		56229D3BC898B0E7BB037A6C /* PlayAlongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F386D4BAD28B83A35835B8 /* PlayAlongTests.swift */; };
 		568328E1A5946AB84BDE6CB6 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698EE4C6842F15B3F221AC1E /* StoreManager.swift */; };
+		572F9FB9F04816DC286973BF /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158291C7A616D02BD54304E4 /* CoreMIDI.framework */; };
 		60D1C3C04AA7D2DB0B4870CE /* JazzChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4636F0154C10D6A46EF978 /* JazzChordsView.swift */; };
 		64EB5CB4DF3673CD6C75CA25 /* ConfusionMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA885C41348812D7C610CB7B /* ConfusionMatrixTests.swift */; };
 		6B5E7DC772C6D92FC4CCB195 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F1ED88429F650C66BA52C2 /* AudioEngine.swift */; };
@@ -47,7 +51,9 @@
 		85664A0F87826CBBEFCE5046 /* DrillResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A413475D498C6A6C2BDB48B3 /* DrillResult.swift */; };
 		856F53DCC65CDDF097D38615 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD23DDC78AAC454D67BAEE /* SeededGenerator.swift */; };
 		8A482E6C6044F82A6A1C2BB7 /* ProgressTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552BC2FB25DAFB52360F7273 /* ProgressTabView.swift */; };
+		8BF70BFA2CA1DB04CFAFA03E /* PlayAlongResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AD06A4065070CE501A0763 /* PlayAlongResultView.swift */; };
 		8F0FB685D5FAA597050E2F2C /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0541ABBCDC31BFA1B4F4521F /* PaywallView.swift */; };
+		906A3387CBEFF6C8F1D7F9DF /* PianoKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA56F2ABB722AEDE333949E /* PianoKeyboardView.swift */; };
 		962370C805C9E40A7D141406 /* ConfusionMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372C40EFEA9B3F406C076B66 /* ConfusionMatrix.swift */; };
 		967D0B22B4FFB1DFED3A3CDD /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE481987A1143D0C5950CAC /* AppTheme.swift */; };
 		96EB5F5256CD628BA13E53F6 /* NoteInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B6AFE4340EE2D04787272F /* NoteInputSource.swift */; };
@@ -131,9 +137,12 @@
 		0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		13604127323C9B29EB44EFE4 /* LessonPieceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPieceTests.swift; sourceTree = "<group>"; };
 		14239ECD9E5499A3A1D7B8CB /* SingingPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingingPracticeView.swift; sourceTree = "<group>"; };
+		158291C7A616D02BD54304E4 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		16AD06A4065070CE501A0763 /* PlayAlongResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongResultView.swift; sourceTree = "<group>"; };
 		1842708A812D7F71CEC14E6C /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		19AD23DDC78AAC454D67BAEE /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
 		1AE481987A1143D0C5950CAC /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		21A7FC116DFF08106E85C921 /* PlayAlongSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongSession.swift; sourceTree = "<group>"; };
 		226EDCB72329FDE3CEED3662 /* RhythmTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmTrainerView.swift; sourceTree = "<group>"; };
 		22AAA42FA8AFDA181DF2D4E8 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
 		258E976FF42E8D3596C9549D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -168,9 +177,11 @@
 		5EAD3AE5FD706D98C1D68FA7 /* PlaybackClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackClock.swift; sourceTree = "<group>"; };
 		5F3A78B9267D2C55960FE2A7 /* FunctionalEarDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalEarDrillView.swift; sourceTree = "<group>"; };
 		62803B5D4F5746F97CD9F64F /* RelativePitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativePitchView.swift; sourceTree = "<group>"; };
+		63A863D192D698102DB422C2 /* PlayAlongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayAlongView.swift; sourceTree = "<group>"; };
 		64735E43662A04846F803615 /* EarIQWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EarIQWidget.entitlements; sourceTree = "<group>"; };
 		6877E49A088A9B47D0F5ECEE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		698EE4C6842F15B3F221AC1E /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		6E94F64E2F5427B34C4D78B4 /* MIDIInputSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIInputSource.swift; sourceTree = "<group>"; };
 		70A1D0EB9B3D32C07AA14E29 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		73D91C027E788B521CB65BC8 /* MusicTheory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTheory.swift; sourceTree = "<group>"; };
 		744D8A78B5CEE18B25589BE9 /* StageEvaluatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageEvaluatorTests.swift; sourceTree = "<group>"; };
@@ -207,6 +218,7 @@
 		F851F1FD6DDAD4FBDDC300B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F9518E344803C27007BFA922 /* DrillSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrillSamplingTests.swift; sourceTree = "<group>"; };
 		FA814535A97DD25F513082D5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		FDA56F2ABB722AEDE333949E /* PianoKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoKeyboardView.swift; sourceTree = "<group>"; };
 		FF129F24F5C3B76BAEBE1CCD /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +232,7 @@
 				D8C507112545D118C538DFB7 /* SwiftData.framework in Frameworks */,
 				4C0843E02D9C715EF7468D35 /* AudioToolbox.framework in Frameworks */,
 				46B954904963D8593136D784 /* GameKit.framework in Frameworks */,
+				572F9FB9F04816DC286973BF /* CoreMIDI.framework in Frameworks */,
 				DD5C58C568878266EBE92D03 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +316,16 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
+		17E5DD3C6267038E361686A9 /* PlayAlong */ = {
+			isa = PBXGroup;
+			children = (
+				FDA56F2ABB722AEDE333949E /* PianoKeyboardView.swift */,
+				16AD06A4065070CE501A0763 /* PlayAlongResultView.swift */,
+				63A863D192D698102DB422C2 /* PlayAlongView.swift */,
+			);
+			path = PlayAlong;
+			sourceTree = "<group>";
+		};
 		1A3EFE10FD4C805BE0678107 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +372,7 @@
 			children = (
 				A14409C7893F1405B8BA3CEF /* AudioToolbox.framework */,
 				F851F1FD6DDAD4FBDDC300B9 /* AVFoundation.framework */,
+				158291C7A616D02BD54304E4 /* CoreMIDI.framework */,
 				0ACDAC2EC0C956EFCC61B53D /* GameKit.framework */,
 				33891FB86694A133FE7B085A /* StoreKit.framework */,
 				C183AF5C6FA3FC7ACE74381D /* SwiftData.framework */,
@@ -386,9 +410,11 @@
 			isa = PBXGroup;
 			children = (
 				AF910056CAB7CD46CDA9E2B8 /* LessonPiece.swift */,
+				6E94F64E2F5427B34C4D78B4 /* MIDIInputSource.swift */,
 				07237E55AA0F06E50B8026FE /* NoteEvent.swift */,
 				48B6AFE4340EE2D04787272F /* NoteInputSource.swift */,
 				A0090873747F63539514BD0C /* PlayAlongEngine.swift */,
+				21A7FC116DFF08106E85C921 /* PlayAlongSession.swift */,
 				5EAD3AE5FD706D98C1D68FA7 /* PlaybackClock.swift */,
 			);
 			path = PlayAlong;
@@ -544,6 +570,7 @@
 				1FECA66339449BF8DD45DA53 /* Challenges */,
 				30F88151F166AE8F3EAB5208 /* Learn */,
 				028AACA038DA133D56893FFF /* Onboarding */,
+				17E5DD3C6267038E361686A9 /* PlayAlong */,
 				BE7F322CB5BC0B2CDC9374D7 /* Progress */,
 				2F18AE48DF4B14F294917304 /* Settings */,
 				BD452A71A5632AFCFB6C6922 /* Today */,
@@ -717,6 +744,7 @@
 				831FB44A6DB2F458D7A9110C /* JourneyProgress.swift in Sources */,
 				75DD9533A3F7E7D195CCF2E9 /* JourneySeeder.swift in Sources */,
 				C8B5D6B6D5B66151CFE39470 /* LessonPiece.swift in Sources */,
+				4AF06D56F7A3A14DE5EC8370 /* MIDIInputSource.swift in Sources */,
 				74694BD563667BAB337AF81E /* MascotView.swift in Sources */,
 				F1049FD9A55F453963DE9BF7 /* MelodyDictationView.swift in Sources */,
 				154EE73571AC8078710836F6 /* MusicTheory.swift in Sources */,
@@ -726,8 +754,12 @@
 				204A2F0D5CDC59F468875929 /* NotificationManager.swift in Sources */,
 				AA5DF1B724AC6F66B7E22DB9 /* OnboardingView.swift in Sources */,
 				8F0FB685D5FAA597050E2F2C /* PaywallView.swift in Sources */,
+				906A3387CBEFF6C8F1D7F9DF /* PianoKeyboardView.swift in Sources */,
 				BEEC5618CBA642D226A80F26 /* PitchDetector.swift in Sources */,
 				3E53C419D18D9390922F6E70 /* PlayAlongEngine.swift in Sources */,
+				8BF70BFA2CA1DB04CFAFA03E /* PlayAlongResultView.swift in Sources */,
+				3D19157330B330311ECE5F2E /* PlayAlongSession.swift in Sources */,
+				3C04DAD4254601B1910421A7 /* PlayAlongView.swift in Sources */,
 				B5AC1AE405AADC3A0F6D85F7 /* PlaybackClock.swift in Sources */,
 				8A482E6C6044F82A6A1C2BB7 /* ProgressTabView.swift in Sources */,
 				C550B49A2FB9CB3036F05EA7 /* QuickWarmupView.swift in Sources */,

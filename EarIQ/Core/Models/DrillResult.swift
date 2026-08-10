@@ -16,6 +16,7 @@ enum TrainingModule: String, CaseIterable, Codable {
     case chordInversions = "Chord Inversions"
     case intervalComparison = "Interval Comparison"
     case errorDetection = "Error Detection"
+    case jazzChords = "Jazz Chords"
 
     var isProOnly: Bool {
         switch self {
@@ -23,7 +24,8 @@ enum TrainingModule: String, CaseIterable, Codable {
              .functionalEar, .noteIdentification: return false
         case .chordProgressions, .rhythmTrainer, .melodicDictation,
              .relativePitch, .absolutePitch, .singingPractice,
-             .chordInversions, .intervalComparison, .errorDetection: return true
+             .chordInversions, .intervalComparison, .errorDetection,
+             .jazzChords: return true
         }
     }
 
@@ -43,6 +45,7 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .chordInversions: return "arrow.up.and.down.and.arrow.left.and.right"
         case .intervalComparison: return "arrow.left.arrow.right"
         case .errorDetection: return "exclamationmark.triangle.fill"
+        case .jazzChords: return "music.quarternote.3"
         }
     }
 
@@ -64,6 +67,7 @@ enum TrainingModule: String, CaseIterable, Codable {
         case .chordInversions: return "Identify root, 1st, and 2nd inversions"
         case .intervalComparison: return "Decide which of two intervals is wider"
         case .errorDetection: return "Find the wrong note in a 4-beat melody"
+        case .jazzChords: return "Identify 7th chords by ear — Maj7, m7, Dom7 and beyond"
         }
     }
 }

@@ -95,8 +95,8 @@ struct FocusSessionView: View {
     }
 
     private var questionCard: some View {
-        let q = questions[currentIndex]
-        return VStack(spacing: 14) {
+        VStack(spacing: 14) {
+            let q = questions[currentIndex]
             ZStack {
                 Circle()
                     .fill(LinearGradient(colors: [.purple, Color(red: 0.5, green: 0.1, blue: 0.8)],
@@ -134,22 +134,25 @@ struct FocusSessionView: View {
     }
 
     private var optionGrid: some View {
-        let q = questions[currentIndex]
-        return LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-            ForEach(q.options, id: \.self) { option in
-                let state = optionState(option: option, correct: q.correct)
-                Button { submitAnswer(option, question: q) } label: {
-                    Text(option)
-                        .font(.subheadline).fontWeight(.semibold)
-                        .foregroundStyle(state == .idle ? .primary : .white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(optionBg(state), in: RoundedRectangle(cornerRadius: 14))
-                }
-                .disabled(revealed)
-                .buttonStyle(PressableButtonStyle())
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+            ForEach(questions[currentIndex].options, id: \.self) { option in
+                optionButton(option: option, q: questions[currentIndex])
             }
         }
+    }
+
+    private func optionButton(option: String, q: FocusQuestion) -> some View {
+        let state = optionState(option: option, correct: q.correct)
+        return Button { submitAnswer(option, question: q) } label: {
+            Text(option)
+                .font(.subheadline).fontWeight(.semibold)
+                .foregroundStyle(state == .idle ? AnyShapeStyle(.primary) : AnyShapeStyle(Color.white))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(optionBg(state), in: RoundedRectangle(cornerRadius: 14))
+        }
+        .disabled(revealed)
+        .buttonStyle(PressableButtonStyle())
     }
 
     private var nextButton: some View {
@@ -323,7 +326,7 @@ struct FocusSessionView: View {
         switch module {
         case .intervalRecognition, .intervalComparison:
             return makeIntervalQuestion()
-        case .chordRecognition, .chordInversions:
+        case .chordRecognition, .chordInversions, .jazzChords:
             return makeChordQuestion()
         case .scaleRecognition:
             return makeScaleQuestion()
