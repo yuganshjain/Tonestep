@@ -78,6 +78,7 @@
 		BF43728FD57E9AB0708F189F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 707DEFF799EB31DE74890E85 /* AudioToolbox.framework */; };
 		C5307593E6C70AC750285244 /* ConfusionMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0B9CC2B257BFFEBC72BB38 /* ConfusionMatrixTests.swift */; };
 		C59021591F8812FAE4A51F73 /* RhythmTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C9B7511A346C851A8DC6DF /* RhythmTrainerView.swift */; };
+		C9C1C18FDCC8C2BCA1511AA4 /* ToneRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F1F48049063AD181EC571 /* ToneRendererTests.swift */; };
 		CBC7A7D396246C236F59D905 /* NoteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A4D4B312384DFC1CA6FD81 /* NoteEvent.swift */; };
 		CD18938DBC4F343BAA458CDC /* TonestepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBD32D2A6BAF6DF9AABD15B /* TonestepApp.swift */; };
 		CED9B0BC89F4744912D7930C /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46FF47E18CE18EE2C157C3 /* UserProfile.swift */; };
@@ -86,6 +87,7 @@
 		D2544B8D1088F73280837221 /* StageSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30763D92751C71C68E99C830 /* StageSessionView.swift */; };
 		DB79F0602C59F959F4911BA3 /* PitchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */; };
 		DD8300B4F3CD34C6D4E7769A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE26AA4C86F5526D6A873201 /* StoreKit.framework */; };
+		E4EB45AFD485F2A8B9D462A3 /* ToneRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FDAA6EDB828881B4C4C6EC /* ToneRenderer.swift */; };
 		E7642407AF66E48A166E19D8 /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D770FFEBBD784D377EE8214 /* ChallengesView.swift */; };
 		E7AB2DACFCC39A056C61B29F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */; };
 		E927CAFDD687D9DF0960CDC3 /* FocusSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA663F53CCE426AD2D627688 /* FocusSessionView.swift */; };
@@ -137,6 +139,7 @@
 		1041CBB74D7D900B9F29CC4A /* SpeedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundView.swift; sourceTree = "<group>"; };
 		16D0698A3AF47DF83FEA1390 /* Tonestep.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Tonestep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AE921F3BE9D42FD5C66BED2 /* PianoKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoKeyboardView.swift; sourceTree = "<group>"; };
+		1F3F1F48049063AD181EC571 /* ToneRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneRendererTests.swift; sourceTree = "<group>"; };
 		1FE5E48CDD6092F1DDE7FF3E /* FunctionalEarDrillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalEarDrillView.swift; sourceTree = "<group>"; };
 		1FFBE5ACA8DB799A5F7A24AA /* ErrorDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDetectionView.swift; sourceTree = "<group>"; };
 		23443723630D5E69382C744D /* TonestepWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TonestepWidget.swift; sourceTree = "<group>"; };
@@ -160,6 +163,7 @@
 		4B49253D9958E58E5F8224CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SREngineTests.swift; sourceTree = "<group>"; };
 		4EF95B59A99B16D93523D868 /* TonestepWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TonestepWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		51FDAA6EDB828881B4C4C6EC /* ToneRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneRenderer.swift; sourceTree = "<group>"; };
 		638ABB456AF1FD40E149E11B /* ChapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterTests.swift; sourceTree = "<group>"; };
 		648DEC55169AF03286E8A749 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		66523DCD9B9B74E8B51B34AD /* NoteIdentificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteIdentificationView.swift; sourceTree = "<group>"; };
@@ -413,6 +417,7 @@
 			children = (
 				4262F964791E8391C9DA1D37 /* AudioEngine.swift */,
 				7FEE4E5DE7CA7DC0C857057F /* PitchDetector.swift */,
+				51FDAA6EDB828881B4C4C6EC /* ToneRenderer.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				E052862F293C06223522324B /* PlayAlongTests.swift */,
 				4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */,
 				7522B3C6FB8AE221C829CC75 /* StageEvaluatorTests.swift */,
+				1F3F1F48049063AD181EC571 /* ToneRendererTests.swift */,
 			);
 			path = TonestepTests;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 				1B86297AB2430047A2EB9080 /* PlayAlongTests.swift in Sources */,
 				AE412662771E4B2A88F09451 /* SREngineTests.swift in Sources */,
 				0190ECEA3E4A74978945E50E /* StageEvaluatorTests.swift in Sources */,
+				C9C1C18FDCC8C2BCA1511AA4 /* ToneRendererTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +806,7 @@
 				46D79D3B9E8F296455340F87 /* StoreManager.swift in Sources */,
 				0BCB425AFED85AACB774B6DA /* TheoryLessonsView.swift in Sources */,
 				F17F7C6F1B34116E0F0A00A0 /* TodayView.swift in Sources */,
+				E4EB45AFD485F2A8B9D462A3 /* ToneRenderer.swift in Sources */,
 				CD18938DBC4F343BAA458CDC /* TonestepApp.swift in Sources */,
 				BB2A6DB4EDB40B1BCCF99EB6 /* TrainView.swift in Sources */,
 				CED9B0BC89F4744912D7930C /* UserProfile.swift in Sources */,

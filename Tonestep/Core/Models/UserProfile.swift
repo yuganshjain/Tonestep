@@ -9,6 +9,17 @@ enum Instrument: String, CaseIterable, Codable {
     case violin = "Violin"
     case voice = "Voice"
 
+    /// General MIDI program number, used when a soundfont is bundled.
+    var generalMidiProgram: UInt8 {
+        switch self {
+        case .piano:  return 0    // Acoustic Grand Piano
+        case .guitar: return 24   // Acoustic Guitar (nylon)
+        case .bass:   return 32   // Acoustic Bass
+        case .violin: return 40   // Violin
+        case .voice:  return 52   // Choir Aahs
+        }
+    }
+
     var systemImage: String {
         switch self {
         case .piano: return "pianokeys"

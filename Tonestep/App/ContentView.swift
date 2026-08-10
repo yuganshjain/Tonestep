@@ -15,6 +15,12 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
         .preferredColorScheme(.light)
+        // Onboarding promises the chosen instrument affects playback; this is
+        // what makes that true.
+        .onAppear { AudioEngine.shared.setInstrument(userProfile.instrument) }
+        .onChange(of: userProfile.instrument) { _, newValue in
+            AudioEngine.shared.setInstrument(newValue)
+        }
     }
 
     private var mainTabView: some View {

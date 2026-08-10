@@ -10,6 +10,20 @@ final class AudioEngine: ObservableObject {
     private let sampler = AVAudioUnitSampler()
     private var isRunning = false
 
+    /// True once a real soundfont has been loaded. Until then the sampler only
+    /// produces a bare sine, so synthesised voices are used instead.
+    private var hasSoundfont = false
+
+    /// Voices are rendered ahead of playback; this pool avoids reallocating a
+    /// player node per note.
+    private var players: [AVAudioPlayerNode] = []
+    private var nextPlayer = 0
+    private let playerCount = 12
+    private let renderFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1)!
+
+    /// The instrument chosen during onboarding. Set by the app at launch.
+    var instrument: Instrument = .piano
+
     private init() {
         setupSession()
         setupEngine()
@@ -27,16 +41,60 @@ final class AudioEngine: ObservableObject {
     private func setupEngine() {
         engine.attach(sampler)
         engine.connect(sampler, to: engine.mainMixerNode, format: nil)
+
+        for _ in 0..<playerCount {
+            let player = AVAudioPlayerNode()
+            engine.attach(player)
+            engine.connect(player, to: engine.mainMixerNode, format: renderFormat)
+            players.append(player)
+        }
+
         loadSoundfont()
         startEngine()
+        players.forEach { $0.play() }
     }
 
+    /// Drop a General MIDI soundfont named GeneralUser_GS.sf2 into the bundle and
+    /// playback switches to it automatically. Until then, ToneRenderer synthesises
+    /// the voices, because an unloaded AVAudioUnitSampler is just a sine wave.
     private func loadSoundfont() {
-        // Load bundled soundfont if available, otherwise use default GM soundfont
-        if let url = Bundle.main.url(forResource: "GeneralUser_GS", withExtension: "sf2") {
-            try? sampler.loadSoundBankInstrument(at: url, program: 0, bankMSB: 0x79, bankLSB: 0)
+        guard let url = Bundle.main.url(forResource: "GeneralUser_GS", withExtension: "sf2") else {
+            hasSoundfont = false
+            return
         }
-        // Program 0 = Acoustic Grand Piano (default MIDI instrument)
+        do {
+            try sampler.loadSoundBankInstrument(at: url, program: instrument.generalMidiProgram,
+                                                bankMSB: 0x79, bankLSB: 0)
+            hasSoundfont = true
+        } catch {
+            hasSoundfont = false
+        }
+    }
+
+    /// Re-point playback when the user changes instrument in Settings.
+    func setInstrument(_ newInstrument: Instrument) {
+        instrument = newInstrument
+        if Bundle.main.url(forResource: "GeneralUser_GS", withExtension: "sf2") != nil {
+            loadSoundfont()
+        }
+    }
+
+    /// Synthesise and schedule one note on the next free player.
+    private func playSynthesised(midiNote: UInt8, velocity: UInt8, duration: TimeInterval) {
+        let samples = ToneRenderer.render(midiNote: midiNote, instrument: instrument,
+                                          duration: duration, velocity: velocity,
+                                          sampleRate: renderFormat.sampleRate)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: renderFormat,
+                                            frameCapacity: AVAudioFrameCount(samples.count)),
+              let channel = buffer.floatChannelData?[0]
+        else { return }
+
+        buffer.frameLength = AVAudioFrameCount(samples.count)
+        samples.withUnsafeBufferPointer { channel.update(from: $0.baseAddress!, count: samples.count) }
+
+        let player = players[nextPlayer % players.count]
+        nextPlayer += 1
+        player.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
     }
 
     private func startEngine() {
@@ -77,7 +135,13 @@ final class AudioEngine: ObservableObject {
     // MARK: - Playback API
 
     /// Play a single MIDI note.
+    /// Every other playback method funnels through here, so routing this one
+    /// switches the whole app between the soundfont and the synthesised voices.
     func playNote(midiNote: UInt8, velocity: UInt8 = 80, duration: TimeInterval = 1.0) {
+        guard hasSoundfont else {
+            playSynthesised(midiNote: midiNote, velocity: velocity, duration: duration)
+            return
+        }
         sampler.startNote(midiNote, withVelocity: velocity, onChannel: 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             self.sampler.stopNote(midiNote, onChannel: 0)
@@ -169,10 +233,8 @@ final class AudioEngine: ObservableObject {
             if !beat.isRest {
                 let t = offset
                 DispatchQueue.main.asyncAfter(deadline: .now() + t) {
-                    self.sampler.startNote(76, withVelocity: 100, onChannel: 0)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) {
-                        self.sampler.stopNote(76, onChannel: 0)
-                    }
+                    // playNote owns note-off for both paths, so no manual stop here.
+                    self.playNote(midiNote: 76, velocity: 100, duration: 0.12)
                 }
             }
             offset += duration
@@ -183,6 +245,8 @@ final class AudioEngine: ObservableObject {
     }
 
     func stopAll() {
+        // Synthesised voices are scheduled buffers, not held notes.
+        players.forEach { $0.stop(); $0.play() }
         for note: UInt8 in 0...127 {
             sampler.stopNote(note, onChannel: 0)
         }
