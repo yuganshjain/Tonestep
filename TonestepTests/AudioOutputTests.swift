@@ -90,6 +90,56 @@ final class AudioOutputTests: XCTestCase {
         }
     }
 
+    /// The failure behind "sound works, then stops forever": AVAudioEngine drops
+    /// every connection on a configuration change. A disconnected player still
+    /// reports isPlaying == true and silently produces nothing, so reconnecting
+    /// has to restore audio — and this proves it does.
+    func test_audio_returns_after_reconnecting_the_graph() throws {
+        let engine = AVAudioEngine()
+        let player = AVAudioPlayerNode()
+        let format = try XCTUnwrap(AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 1))
+        let outputFormat = try XCTUnwrap(
+            AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48_000,
+                          channels: 2, interleaved: false)
+        )
+        engine.attach(player)
+        engine.connect(player, to: engine.mainMixerNode, format: format)
+        try engine.enableManualRenderingMode(.offline, format: outputFormat, maximumFrameCount: 4096)
+        try engine.start()
+        player.play()
+
+        // Simulate the teardown a configuration change performs.
+        player.stop()
+        engine.stop()
+        engine.disconnectNodeOutput(player)
+
+        // Recovery, mirroring AudioEngine.rebuild().
+        engine.connect(player, to: engine.mainMixerNode, format: format)
+        try engine.start()
+        player.play()
+
+        let samples = ToneRenderer.render(midiNote: 60, instrument: .piano,
+                                          duration: 0.3, sampleRate: 48_000)
+        let source = try XCTUnwrap(
+            AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(samples.count))
+        )
+        source.frameLength = AVAudioFrameCount(samples.count)
+        source.floatChannelData!.pointee.update(from: samples, count: samples.count)
+        player.scheduleBuffer(source, at: nil, options: [.interrupts], completionHandler: nil)
+
+        let out = try XCTUnwrap(
+            AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat, frameCapacity: 4096)
+        )
+        var peak: Float = 0
+        for _ in 0..<6 {
+            if try engine.renderOffline(4096, to: out) == .success {
+                peak = max(peak, rms(out))
+            }
+        }
+        engine.stop()
+        XCTAssertGreaterThan(peak, 0.001, "audio did not come back after reconnecting")
+    }
+
     /// A scheduled buffer on a player that was never started must not be
     /// mistaken for working audio.
     func test_unstarted_player_is_silent() throws {

@@ -76,26 +76,33 @@ final class AudioEngine: ObservableObject {
     }
 
     private func setupEngine() {
-        // Adopt the hardware rate before wiring anything up.
+        engine.attach(sampler)
+        for _ in 0..<playerCount {
+            let player = AVAudioPlayerNode()
+            engine.attach(player)
+            players.append(player)
+        }
+        connectNodes()
+        loadSoundfont()
+        startEngine()
+    }
+
+    /// (Re)wires every node to the main mixer at the current hardware rate.
+    ///
+    /// This must be callable more than once. AVAudioEngine tears down *all*
+    /// connections when it posts a configuration change, and a disconnected
+    /// player still reports isPlaying == true while producing nothing — audio
+    /// that works, then stops forever, with every diagnostic looking healthy.
+    private func connectNodes() {
         let hardwareRate = AVAudioSession.sharedInstance().sampleRate
         if hardwareRate > 0,
            let format = AVAudioFormat(standardFormatWithSampleRate: hardwareRate, channels: 1) {
             renderFormat = format
         }
-
-        engine.attach(sampler)
         engine.connect(sampler, to: engine.mainMixerNode, format: nil)
-
-        for _ in 0..<playerCount {
-            let player = AVAudioPlayerNode()
-            engine.attach(player)
+        for player in players {
             engine.connect(player, to: engine.mainMixerNode, format: renderFormat)
-            players.append(player)
         }
-
-        loadSoundfont()
-        startEngine()
-
     }
 
     /// The engine stops on interruption, route change, or backgrounding, and a
@@ -160,7 +167,10 @@ final class AudioEngine: ObservableObject {
 
         let player = players[nextPlayer % players.count]
         nextPlayer += 1
-        player.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
+        // .interrupts, not queue-behind: players are reused round-robin, and
+        // without this a fast passage builds an ever-growing backlog that makes
+        // playback drift further and further behind the exercise.
+        player.scheduleBuffer(buffer, at: nil, options: [.interrupts], completionHandler: nil)
     }
 
     private func startEngine() {
@@ -177,12 +187,35 @@ final class AudioEngine: ObservableObject {
     // MARK: - Interruption Handling
 
     private func observeInterruptions() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleInterruption),
-            name: AVAudioSession.interruptionNotification,
-            object: nil
-        )
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(handleInterruption),
+                           name: AVAudioSession.interruptionNotification, object: nil)
+        // Fires when the engine's configuration changes — and takes every
+        // connection with it.
+        center.addObserver(self, selector: #selector(handleConfigurationChange),
+                           name: .AVAudioEngineConfigurationChange, object: engine)
+        // Plugging in headphones changes the route and the hardware rate.
+        center.addObserver(self, selector: #selector(handleRouteChange),
+                           name: AVAudioSession.routeChangeNotification, object: nil)
+    }
+
+    @objc private func handleConfigurationChange(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in self?.rebuild() }
+    }
+
+    @objc private func handleRouteChange(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in self?.rebuild() }
+    }
+
+    /// Reconnect and restart after the engine's graph has been invalidated.
+    private func rebuild() {
+        players.forEach { $0.stop() }
+        engine.stop()
+        isRunning = false
+        activatePlaybackSession()
+        connectNodes()
+        startEngine()
+        players.forEach { $0.play() }
     }
 
     @objc private func handleInterruption(_ notification: Notification) {
