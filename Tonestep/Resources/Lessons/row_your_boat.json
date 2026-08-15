@@ -1,0 +1,124 @@
+{
+  "id": "row_your_boat",
+  "title": "Row, Row, Row Your Boat",
+  "bpm": 92,
+  "beatsPerBar": 4,
+  "difficulty": 1,
+  "notes": [
+    {
+      "midiNote": 60,
+      "startBeat": 0.0,
+      "durationBeats": 1.0
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 1.0,
+      "durationBeats": 1.0
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 2.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 2.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 3.0,
+      "durationBeats": 1.0
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 4.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 4.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 5.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 65,
+      "startBeat": 5.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 6.0,
+      "durationBeats": 2.0
+    },
+    {
+      "midiNote": 72,
+      "startBeat": 8.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 72,
+      "startBeat": 8.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 9.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 9.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 10.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 10.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 11.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 11.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 12.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 65,
+      "startBeat": 12.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 13.0,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 13.5,
+      "durationBeats": 0.5
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 14.0,
+      "durationBeats": 2.0
+    }
+  ]
+}

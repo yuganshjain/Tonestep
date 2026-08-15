@@ -228,6 +228,55 @@ final class MusicalCorrectnessTests: XCTestCase {
         XCTAssertEqual(opening, [64, 62, 60, 62, 64, 64, 64])
     }
 
+    func test_library_has_a_real_practice_catalogue() {
+        XCTAssertGreaterThanOrEqual(LessonLibrary.all.count, 15,
+                                    "three nursery rhymes is not a practice library")
+    }
+
+    /// Every difficulty tier must actually have pieces in it, or the grading
+    /// is decorative.
+    func test_every_difficulty_tier_is_populated() {
+        for tier in 1...5 {
+            let count = LessonLibrary.all.filter { $0.difficulty == tier }.count
+            XCTAssertGreaterThan(count, 0, "no pieces at difficulty \(tier)")
+        }
+    }
+
+    /// Harder tiers should demand a wider reach than easier ones.
+    func test_harder_pieces_span_a_wider_range() {
+        func averageSpan(_ tier: Int) -> Double {
+            let spans = LessonLibrary.all
+                .filter { $0.difficulty == tier }
+                .compactMap { $0.range.map { Double($0.upperBound - $0.lowerBound) } }
+            return spans.isEmpty ? 0 : spans.reduce(0, +) / Double(spans.count)
+        }
+        XCTAssertGreaterThan(averageSpan(4), averageSpan(1),
+                             "advanced pieces should cover more ground than beginner ones")
+    }
+
+    func test_fur_elise_opens_with_its_actual_motif() throws {
+        let piece = try XCTUnwrap(LessonLibrary.piece(id: "fur_elise"))
+        // E D# E D# E B D C — the famous alternating semitone opening.
+        XCTAssertEqual(piece.notes.prefix(8).map(\.midiNote),
+                       [76, 75, 76, 75, 76, 71, 74, 72])
+    }
+
+    func test_hot_cross_buns_is_three_descending_steps() throws {
+        let piece = try XCTUnwrap(LessonLibrary.piece(id: "hot_cross_buns"))
+        XCTAssertEqual(piece.notes.prefix(3).map(\.midiNote), [64, 62, 60])
+    }
+
+    func test_mountain_king_climbs(){
+        guard let piece = LessonLibrary.piece(id: "mountain_king") else { return XCTFail() }
+        let first = piece.notes.prefix(5).map(\.midiNote)
+        XCTAssertEqual(first, [69, 71, 72, 74, 76], "should climb the minor scale")
+    }
+
+    func test_composers_are_credited_where_known() {
+        let beethoven = LessonLibrary.all.filter { $0.composer?.contains("Beethoven") == true }
+        XCTAssertGreaterThanOrEqual(beethoven.count, 2, "Ode to Joy and Für Elise are both Beethoven")
+    }
+
     func test_bundled_melodies_stay_in_a_singable_range() {
         for piece in LessonLibrary.all {
             for note in piece.notes {

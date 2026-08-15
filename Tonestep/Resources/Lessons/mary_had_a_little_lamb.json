@@ -3,19 +3,72 @@
   "title": "Mary Had a Little Lamb",
   "bpm": 100,
   "beatsPerBar": 4,
+  "difficulty": 1,
   "notes": [
-    { "midiNote": 64, "startBeat": 0,  "durationBeats": 1 },
-    { "midiNote": 62, "startBeat": 1,  "durationBeats": 1 },
-    { "midiNote": 60, "startBeat": 2,  "durationBeats": 1 },
-    { "midiNote": 62, "startBeat": 3,  "durationBeats": 1 },
-    { "midiNote": 64, "startBeat": 4,  "durationBeats": 1 },
-    { "midiNote": 64, "startBeat": 5,  "durationBeats": 1 },
-    { "midiNote": 64, "startBeat": 6,  "durationBeats": 2 },
-    { "midiNote": 62, "startBeat": 8,  "durationBeats": 1 },
-    { "midiNote": 62, "startBeat": 9,  "durationBeats": 1 },
-    { "midiNote": 62, "startBeat": 10, "durationBeats": 2 },
-    { "midiNote": 64, "startBeat": 12, "durationBeats": 1 },
-    { "midiNote": 67, "startBeat": 13, "durationBeats": 1 },
-    { "midiNote": 67, "startBeat": 14, "durationBeats": 2 }
+    {
+      "midiNote": 64,
+      "startBeat": 0,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 1,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 60,
+      "startBeat": 2,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 3,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 4,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 5,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 6,
+      "durationBeats": 2
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 8,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 9,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 62,
+      "startBeat": 10,
+      "durationBeats": 2
+    },
+    {
+      "midiNote": 64,
+      "startBeat": 12,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 13,
+      "durationBeats": 1
+    },
+    {
+      "midiNote": 67,
+      "startBeat": 14,
+      "durationBeats": 2
+    }
   ]
 }

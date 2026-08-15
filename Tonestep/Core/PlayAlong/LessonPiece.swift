@@ -14,6 +14,28 @@ struct LessonPiece: Codable, Identifiable, Equatable {
     let bpm: Double
     let beatsPerBar: Int
     let notes: [LessonNote]
+    /// 1 (a few adjacent notes) to 5 (wide leaps, accidentals, faster tempo).
+    /// Defaulted so older content without the field still decodes.
+    var difficulty: Int = 1
+    /// nil for traditional/folk material with no single attributable composer.
+    var composer: String?
+
+    var difficultyLabel: String {
+        switch difficulty {
+        case 1: return "Beginner"
+        case 2: return "Easy"
+        case 3: return "Intermediate"
+        case 4: return "Advanced"
+        default: return "Challenging"
+        }
+    }
+
+    /// Lowest and highest note, so the UI can show the span a piece demands.
+    var range: ClosedRange<UInt8>? {
+        guard let low = notes.map(\.midiNote).min(),
+              let high = notes.map(\.midiNote).max() else { return nil }
+        return low...high
+    }
 
     func secondsForBeat(_ beat: Double) -> TimeInterval {
         beat * 60.0 / bpm
