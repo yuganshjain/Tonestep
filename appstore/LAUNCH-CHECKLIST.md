@@ -79,9 +79,18 @@ MIDI hardware (needs a keyboard).
       They must match `Tonestep/Tonestep.storekit`. Prices in that file are
       placeholders for Simulator testing only — real prices are set in App Store
       Connect and have not been decided.
-- [ ] **Run the app on a physical iPhone.** It has never left the Simulator.
-      Xcode → select your device → ⌘R. Signing needs your Apple ID, which is why
-      this cannot be done from a terminal.
+- [x] **Installed on a physical iPhone.** Confirmed present on Yugansh's
+      iPhone 17 Pro as `com.yugansh.Tonestep` 1.0 (1). This was blocked for the
+      whole project by a wrong `DEVELOPMENT_TEAM` in project.yml — it named a
+      team with no account on this Mac, so signing always failed. Corrected to
+      X8TTT9UQMY, the team owning all 22 installed profiles.
+      Reinstall after changes:
+      `xcodebuild -scheme Tonestep -destination 'generic/platform=iOS' -configuration Debug -derivedDataPath /tmp/tonestep-device -allowProvisioningUpdates build`
+      then
+      `xcrun devicectl device install app --device 4C829A32-EEA6-50E4-B8E5-8853EAB981C9 /tmp/tonestep-device/Build/Products/Debug-iphoneos/Tonestep.app`
+- [ ] **First launch on device**: unlock the phone and tap the icon (iOS refuses
+      remote launches while locked). If iOS blocks it as an untrusted developer,
+      Settings → General → VPN & Device Management → trust the certificate.
 - [ ] **Test MIDI with a real keyboard.** `MIDIInputSource` compiles and is
       deliberately logic-free, but its packet parsing has never met hardware.
       The Simulator has no MIDI at all.
