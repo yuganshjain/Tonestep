@@ -55,6 +55,7 @@
 		768EBCA2508DD02008AD629C /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3088F3F981A850EC3C8A55A /* AppLinks.swift */; };
 		78F7091A907EE88A9A04034F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648DEC55169AF03286E8A749 /* GameKit.framework */; };
 		7D2A53952CE2108FB6C483ED /* DrillSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB29F50A81B46A0551F033 /* DrillSpec.swift */; };
+		7D7CF43D539C347479149EDC /* MusicalCorrectnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D09D5870BEEF195F3EF81F1 /* MusicalCorrectnessTests.swift */; };
 		82ED93BF5190A48A2B6646E3 /* ChordInversionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */; };
 		844AF18F5F352527267B7842 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0232D9335662433A436033 /* Chapter.swift */; };
 		861DEEDA2DF8CE91C187EB9C /* IntervalModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F588C169883816F73E783D /* IntervalModuleView.swift */; };
@@ -153,6 +154,7 @@
 		2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTheory.swift; sourceTree = "<group>"; };
 		2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
 		2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2D09D5870BEEF195F3EF81F1 /* MusicalCorrectnessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalCorrectnessTests.swift; sourceTree = "<group>"; };
 		2F15335F85A1A33C32066DC8 /* InfoPlistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistTests.swift; sourceTree = "<group>"; };
 		30763D92751C71C68E99C830 /* StageSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSessionView.swift; sourceTree = "<group>"; };
 		323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JazzChordsView.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */,
 				2F15335F85A1A33C32066DC8 /* InfoPlistTests.swift */,
 				35470339298BAAD1D6410A99 /* LessonPieceTests.swift */,
+				2D09D5870BEEF195F3EF81F1 /* MusicalCorrectnessTests.swift */,
 				E052862F293C06223522324B /* PlayAlongTests.swift */,
 				4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */,
 				7522B3C6FB8AE221C829CC75 /* StageEvaluatorTests.swift */,
@@ -740,6 +743,7 @@
 				5244FBA11A942428C90DA11C /* DrillSpecTests.swift in Sources */,
 				52778F66873611C190ED6434 /* InfoPlistTests.swift in Sources */,
 				40F01093372137BCD2376160 /* LessonPieceTests.swift in Sources */,
+				7D7CF43D539C347479149EDC /* MusicalCorrectnessTests.swift in Sources */,
 				1B86297AB2430047A2EB9080 /* PlayAlongTests.swift in Sources */,
 				AE412662771E4B2A88F09451 /* SREngineTests.swift in Sources */,
 				0190ECEA3E4A74978945E50E /* StageEvaluatorTests.swift in Sources */,

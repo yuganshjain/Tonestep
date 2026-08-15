@@ -13,13 +13,19 @@ final class AudioEngine: ObservableObject {
     /// True once a real soundfont has been loaded. Until then the sampler only
     /// produces a bare sine, so synthesised voices are used instead.
     private var hasSoundfont = false
+    /// Non-nil if the engine failed to start; useful when diagnosing silence.
+    private(set) var lastEngineError: Error?
 
     /// Voices are rendered ahead of playback; this pool avoids reallocating a
     /// player node per note.
     private var players: [AVAudioPlayerNode] = []
     private var nextPlayer = 0
     private let playerCount = 12
-    private let renderFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1)!
+    /// Must match the hardware sample rate. Simulators run at 44.1kHz so a
+    /// hardcoded value works there, but real devices are usually 48kHz — and
+    /// connecting a player to the main mixer at the wrong rate yields silence
+    /// on device. Resolved from the audio session once it is active.
+    private var renderFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 1)!
 
     /// The instrument chosen during onboarding. Set by the app at launch.
     var instrument: Instrument = .piano
@@ -39,6 +45,13 @@ final class AudioEngine: ObservableObject {
     }
 
     private func setupEngine() {
+        // Adopt the hardware rate before wiring anything up.
+        let hardwareRate = AVAudioSession.sharedInstance().sampleRate
+        if hardwareRate > 0,
+           let format = AVAudioFormat(standardFormatWithSampleRate: hardwareRate, channels: 1) {
+            renderFormat = format
+        }
+
         engine.attach(sampler)
         engine.connect(sampler, to: engine.mainMixerNode, format: nil)
 
@@ -51,7 +64,20 @@ final class AudioEngine: ObservableObject {
 
         loadSoundfont()
         startEngine()
-        players.forEach { $0.play() }
+    }
+
+    /// The engine stops on interruption, route change, or backgrounding, and a
+    /// stopped player silently swallows scheduled buffers. Everything that makes
+    /// sound goes through here first.
+    private func ensureRunning() {
+        if !engine.isRunning {
+            try? AVAudioSession.sharedInstance().setActive(true)
+            isRunning = false
+            startEngine()
+        }
+        for player in players where !player.isPlaying {
+            player.play()
+        }
     }
 
     /// Drop a General MIDI soundfont named GeneralUser_GS.sf2 into the bundle and
@@ -103,7 +129,8 @@ final class AudioEngine: ObservableObject {
             try engine.start()
             isRunning = true
         } catch {
-            print("AudioEngine start error: \(error)")
+            lastEngineError = error
+            isRunning = false
         }
     }
 
@@ -128,6 +155,8 @@ final class AudioEngine: ObservableObject {
         case .ended:
             try? AVAudioSession.sharedInstance().setActive(true)
             startEngine()
+            // Players stop with the engine; without this they stay silent.
+            players.forEach { $0.play() }
         @unknown default: break
         }
     }
@@ -138,6 +167,7 @@ final class AudioEngine: ObservableObject {
     /// Every other playback method funnels through here, so routing this one
     /// switches the whole app between the soundfont and the synthesised voices.
     func playNote(midiNote: UInt8, velocity: UInt8 = 80, duration: TimeInterval = 1.0) {
+        ensureRunning()
         guard hasSoundfont else {
             playSynthesised(midiNote: midiNote, velocity: velocity, duration: duration)
             return
