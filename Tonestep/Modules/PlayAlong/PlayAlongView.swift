@@ -106,37 +106,34 @@ struct PlayAlongView: View {
     }
 }
 
-/// Entry point: pick a piece. Keeps Play-Along reachable from the Train tab.
+/// Entry point: pick a piece.
+///
+/// Grouped by difficulty rather than listed flat — with fifteen pieces spanning
+/// nursery rhymes to Grieg, a single list gives a beginner no way to tell where
+/// to start.
 struct PlayAlongListView: View {
     var body: some View {
         ScrollView {
-            VStack(spacing: 12) {
-                ForEach(LessonLibrary.all) { piece in
-                    NavigationLink {
-                        PlayAlongView(piece: piece)
-                    } label: {
-                        HStack(spacing: 14) {
-                            Text("🎹").font(.system(size: 28))
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(piece.title)
-                                    .font(.headline)
-                                    .foregroundStyle(TrainingModule.pastelText)
-                                Text("\(piece.notes.count) notes · \(Int(piece.bpm)) bpm")
-                                    .font(.caption)
-                                    .foregroundStyle(TrainingModule.pastelSubtext)
+            LazyVStack(alignment: .leading, spacing: 22, pinnedViews: [.sectionHeaders]) {
+                ForEach(LessonLibrary.byDifficulty, id: \.tier) { group in
+                    Section {
+                        VStack(spacing: 10) {
+                            ForEach(group.pieces) { piece in
+                                NavigationLink {
+                                    PlayAlongView(piece: piece)
+                                } label: {
+                                    pieceRow(piece)
+                                }
+                                .buttonStyle(PressableButtonStyle())
                             }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .font(.caption)
-                                .foregroundStyle(TrainingModule.pastelSubtext)
                         }
-                        .padding(14)
-                        .background(Color.white, in: RoundedRectangle(cornerRadius: 18))
+                    } header: {
+                        tierHeader(tier: group.tier, label: group.label, count: group.pieces.count)
                     }
-                    .buttonStyle(PressableButtonStyle())
                 }
             }
             .padding()
+            .padding(.bottom, 90)
         }
         .scrollContentBackground(.hidden)
         .background(Color.appPurple)
@@ -145,5 +142,72 @@ struct PlayAlongListView: View {
         .toolbarBackground(Color.appPurple, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
+    }
+
+    private func tierHeader(tier: Int, label: String, count: Int) -> some View {
+        HStack(spacing: 8) {
+            Text(label)
+                .font(.headline)
+                .foregroundStyle(.white)
+            difficultyPips(tier)
+            Spacer()
+            Text("\(count)")
+                .font(.caption).fontWeight(.semibold)
+                .foregroundStyle(.white.opacity(0.6))
+        }
+        .padding(.vertical, 6)
+        .background(Color.appPurple)
+    }
+
+    /// Five pips, filled to the tier. Reads faster than a number.
+    private func difficultyPips(_ tier: Int) -> some View {
+        HStack(spacing: 3) {
+            ForEach(1...5, id: \.self) { index in
+                Circle()
+                    .fill(index <= tier ? Color.white.opacity(0.9) : Color.white.opacity(0.25))
+                    .frame(width: 5, height: 5)
+            }
+        }
+    }
+
+    private func pieceRow(_ piece: LessonPiece) -> some View {
+        HStack(spacing: 14) {
+            Text("🎹").font(.system(size: 26))
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(piece.title)
+                    .font(.subheadline).fontWeight(.semibold)
+                    .foregroundStyle(TrainingModule.pastelText)
+                    .lineLimit(1)
+
+                if let composer = piece.composer {
+                    Text(composer)
+                        .font(.caption2)
+                        .foregroundStyle(TrainingModule.pastelSubtext)
+                        .lineLimit(1)
+                }
+
+                HStack(spacing: 6) {
+                    detail("\(piece.notes.count) notes")
+                    detail("\(Int(piece.bpm)) bpm")
+                    if let range = piece.rangeDescription { detail(range) }
+                }
+            }
+
+            Spacer(minLength: 4)
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .foregroundStyle(TrainingModule.pastelSubtext)
+        }
+        .padding(14)
+        .background(Color.white, in: RoundedRectangle(cornerRadius: 18))
+    }
+
+    private func detail(_ text: String) -> some View {
+        Text(text)
+            .font(.caption2)
+            .foregroundStyle(TrainingModule.pastelSubtext)
+            .padding(.horizontal, 6).padding(.vertical, 2)
+            .background(Color.appPurple.opacity(0.08), in: Capsule())
     }
 }

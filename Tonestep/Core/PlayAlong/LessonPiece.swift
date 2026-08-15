@@ -37,6 +37,19 @@ struct LessonPiece: Codable, Identifiable, Equatable {
         return low...high
     }
 
+    /// e.g. "C4–E5". Tells a player at a glance whether it fits their hand.
+    var rangeDescription: String? {
+        guard let range else { return nil }
+        return "\(LessonPiece.noteName(range.lowerBound))–\(LessonPiece.noteName(range.upperBound))"
+    }
+
+    /// Scientific pitch notation, where MIDI 60 is C4.
+    static func noteName(_ midi: UInt8) -> String {
+        let names = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
+        let octave = Int(midi) / 12 - 1
+        return "\(names[Int(midi) % 12])\(octave)"
+    }
+
     func secondsForBeat(_ beat: Double) -> TimeInterval {
         beat * 60.0 / bpm
     }
@@ -63,5 +76,15 @@ enum LessonLibrary {
 
     static func piece(id: String) -> LessonPiece? {
         all.first { $0.id == id }
+    }
+
+    /// Pieces grouped into difficulty tiers, easiest first, with empty tiers
+    /// omitted so the UI never renders a heading with nothing under it.
+    static var byDifficulty: [(tier: Int, label: String, pieces: [LessonPiece])] {
+        Dictionary(grouping: all, by: \.difficulty)
+            .sorted { $0.key < $1.key }
+            .map { (tier: $0.key,
+                    label: $0.value[0].difficultyLabel,
+                    pieces: $0.value.sorted { $0.notes.count < $1.notes.count }) }
     }
 }
