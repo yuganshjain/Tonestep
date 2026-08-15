@@ -25,8 +25,40 @@ assumed; the evidence is named so you can re-check it yourself.
 - [x] **Curriculum works end to end** — stage completes, scores, persists, unlocks
       the next stage. Driven by hand in the Simulator, not just unit-tested.
 - [x] **181 tests passing.**
+- [x] **Singing Practice fixed and verified live.** It had *two* stacked crashes:
+      the missing Info.plist key, and then an AVAudioSession bug — the session is
+      configured `.playback`, which forbids recording, so the input node reported
+      a zero format and `installTapOnBus` raised an uncatchable ObjC exception.
+      Now switches to `.playAndRecord` before capture, validates the format, and
+      restores `.playback` on stop. Confirmed live: mic captures, pitch tracks,
+      meter responds, no crash logged.
+- [x] **Chord Progressions verified after refactor** — converting it to a
+      spec-driven renderer did not regress standalone practice (answer scored,
+      +15 XP awarded).
+- [x] **DEBUG-only Pro unlock** (`TONESTEP_FORCE_PRO` env var) for exercising
+      Pro screens in the Simulator. Proven absent from the Release binary.
 - [x] **Screenshots** at 1320×2868 (6.9", the size Apple requires).
 - [x] **Listing copy drafted** — `appstore/LISTING.md`.
+
+## Module verification status
+
+Verified working by hand: Interval, Chord, Scale, Functional Ear (via a full
+curriculum stage), Jazz Chords, Error Detection, Chord Progressions, Singing
+Practice.
+
+**Not yet opened: Absolute Pitch, Chord Inversions, Interval Comparison,
+Melodic Dictation, Note Identification, Relative Pitch, Rhythm Trainer, Speed
+Round.** They compile and are covered by no automated UI test. Both crash classes
+found so far were microphone-related and only Singing Practice uses the mic, so
+the remaining risk is low — but low is not zero, and these are unverified.
+
+Quickest way to sweep them yourself:
+
+```
+SIMCTL_CHILD_TONESTEP_FORCE_PRO=1 xcrun simctl launch <udid> com.yugansh.Tonestep
+```
+
+then open each from Train and answer one question.
 
 ## Only you can do these
 
