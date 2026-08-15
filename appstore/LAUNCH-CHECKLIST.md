@@ -42,23 +42,33 @@ assumed; the evidence is named so you can re-check it yourself.
 
 ## Module verification status
 
-Verified working by hand: Interval, Chord, Scale, Functional Ear (via a full
-curriculum stage), Jazz Chords, Error Detection, Chord Progressions, Singing
-Practice.
+**All 15 modules verified by hand in the Simulator. Zero crashes.**
 
-**Not yet opened: Absolute Pitch, Chord Inversions, Interval Comparison,
-Melodic Dictation, Note Identification, Relative Pitch, Rhythm Trainer, Speed
-Round.** They compile and are covered by no automated UI test. Both crash classes
-found so far were microphone-related and only Singing Practice uses the mic, so
-the remaining risk is low — but low is not zero, and these are unverified.
+| Module | Verified |
+|---|---|
+| Interval Recognition | via a full curriculum stage |
+| Chord Recognition | via a full curriculum stage |
+| Scale Recognition | via a full curriculum stage |
+| Functional Ear | full stage: 10 questions, 100%, 3 stars, stage 2 unlocked |
+| Chord Progressions | opened, answered, +15 XP — no regression from the refactor |
+| Rhythm Trainer | opened, pattern rendered, four options |
+| Melodic Dictation | opened, piano input and Undo/Check present |
+| Relative Pitch | opened, cadence-primed, eight degree options |
+| Absolute Pitch | opened, Natural/Chromatic difficulty toggle works |
+| Singing Practice | **fixed twice**, then verified live: mic captures, pitch tracks |
+| Note Identification | opened, 12 chromatic options |
+| Chord Inversions | opened, figured-bass notation renders |
+| Interval Comparison | opened, A/B playback and three options |
+| Error Detection | opened, four beats, playback control |
+| Jazz Chords | opened, answered, correct/wrong highlighting, score updated |
+| Speed Round | opened, 60s timer counting down, progress bar draining |
 
-Quickest way to sweep them yourself:
+Method: launched with the DEBUG unlock, opened every module, confirmed it
+renders and accepts input, and compared crash-report counts before and after.
+The count did not move.
 
-```
-SIMCTL_CHILD_TONESTEP_FORCE_PRO=1 xcrun simctl launch <udid> com.yugansh.Tonestep
-```
-
-then open each from Train and answer one question.
+Not covered by this sweep: whether the *audio* sounds right (needs ears), and
+MIDI hardware (needs a keyboard).
 
 ## Only you can do these
 
