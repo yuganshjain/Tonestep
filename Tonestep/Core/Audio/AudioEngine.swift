@@ -15,6 +15,8 @@ final class AudioEngine: ObservableObject {
     private var hasSoundfont = false
     /// Non-nil if the engine failed to start; useful when diagnosing silence.
     private(set) var lastEngineError: Error?
+    /// Non-nil if the audio session could not be configured for playback.
+    private(set) var lastSessionError: Error?
 
     /// Voices are rendered ahead of playback; this pool avoids reallocating a
     /// player node per note.
@@ -38,10 +40,39 @@ final class AudioEngine: ObservableObject {
 
     // MARK: - Setup
 
-    private func setupSession() {
+    /// Applies the playback category and reports failure instead of hiding it.
+    ///
+    /// This previously used `try?` on both calls. If setCategory failed, the
+    /// session silently stayed on iOS's default .soloAmbient — which, unlike
+    /// .playback, obeys the ring/silent switch. The result is an app that is
+    /// completely silent on a device with the switch flipped, while working
+    /// perfectly in the Simulator, which has no such switch.
+    @discardableResult
+    private func activatePlaybackSession() -> Bool {
         let session = AVAudioSession.sharedInstance()
-        try? session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
-        try? session.setActive(true)
+        do {
+            // .mixWithOthers is deliberately dropped: combined with a failure to
+            // apply the category it makes silence far harder to diagnose, and
+            // ear training wants the user's full attention anyway.
+            try session.setCategory(.playback, mode: .default)
+            try session.setActive(true)
+            lastSessionError = nil
+            return true
+        } catch {
+            lastSessionError = error
+            return false
+        }
+    }
+
+    private func setupSession() {
+        activatePlaybackSession()
+    }
+
+    /// True when the session is in a category that actually ignores the silent
+    /// switch. Exposed so the UI can explain silence rather than just be silent.
+    var isConfiguredForAudiblePlayback: Bool {
+        let category = AVAudioSession.sharedInstance().category
+        return category == .playback || category == .playAndRecord
     }
 
     private func setupEngine() {
@@ -70,6 +101,13 @@ final class AudioEngine: ObservableObject {
     /// stopped player silently swallows scheduled buffers. Everything that makes
     /// sound goes through here first.
     private func ensureRunning() {
+        // Re-assert the category every time. Singing Practice switches the
+        // session to .playAndRecord and restores it on stop; if that restore
+        // ever fails, or the initial setup failed, this recovers instead of
+        // leaving the app permanently mute.
+        if !isConfiguredForAudiblePlayback {
+            activatePlaybackSession()
+        }
         if !engine.isRunning {
             try? AVAudioSession.sharedInstance().setActive(true)
             isRunning = false
