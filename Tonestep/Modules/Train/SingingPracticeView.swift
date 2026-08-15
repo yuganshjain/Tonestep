@@ -195,19 +195,22 @@ struct SingingDrillView: View {
         Group {
             switch phase {
             case .idle:
-                Button { startListening() } label: {
-                    HStack(spacing: 10) {
-                        Image(systemName: "mic.fill")
-                        Text("Start Singing")
+                VStack(spacing: 10) {
+                    micFailureNotice
+                    Button { startListening() } label: {
+                        HStack(spacing: 10) {
+                            Image(systemName: "mic.fill")
+                            Text("Start Singing")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.purple)
+                        .foregroundStyle(.white)
+                        .fontWeight(.semibold)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.purple)
-                    .foregroundStyle(.white)
-                    .fontWeight(.semibold)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .buttonStyle(PressableButtonStyle())
                 }
-                .buttonStyle(PressableButtonStyle())
 
             case .listening, .held:
                 Button { stopListening(wasCorrect: false) } label: {
@@ -299,10 +302,37 @@ struct SingingDrillView: View {
     }
 
     private func startListening() {
+        detector.failureReason = nil
         phase = .listening
         detector.startListening()
         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
             updatePitchFeedback()
+        }
+        // If the mic never comes up, drop back to idle so the exercise does not
+        // sit in a listening state that will never receive audio.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if detector.failureReason != nil {
+                timer?.invalidate()
+                phase = .idle
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var micFailureNotice: some View {
+        if let reason = detector.failureReason {
+            HStack(spacing: 10) {
+                Image(systemName: "mic.slash.fill")
+                    .foregroundStyle(.orange)
+                Text(reason == .permissionDenied
+                     ? "Microphone access is off. Turn it on in Settings to sing along."
+                     : "The microphone isn't available right now.")
+                    .font(.caption)
+                    .foregroundStyle(TrainingModule.pastelSubtext)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
         }
     }
 

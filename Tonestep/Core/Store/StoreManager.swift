@@ -85,6 +85,16 @@ final class StoreManager: ObservableObject {
             }
         }
         isPro = hasPro
+
+        #if DEBUG
+        // Debug-only: lets Pro-gated screens be exercised in the Simulator
+        // without a sandbox purchase. Compiled out of Release entirely, and
+        // still requires the env var, so it cannot leak into a shipped build.
+        //   SIMCTL_CHILD_TONESTEP_FORCE_PRO=1 xcrun simctl launch <udid> com.yugansh.Tonestep
+        if ProcessInfo.processInfo.environment["TONESTEP_FORCE_PRO"] == "1" {
+            isPro = true
+        }
+        #endif
     }
 
     private func listenForTransactions() -> Task<Void, Error> {
