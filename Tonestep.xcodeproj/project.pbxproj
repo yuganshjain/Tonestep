@@ -40,6 +40,7 @@
 		4863DEBC03CE40D7069B7927 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD4644A343BF8DB80D58598 /* AppTheme.swift */; };
 		4BE9506C8639712B4463C2AF /* DrillRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648EE2E5D13A96B175A2B011 /* DrillRecorderTests.swift */; };
 		5244FBA11A942428C90DA11C /* DrillSpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */; };
+		52778F66873611C190ED6434 /* InfoPlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F15335F85A1A33C32066DC8 /* InfoPlistTests.swift */; };
 		53E0316CE14F3963C67D90E8 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB213F5E2EE723AEE70CC672 /* PaywallView.swift */; };
 		5AFC5A905A1334B02401716A /* CurriculumBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B388A190CF7798F3A6546 /* CurriculumBuilder.swift */; };
 		5DEE999C41AD66AF32ED479E /* SingingPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D882E4FD798755FF536E3 /* SingingPracticeView.swift */; };
@@ -152,6 +153,7 @@
 		2B45C7FCCAADCA73079620B7 /* MusicTheory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTheory.swift; sourceTree = "<group>"; };
 		2BBAB3345DEA2F2AE517894E /* ChordInversionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordInversionsView.swift; sourceTree = "<group>"; };
 		2C1F7EC7B6F44E71AF6BECCE /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2F15335F85A1A33C32066DC8 /* InfoPlistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistTests.swift; sourceTree = "<group>"; };
 		30763D92751C71C68E99C830 /* StageSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSessionView.swift; sourceTree = "<group>"; };
 		323A94D2E2A7D5353F2F6698 /* JazzChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JazzChordsView.swift; sourceTree = "<group>"; };
 		32B183A3CA3DD1820DCBC135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				648EE2E5D13A96B175A2B011 /* DrillRecorderTests.swift */,
 				B8CC40CA1F0FE74F452184E0 /* DrillSamplingTests.swift */,
 				F642487DC3603E4EE4EB9665 /* DrillSpecTests.swift */,
+				2F15335F85A1A33C32066DC8 /* InfoPlistTests.swift */,
 				35470339298BAAD1D6410A99 /* LessonPieceTests.swift */,
 				E052862F293C06223522324B /* PlayAlongTests.swift */,
 				4D7ED61D871D2B3D2A04D47D /* SREngineTests.swift */,
@@ -735,6 +738,7 @@
 				4BE9506C8639712B4463C2AF /* DrillRecorderTests.swift in Sources */,
 				A2E6A271C5BB7CD21688DF91 /* DrillSamplingTests.swift in Sources */,
 				5244FBA11A942428C90DA11C /* DrillSpecTests.swift in Sources */,
+				52778F66873611C190ED6434 /* InfoPlistTests.swift in Sources */,
 				40F01093372137BCD2376160 /* LessonPieceTests.swift in Sources */,
 				1B86297AB2430047A2EB9080 /* PlayAlongTests.swift in Sources */,
 				AE412662771E4B2A88F09451 /* SREngineTests.swift in Sources */,
@@ -889,7 +893,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tonestep uses the microphone for pitch detection in Singing Practice exercises.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1026,7 +1029,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tonestep uses the microphone for pitch detection in Singing Practice exercises.";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
