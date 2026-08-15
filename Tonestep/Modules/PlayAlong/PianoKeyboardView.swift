@@ -12,6 +12,13 @@ final class OnScreenInputSource: NoteInputSource, ObservableObject {
 
     func press(_ midiNote: UInt8) {
         guard isRunning else { return }
+
+        // Sound the note. This was missing: the keyboard only ever forwarded
+        // events to the judging engine, so pressing a key was completely
+        // silent — you could play a whole piece and hear nothing. A MIDI
+        // keyboard makes its own sound; an on-screen one has to be given one.
+        AudioEngine.shared.playNote(midiNote: midiNote, velocity: 100, duration: 0.6)
+
         let now = CACurrentMediaTime()
         onEvent?(NoteEvent(midiNote: midiNote, velocity: 100, isOn: true, timestamp: now))
         onEvent?(NoteEvent(midiNote: midiNote, velocity: 0, isOn: false, timestamp: now + 0.2))

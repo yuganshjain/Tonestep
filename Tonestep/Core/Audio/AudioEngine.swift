@@ -95,6 +95,7 @@ final class AudioEngine: ObservableObject {
 
         loadSoundfont()
         startEngine()
+
     }
 
     /// The engine stops on interruption, route change, or backgrounding, and a
@@ -156,6 +157,7 @@ final class AudioEngine: ObservableObject {
         buffer.frameLength = AVAudioFrameCount(samples.count)
         samples.withUnsafeBufferPointer { channel.update(from: $0.baseAddress!, count: samples.count) }
 
+
         let player = players[nextPlayer % players.count]
         nextPlayer += 1
         player.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
@@ -204,8 +206,33 @@ final class AudioEngine: ObservableObject {
     /// Play a single MIDI note.
     /// Every other playback method funnels through here, so routing this one
     /// switches the whole app between the soundfont and the synthesised voices.
+    /// One-shot snapshot of everything that can cause silence, printed on the
+    /// first note so a device console reading tells us the cause directly.
+    private var didLogDiagnostics = false
+
+    func logAudioDiagnostics() {
+        let s = AVAudioSession.sharedInstance()
+        print("""
+        TONESTEP-AUDIO category=\(s.category.rawValue) \
+        mode=\(s.mode.rawValue) \
+        outputVolume=\(s.outputVolume) \
+        hwRate=\(s.sampleRate) \
+        renderRate=\(renderFormat.sampleRate) \
+        engineRunning=\(engine.isRunning) \
+        playersPlaying=\(players.filter(\.isPlaying).count)/\(players.count) \
+        hasSoundfont=\(hasSoundfont) \
+        outputs=\(s.currentRoute.outputs.map(\.portType.rawValue)) \
+        sessionError=\(String(describing: lastSessionError)) \
+        engineError=\(String(describing: lastEngineError))
+        """)
+    }
+
     func playNote(midiNote: UInt8, velocity: UInt8 = 80, duration: TimeInterval = 1.0) {
         ensureRunning()
+        if !didLogDiagnostics {
+            didLogDiagnostics = true
+            logAudioDiagnostics()
+        }
         guard hasSoundfont else {
             playSynthesised(midiNote: midiNote, velocity: velocity, duration: duration)
             return
