@@ -52,6 +52,9 @@ targets:
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UIRequiresFullScreen: true
+        # Declares no non-exempt encryption. Without this, App Store Connect
+        # asks the export-compliance question on every single upload.
+        ITSAppUsesNonExemptEncryption: false
         # Without this key iOS runs the app letterboxed in a 320x480 canvas
         # with black bars top and bottom. Presence of the key is what opts the
         # app into the device's native full-screen size.
